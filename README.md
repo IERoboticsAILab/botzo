@@ -13,6 +13,20 @@ Inverse Kinematics for botzo v2s
 
 ### Solver
 
+Note:
+
+```
+coxa = A = 1.8 cm
+femur = E = 9.5 cm
+real_femur = E' = 9.1 cm
+tibia = F = 9.8 cm
+θ(coxa) = ψ
+θ(knee) = Φ
+θ(shoulder) = θ
+dist_focuspoint_servo_femurtibia = 2.8 cm
+X, Y, Z = given target point
+```
+
 <div align="center">
   <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/IK_trigonometrics_drawing.png" alt="trigonometrics_drawing" width="500"/>
 </div>
@@ -20,31 +34,31 @@ Inverse Kinematics for botzo v2s
 1. Distance Calculation
 
 ```math
-D = \sqrt{z^2 + y^2 - \text{coxa}^2}
+D = \sqrt{Z^2 + Y^2 - \text{A}^2}
 ```
 
 2. G Calculation
 
 ```math
-G = \sqrt{D^2 + x^2}
+G = \sqrt{D^2 + X^2}
 ```
 
 3. Knee Angle
 
 ```math
-\theta_{\text{knee}} = \arccos\left(\frac{G^2 - \text{femur}^2 - \text{tibia}^2}{-2 \cdot \text{femur} \cdot \text{tibia}}\right)
+\text{Φ} = \arccos\left(\frac{G^2 - \text{E}^2 - \text{F}^2}{-2 \cdot \text{E} \cdot \text{F}}\right)
 ```
 
 4. Shoulder Angle
 
 ```math
-\theta_{\text{shoulder}} = \arctan2(x, D) + \arcsin\left(\frac{\text{tibia} \cdot \sin(\theta_{\text{knee}})}{G}\right)
+\theta_{\text{shoulder}} = \arctan2(X, D) + \arcsin\left(\frac{\text{F} \cdot \sin(\text{Φ})}{G}\right)
 ```
 
 5. Coxa Angle
 
 ```math
-\theta_{\text{coxa}} = \arctan2(y, z) + \arctan2(D, \text{coxa})
+\text{ψ} = \arctan2(Y, Z) + \arctan2(D, \text{A})
 ```
 
 ### Translator
