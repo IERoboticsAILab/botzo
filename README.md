@@ -13,4 +13,4 @@ After small calibration using build in scripts in `<MPU6050_light.h>` library we
 
 https://github.com/botzo-team/our_images_and_videos/blob/main/IMU_proof_concept.mp4
 
-![result](https://github.com/botzo-team/our_images_and_videos/blob/main/IMU_proof_concept.mp4)
+![result](https://github.com/botzo-team/our_images_and_videos/blob/main/IMU_proof_concept-ezgif.com-video-to-gif-converter.gif)
