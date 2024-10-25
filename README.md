@@ -77,6 +77,8 @@ Here we will translate the founded angles with the translator in the actual angl
 
 https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result.mp4
 
+![result1](https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result-ezgif.com-video-to-gif-converter.gif)
+
 ## Resources
 
 [Spot-Micro](https://spotmicroai.readthedocs.io/en/latest/simulation/)
