@@ -73,3 +73,10 @@ Here we will translate the founded angles with the translator in the actual angl
 \theta_{\text{tibia}} = \pi - \theta_{\text{knee}} + \text{adjustment} + \theta_{\text{femur}}
 ```
 
+## Resources
+
+[Spot-Micro](https://spotmicroai.readthedocs.io/en/latest/simulation/)
+  - [Spot-Micro GitHub](https://gitlab.com/public-open-source/spotmicroai/simulation/-/tree/master/Basic%20simulation%20by%20user%20Florian%20Wilk/Kinematics?ref_type=heads)
+  - [Spot-Micro IK solver video](https://www.youtube.com/watch?v=4rc8N1xuWvc)
+
+[OpenQuadruped/spot_mini_mini](https://github.com/OpenQuadruped/spot_mini_mini)
