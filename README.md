@@ -73,6 +73,10 @@ Here we will translate the founded angles with the translator in the actual angl
 \theta_{\text{tibia}} = \pi - \theta_{\text{knee}} + \text{adjustment} + \theta_{\text{femur}}
 ```
 
+## Result
+
+https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result.mp4
+
 ## Resources
 
 [Spot-Micro](https://spotmicroai.readthedocs.io/en/latest/simulation/)
