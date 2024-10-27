@@ -1,8 +1,10 @@
 # botzo_v2s_IK
 Inverse Kinematics for botzo v2s
 
-## 3 DoF IK
+## 3 DoF IK Of 1 leg
 
+<details>
+  <summary>Click to expand!</summary>
 <div align="center">
   <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/IK_back_of_leg.png" alt="back_of_leg" width="500"/>
 </div>
@@ -87,16 +89,31 @@ Here we will translate the founded angles with the translator in the actual angl
 \theta_{\text{tibia}} = \pi - \theta_{\text{knee}} + \text{adjustment} + \theta_{\text{femur}}
 ```
 
-## Result
+### Result
 
 https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result.mp4
 
 ![result1](https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result-ezgif.com-video-to-gif-converter.gif)
 
-## Resources
+### Resources
 
 [Spot-Micro](https://spotmicroai.readthedocs.io/en/latest/simulation/)
   - [Spot-Micro GitHub](https://gitlab.com/public-open-source/spotmicroai/simulation/-/tree/master/Basic%20simulation%20by%20user%20Florian%20Wilk/Kinematics?ref_type=heads)
   - [Spot-Micro IK solver video](https://www.youtube.com/watch?v=4rc8N1xuWvc)
 
 [OpenQuadruped/spot_mini_mini](https://github.com/OpenQuadruped/spot_mini_mini)
+</details>
+
+## Rotation Matrices
+
+<details>
+  <summary>Click to expand!</summary>
+  comming soon
+</details>
+
+## IK full body
+
+<details>
+  <summary>Click to expand!</summary>
+  comming soon
+</details>
