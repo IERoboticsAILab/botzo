@@ -15,8 +15,8 @@ You will use [body_urdf.f3d](https://github.com/botzo-team/STL_files/blob/main/U
 
 leg:
 
-[urdf](https://github.com/botzo-team/our_images_and_videos/blob/main/urdf_leg.png)
+![urdf](https://github.com/botzo-team/our_images_and_videos/blob/main/urdf_leg.png)
 
 Body:
 
-[urfd](https://github.com/botzo-team/our_images_and_videos/blob/main/urdf_body.png)
+![urfd](https://github.com/botzo-team/our_images_and_videos/blob/main/urdf_body.png)
