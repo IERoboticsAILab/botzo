@@ -18,7 +18,7 @@ Inverse Kinematics for botzo v2s
 Note:
 
 ```
-coxa = A = 1.8 cm
+coxa = A = 3.1 cm
 femur = E = 9.5 cm
 real_femur = E' = 9.1 cm
 tibia = F = 9.8 cm
@@ -94,6 +94,8 @@ Here we will translate the founded angles with the translator in the actual angl
 https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result.mp4
 
 ![result1](https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result-ezgif.com-video-to-gif-converter.gif)
+
+In `coordinates_to_servos.ipynb` I have combined the use of our IK with the reansformation from degrees to PWM explained in [calibrate servos repo](https://github.com/botzo-team/calibrate_servos)
 
 ### Resources
 
