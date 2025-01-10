@@ -12,3 +12,5 @@ A simple UI INterface was designed in order to assess whether the software was a
 
 ![Demo](./Assets/demo.gif)
 
+
+https://www.padcrafter.com/?templates=Controller+Scheme+1&plat=1&leftStick=Horizontal+Movement&rightStick=Vertical+Movement&aButton=Jump&bButton=Crouch&rightTrigger=Speed+Up&leftTrigger=Slow+Down&dpadUp=Mode+1%3A+Flat+Terrain&dpadRight=Mode+2%3A+Rocky+Terrain&dpadLeft=Mode+3%3A+Tight+Enclosed+Space&dpadDown=Mode+4%3A+Lockdown+Position&xButton=Quick+Side+Step&yButton=Extend
