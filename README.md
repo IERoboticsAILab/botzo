@@ -10,4 +10,5 @@ Below is the current concept for the associations of each button input from the 
 # UI Interface
 A simple UI INterface was designed in order to assess whether the software was accurately reading the inputs of the PS4 controller, ensuring accuracy and success when it is used with Botzo, avoiding errors and reducing the overall chances of future possible complications.
 
+![Demo](./Assets/demo.gif)
 
