@@ -111,6 +111,10 @@ In `coordinates_to_servos.ipynb` I have combined the use of our IK with the rean
 
 ## Rotation Matrices
 
+<div align="center">
+  <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/body_TFs_scketch.jpg" alt="TFs" width="500"/>
+</div>
+
 [here](https://github.com/botzo-team/rotation_matrices_v1)
 
 ## IK full body
@@ -125,7 +129,7 @@ Use `IK_solcver4Lgs.ipynb`. It is a way to manualy retrive angles for each leg t
 
 4. Then we manualy define points in the 3D space (x,y,z) inside an array. This points will then later be passed one by one to the IK solvers adn we will return PWM signals for the corrisponding angle that each servo need to have to reach that point.
 
-5. We parse the result in a way the we can just copy and paste it in the `legsWalkFIRSTSTEP.ino` arduino code. The arduino code connect to each servo and move them coordinately. So we where able to manualy simulate a Walking Gate. For a more general and sophisticated gate look [here]()
+5. We parse the result in a way the we can just copy and paste it in the `legsWalkFIRSTSTEP.ino` arduino code. The arduino code connect to each servo and move them coordinately. So we where able to manualy simulate a Walking Gate. For a more general and sophisticated gate look [here](https://github.com/botzo-team/Gait_Plan)
 
 ![Leg Design](https://github.com/botzo-team/our_images_and_videos/blob/main/botzo.jpg)
 
