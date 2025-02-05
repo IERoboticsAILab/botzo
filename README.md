@@ -1,5 +1,5 @@
-# ReinforcmentLearning
-In this repo we will explore how we teach our robot to walk
+# Reinforcement Learning
+In this repo we will explore how we teach botzo to walk
 
 ## Resources
 
