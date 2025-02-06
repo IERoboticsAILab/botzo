@@ -1,18 +1,17 @@
 #include <Servo.h>
 
-// Number of legs and servos per leg
+// Number of legs (each with one servo)
 const int NUM_LEGS = 4;
-const int SERVOS_PER_LEG = 3;
 
 // Array to store servo objects
-Servo servos[NUM_LEGS][SERVOS_PER_LEG];
+Servo servos[NUM_LEGS];
 
-// Arduino pins for servos (adjust these based on your wiring)
-const int servoPins[NUM_LEGS][SERVOS_PER_LEG] = {
-  {5, 6, 7},    // Front Left (shoulder, knee, ankle)
-  {2, 3, 4},    // Front Right
-  {11, 12, 13},   // Back Left
-  {8, 9, 10}  // Back Right
+// Arduino pins for servos (one per leg)
+const int servoPins[NUM_LEGS] = {
+  5,  // Front Left
+  2,  // Front Right
+  11, // Back Left
+  8   // Back Right
 };
 
 // Buffer for receiving commands
@@ -26,16 +25,14 @@ void setup() {
   
   // Initialize all servos
   for (int leg = 0; leg < NUM_LEGS; leg++) {
-    for (int servo = 0; servo < SERVOS_PER_LEG; servo++) {
-      servos[leg][servo].attach(servoPins[leg][servo]);
-      // Move to initial position (90 degrees)
-      servos[leg][servo].write(90);
-    }
+    servos[leg].attach(servoPins[leg]);
+    // Move to initial position (90 degrees)
+    servos[leg].write(90);
   }
 }
 
 void processCommand(char* cmd) {
-  // Expected format: "S,leg,servo,angle;"
+  // Expected format: "S,leg,angle;"
   char* token = strtok(cmd, ",");
   
   // Check if it's a servo command
@@ -45,20 +42,14 @@ void processCommand(char* cmd) {
   token = strtok(NULL, ",");
   int leg = atoi(token);
   
-  // Get servo number
-  token = strtok(NULL, ",");
-  int servo = atoi(token);
-  
   // Get angle
   token = strtok(NULL, ";");
   float angle = atof(token);
   
   // Validate parameters
-  if (leg >= 0 && leg < NUM_LEGS && 
-      servo >= 0 && servo < SERVOS_PER_LEG && 
-      angle >= 0 && angle <= 270) {
+  if (leg >= 0 && leg < NUM_LEGS && angle >= 0 && angle <= 270) {
     // Write angle to servo
-    servos[leg][servo].write(int(angle));
+    servos[leg].write(int(angle));
   }
 }
 

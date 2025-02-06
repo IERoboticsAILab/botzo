@@ -1,7 +1,7 @@
 import numpy as np
 import serial
 import time
-from math import cos, sin, acos, atan2, pi, sqrt
+from math import cos, sin, acos, atan2, pi, sqrt, asin
 import platform
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -14,17 +14,43 @@ class QuadrupedStabilizer:
             simulation_mode = platform.system() != 'Linux'
         self.simulation_mode = simulation_mode
         
-        # Robot dimensions (in mm)
-        self.BODY_LENGTH = 274  # Length between front and back legs
-        self.BODY_WIDTH = 140   # Width between left and right legs
-        self.LEG_LENGTH = 193   # Length of each leg segment
+        # Robot dimensions (in cm)
+        self.BODY_LENGTH = 27.4
+        self.BODY_WIDTH = 14.0
+        self.BODY_HEIGHT = 8.0
         
-        # Servo limits (in degrees)
+        # Leg segment lengths (in cm)
+        self.COXA_LENGTH = 3.1        # A
+        self.FEMUR_LENGTH = 9.5       # E
+        self.REAL_FEMUR_LENGTH = 9.1  # E'
+        self.TIBIA_LENGTH = 9.8       # F
+        self.FOCUS_DIST = 2.8         # Distance from focus point to servo
+        
+        # Servo limits and parameters
         self.SERVO_MIN = 0
         self.SERVO_MAX = 270  # DS3225 has 270° range
+        self.SERVO_CENTER = 135  # Center position
+        self.SERVO_SPEED = 0.5  # Seconds per 60 degrees
+        
+        # Stabilization parameters
+        self.MAX_ANGLE_CHANGE = 30  # Maximum angle change per update
+        self.PITCH_COMPENSATION = 1.2  # Increased pitch response
+        self.ROLL_COMPENSATION = 1.0   # Normal roll response
+        self.YAW_COMPENSATION = 0.8    # Reduced yaw response
+        
+        # Movement ranges (in cm)
+        self.X_RANGE = (-5, 5)  # Forward/backward range
+        self.Y_RANGE = (-3, 3)  # Left/right range
+        self.Z_RANGE = (-18, -12)  # Height range
         
         # Default standing height
-        self.DEFAULT_HEIGHT = 125  # mm from body to ground
+        self.DEFAULT_HEIGHT = 12.5  # cm from body to ground
+        
+        # Debug parameters
+        self.debug_mode = True
+        self.last_update_time = time.time()
+        self.update_count = 0
+        self.avg_update_rate = 0
         
         # Leg positions relative to body center (FL, FR, BL, BR)
         self.leg_positions = [
@@ -44,6 +70,7 @@ class QuadrupedStabilizer:
                 self.arduino = serial.Serial(port=port, baudrate=baudrate, timeout=1)
                 time.sleep(2)  # Wait for Arduino to initialize
                 print("Connected to Arduino")
+                self._center_all_servos()
             except serial.SerialException as e:
                 print(f"Warning: Could not connect to Arduino: {e}")
                 self.simulation_mode = True
@@ -52,22 +79,78 @@ class QuadrupedStabilizer:
         else:
             print("Running in simulation mode - servo commands will be printed")
 
-    def init_visualization(self):
-        """Initialize 3D visualization"""
-        self.fig = plt.figure(figsize=(12, 8))
-        self.ax = self.fig.add_subplot(111, projection='3d')
-        plt.ion()  # Enable interactive mode
-        self.fig.show()
+    def _center_all_servos(self):
+        """Center all servos on startup"""
+        for leg in range(4):
+            command = f"S,{leg},{self.SERVO_CENTER:.1f};"
+            self.arduino.write(command.encode())
+            time.sleep(0.5)  # Longer delay for initialization
+
+    def _update_debug_stats(self):
+        """Update debug statistics"""
+        current_time = time.time()
+        dt = current_time - self.last_update_time
+        self.update_count += 1
+        
+        # Calculate running average of update rate
+        alpha = 0.1  # Smoothing factor
+        instantaneous_rate = 1.0 / dt if dt > 0 else 0
+        self.avg_update_rate = (alpha * instantaneous_rate + 
+                              (1 - alpha) * self.avg_update_rate)
+        
+        self.last_update_time = current_time
+        
+        if self.debug_mode and self.update_count % 100 == 0:
+            print(f"\nDebug Statistics:")
+            print(f"Update Rate: {self.avg_update_rate:.1f} Hz")
+            print(f"Last Update Time: {dt*1000:.1f} ms")
+
+    def _constrain_movement(self, point):
+        """Constrain movement within safe ranges"""
+        x, y, z = point
+        x = np.clip(x, self.X_RANGE[0], self.X_RANGE[1])
+        y = np.clip(y, self.Y_RANGE[0], self.Y_RANGE[1])
+        z = np.clip(z, self.Z_RANGE[0], self.Z_RANGE[1])
+        return np.array([x, y, z])
+
+    def calculate_leg_angles(self, target_point):
+        """Calculate leg angles using Botzo's IK equations"""
+        x, y, z = target_point
+        
+        # 1. Distance Calculation
+        D = sqrt(z**2 + y**2 - self.COXA_LENGTH**2)
+        
+        # 2. G Calculation
+        G = sqrt(D**2 + x**2)
+        
+        # 3. Knee Angle
+        phi = acos((G**2 - self.FEMUR_LENGTH**2 - self.TIBIA_LENGTH**2) / 
+                   (-2 * self.FEMUR_LENGTH * self.TIBIA_LENGTH))
+        
+        # 4. Shoulder Angle
+        theta_shoulder = atan2(x, D) + asin((self.TIBIA_LENGTH * sin(phi)) / G)
+        
+        # 5. Coxa Angle
+        psi = atan2(y, z) + atan2(D, self.COXA_LENGTH)
+        
+        # Angle Adjustments
+        adjustment = acos((self.REAL_FEMUR_LENGTH**2 + self.FEMUR_LENGTH**2 - self.FOCUS_DIST**2) /
+                         (2 * self.REAL_FEMUR_LENGTH * self.FEMUR_LENGTH))
+        
+        theta_femur = pi/2 - (theta_shoulder + adjustment)
+        theta_tibia = pi - phi + adjustment + theta_femur
+        
+        return psi, theta_femur, theta_tibia
 
     def update_visualization(self, rotation_matrix, leg_positions_3d):
         """Update the 3D visualization"""
-        self.ax.cla()  # Clear the current plot
+        self.ax.cla()
         
         # Set labels and title
-        self.ax.set_xlabel('X (mm)')
-        self.ax.set_ylabel('Y (mm)')
-        self.ax.set_zlabel('Z (mm)')
-        self.ax.set_title('Botzo Robot Stabilization')
+        self.ax.set_xlabel('X (cm)')
+        self.ax.set_ylabel('Y (cm)')
+        self.ax.set_zlabel('Z (cm)')
+        self.ax.set_title('Quadruped Robot Stabilization')
         
         # Set consistent view limits
         limit = max(self.BODY_LENGTH, self.BODY_WIDTH, self.DEFAULT_HEIGHT) * 1.5
@@ -86,89 +169,126 @@ class QuadrupedStabilizer:
         
         # Apply rotation to body
         rotated_body = np.dot(body_points, rotation_matrix.T)
-        self.ax.plot(rotated_body[:,0], rotated_body[:,1], rotated_body[:,2], 'b-', linewidth=2, label='Robot Body')
+        self.ax.plot(rotated_body[:,0], rotated_body[:,1], rotated_body[:,2], 
+                    'g-', linewidth=2, label='Robot Body')
         
         # Draw legs
-        colors = ['r', 'g', 'b', 'y']
+        colors = ['r', 'b', 'y', 'm']
         leg_names = ['Front Left', 'Front Right', 'Back Left', 'Back Right']
-        for i, (leg_pos, color, name) in enumerate(zip(leg_positions_3d, colors, leg_names)):
-            # Draw line from body to foot
-            x = [rotated_body[i,0], leg_pos[0]]
-            y = [rotated_body[i,1], leg_pos[1]]
-            z = [rotated_body[i,2], leg_pos[2]]
-            self.ax.plot(x, y, z, f'{color}-', linewidth=2, label=name)
-            # Draw foot point
-            self.ax.scatter(leg_pos[0], leg_pos[1], leg_pos[2], c=color, marker='o', s=100)
         
-        # Add coordinate frame
-        origin = np.zeros(3)
-        axis_length = 100
-        axes_colors = ['r', 'g', 'b']
-        axes_labels = ['X', 'Y', 'Z']
-        for i, (color, label) in enumerate(zip(axes_colors, axes_labels)):
-            axis = np.zeros((2, 3))
-            axis[1, i] = axis_length
-            rotated_axis = np.dot(axis, rotation_matrix.T)
-            self.ax.plot(rotated_axis[:,0], rotated_axis[:,1], rotated_axis[:,2], 
-                        f'{color}-', linewidth=1, label=f'{label}-axis')
+        for i, (leg_pos, color, name) in enumerate(zip(leg_positions_3d, colors, leg_names)):
+            mount_point = rotated_body[i]
+            
+            # Calculate leg segment positions
+            coxa_end = mount_point + np.array([
+                self.COXA_LENGTH * cos(leg_pos[0]),
+                self.COXA_LENGTH * sin(leg_pos[0]),
+                0
+            ])
+            
+            femur_end = coxa_end + np.array([
+                self.REAL_FEMUR_LENGTH * cos(leg_pos[1]) * cos(leg_pos[0]),
+                self.REAL_FEMUR_LENGTH * cos(leg_pos[1]) * sin(leg_pos[0]),
+                self.REAL_FEMUR_LENGTH * sin(leg_pos[1])
+            ])
+            
+            tibia_end = femur_end + np.array([
+                self.TIBIA_LENGTH * cos(leg_pos[2]) * cos(leg_pos[0]),
+                self.TIBIA_LENGTH * cos(leg_pos[2]) * sin(leg_pos[0]),
+                self.TIBIA_LENGTH * sin(leg_pos[2])
+            ])
+            
+            # Draw leg segments
+            self.ax.plot([mount_point[0], coxa_end[0]], 
+                        [mount_point[1], coxa_end[1]], 
+                        [mount_point[2], coxa_end[2]], 
+                        color=color, linewidth=2)
+            self.ax.plot([coxa_end[0], femur_end[0]], 
+                        [coxa_end[1], femur_end[1]], 
+                        [coxa_end[2], femur_end[2]], 
+                        color=color, linewidth=2)
+            self.ax.plot([femur_end[0], tibia_end[0]], 
+                        [femur_end[1], tibia_end[1]], 
+                        [femur_end[2], tibia_end[2]], 
+                        color=color, linewidth=2)
+            
+            # Draw joints
+            self.ax.scatter([mount_point[0], coxa_end[0], femur_end[0], tibia_end[0]],
+                          [mount_point[1], coxa_end[1], femur_end[1], tibia_end[1]],
+                          [mount_point[2], coxa_end[2], femur_end[2], tibia_end[2]],
+                          c=color, marker='o', s=50)
         
         self.ax.legend()
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
 
-    def inverse_kinematics(self, x, y, z):
-        """
-        Calculate servo angles for a given leg position
-        Returns: (shoulder_angle, knee_angle, ankle_angle)
-        """
-        # Calculate leg plane angle
-        theta_base = atan2(y, x)
-        
-        # Calculate distance in leg plane
-        L = sqrt(x*x + y*y)
-        
-        # Use law of cosines for knee angle
-        L2 = L*L + z*z
-        knee_angle = pi - acos(
-            (2 * self.LEG_LENGTH * self.LEG_LENGTH - L2) / 
-            (2 * self.LEG_LENGTH * self.LEG_LENGTH)
-        )
-        
-        # Calculate ankle angle
-        ankle_angle = atan2(z, L) + acos(
-            (L2 + self.LEG_LENGTH * self.LEG_LENGTH - self.LEG_LENGTH * self.LEG_LENGTH) /
-            (2 * self.LEG_LENGTH * sqrt(L2))
-        )
-        
-        # Convert to degrees
-        return (
-            theta_base * 180/pi,
-            knee_angle * 180/pi,
-            ankle_angle * 180/pi
-        )
-
     def compute_leg_adjustments(self, rotation_matrix):
         """
-        Convert rotation matrix to leg height adjustments
+        Convert rotation matrix to leg adjustments with enhanced stabilization
         """
+        # Extract Euler angles from rotation matrix
+        pitch = np.arctan2(rotation_matrix[2,1], rotation_matrix[2,2])
+        roll = np.arctan2(-rotation_matrix[2,0], 
+                         np.sqrt(rotation_matrix[2,1]**2 + rotation_matrix[2,2]**2))
+        yaw = np.arctan2(rotation_matrix[1,0], rotation_matrix[0,0])
+        
+        # Convert to degrees
+        pitch_deg = np.degrees(pitch)
+        roll_deg = np.degrees(roll)
+        yaw_deg = np.degrees(yaw)
+        
         adjustments = []
         leg_positions_3d = []
-        for leg_pos in self.leg_positions:
-            # Transform leg position by rotation matrix
+        
+        for i, leg_pos in enumerate(self.leg_positions):
+            # Base position
             x, y = leg_pos
-            rotated_point = rotation_matrix.dot([x, y, self.DEFAULT_HEIGHT])
             
-            # Calculate new position
-            new_x = rotated_point[0]
-            new_y = rotated_point[1]
-            new_z = rotated_point[2]
+            # Apply compensations
+            pitch_comp = -pitch_deg * self.PITCH_COMPENSATION
+            roll_comp = -roll_deg * self.ROLL_COMPENSATION
+            yaw_comp = -yaw_deg * self.YAW_COMPENSATION
             
-            # Store 3D position for visualization
-            leg_positions_3d.append([new_x, new_y, new_z])
+            # Adjust compensation based on leg position
+            if i < 2:  # Front legs
+                pitch_comp *= 1.2  # Increased compensation for front legs
+            if i % 2 == 0:  # Right side legs
+                roll_comp *= -1
             
-            # Calculate servo angles
-            angles = self.inverse_kinematics(new_x, new_y, new_z)
-            adjustments.append(angles)
+            # Calculate target point with compensations
+            target = np.array([
+                x + pitch_comp * 0.1,  # Convert degrees to cm
+                y + roll_comp * 0.1,
+                -self.DEFAULT_HEIGHT + yaw_comp * 0.05
+            ])
+            
+            # Constrain movement
+            target = self._constrain_movement(target)
+            
+            # Transform by rotation matrix
+            rotated_target = rotation_matrix.dot(target)
+            
+            # Calculate angles using inverse kinematics
+            angles = self.calculate_leg_angles(rotated_target)
+            leg_positions_3d.append(angles)
+            
+            # Convert to servo angle (only coxa angle for servos)
+            servo_angle = np.degrees(angles[0])
+            
+            # Limit maximum angle change per update
+            if hasattr(self, 'last_angles'):
+                angle_diff = servo_angle - self.last_angles[i]
+                if abs(angle_diff) > self.MAX_ANGLE_CHANGE:
+                    servo_angle = (self.last_angles[i] + 
+                                 np.sign(angle_diff) * self.MAX_ANGLE_CHANGE)
+            
+            adjustments.append(servo_angle)
+        
+        # Store angles for next update
+        self.last_angles = adjustments.copy()
+        
+        # Update debug stats
+        self._update_debug_stats()
         
         # Update visualization if in simulation mode
         if self.simulation_mode:
@@ -178,33 +298,42 @@ class QuadrupedStabilizer:
 
     def send_servo_commands(self, servo_angles):
         """
-        Send servo angles to Arduino or simulate the commands
+        Send servo angles to Arduino with rate limiting
         """
         for leg in range(4):
-            for servo in range(3):
-                angle = servo_angles[leg][servo]
-                # Constrain angle to valid range
-                angle = max(self.SERVO_MIN, min(self.SERVO_MAX, angle))
-                command = f"S,{leg},{servo},{angle:.1f};"
-                
-                if not self.simulation_mode:
-                    self.arduino.write(command.encode())
-                    time.sleep(0.01)  # Small delay between commands
-                else:
-                    # In simulation mode, just print the commands
-                    print(f"Simulated command: {command}")
+            angle = servo_angles[leg]
+            # Constrain angle to valid range
+            angle = max(self.SERVO_MIN, min(self.SERVO_MAX, angle))
+            
+            # Calculate required movement time based on angle change
+            if hasattr(self, 'last_sent_angles'):
+                angle_diff = abs(angle - self.last_sent_angles[leg])
+                move_time = (angle_diff / 60.0) * self.SERVO_SPEED
+            else:
+                move_time = self.SERVO_SPEED
+                self.last_sent_angles = [0] * 4
+            
+            command = f"S,{leg},{angle:.1f};"
+            
+            if not self.simulation_mode:
+                self.arduino.write(command.encode())
+                time.sleep(min(move_time, 0.01))  # Limit minimum delay
+            else:
+                print(f"Simulated command: {command}")
+            
+            self.last_sent_angles[leg] = angle
 
     def stabilize(self, rotation_matrix):
         """
         Main stabilization function
         """
-        # Compute required leg adjustments
-        leg_adjustments = self.compute_leg_adjustments(rotation_matrix)
+        # Compute required angles
+        servo_angles = self.compute_leg_adjustments(rotation_matrix)
         
         # Send commands to servos
-        self.send_servo_commands(leg_adjustments)
+        self.send_servo_commands(servo_angles)
         
-        return leg_adjustments  # Return for debugging/monitoring
+        return servo_angles  # Return for debugging/monitoring
 
 def stabilize_robot(rotation_matrix):
     """
@@ -217,9 +346,9 @@ def stabilize_robot(rotation_matrix):
         stabilizer = QuadrupedStabilizer()
     
     # Perform stabilization
-    adjustments = stabilizer.stabilize(rotation_matrix)
+    angles = stabilizer.stabilize(rotation_matrix)
     
     # Print debug info
-    print("\nLeg adjustments (degrees):")
-    for i, adj in enumerate(adjustments):
-        print(f"Leg {i}: Shoulder={adj[0]:.1f}°, Knee={adj[1]:.1f}°, Ankle={adj[2]:.1f}°") 
+    print("\nShoulder angles (degrees):")
+    for i, angle in enumerate(angles):
+        print(f"Leg {i}: {angle:.1f}°") 
