@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/platform-Raspberry%20Pi%20%7C%20Arduino-orange.svg)](https://www.raspberrypi.org/)
 
-A real-time stabilization system for quadruped robots using IMU-based orientation detection and inverse kinematics for leg position adjustment.
+A real-time stabilization system for Botzo, a quadruped robot using IMU-based orientation detection and inverse kinematics for leg position adjustment.
 
 <div align="center">
   <img src="https://github.com/botzo-team/rotation_matrices_v1/blob/main/docs/images/robot_demo.gif" alt="Robot Demo" width="600"/>
@@ -13,22 +13,35 @@ A real-time stabilization system for quadruped robots using IMU-based orientatio
 ## 🌟 Features
 
 - Real-time IMU (MPU-6050) orientation detection
-- 3D visualization of robot pose and leg positions
-- Inverse kinematics for precise leg adjustments
+- Enhanced 3D visualization with:
+  - Accurate leg segment visualization
+  - IMU orientation display with coordinate axes
+  - Real-time performance monitoring
+  - Interactive view controls
+- Advanced stabilization with:
+  - Configurable pitch/roll/yaw compensation
+  - Rate-limited servo movements
+  - Safety constraints and movement limits
+  - Smooth motion transitions
 - Simulation mode for testing without hardware
 - Arduino-based servo control system
 - Support for DS3225 servos (270° range)
 
-## 🛠️ Hardware Requirements
+## 🛠️ Hardware Specifications
 
-- Raspberry Pi 4 Model B
-- Arduino Mega 2560 Rev 3
-- MPU-6050 IMU Sensor
-- 12× DS3225 Servo Motors
-- Quadruped Robot Frame
-  - Body: 274mm × 140mm
-  - Leg Length: 193mm
-  - Standing Height: 125mm
+- **Robot Dimensions**:
+  - Body: 274mm × 140mm × 80mm
+  - Leg Segments:
+    - Coxa: 31mm (A)
+    - Femur: 95mm (E) / 91mm (E')
+    - Tibia: 98mm (F)
+  - Focus Point Distance: 28mm
+
+- **Hardware Requirements**:
+  - Raspberry Pi 4 Model B
+  - Arduino Mega 2560 Rev 3
+  - MPU-6050 IMU Sensor
+  - 4× DS3225 Servo Motors (one per leg)
 
 ## 📡 Hardware Setup
 
@@ -79,11 +92,8 @@ A real-time stabilization system for quadruped robots using IMU-based orientatio
 
 1. **Clone Repository and Setup Environment:**
    ```bash
-   # Create project directory
-   mkdir ~/botzo_stabilization
-   cd ~/botzo_stabilization
-
-   # Create and activate virtual environment
+   git clone https://github.com/your-username/quadruped-stabilization.git
+   cd quadruped-stabilization
    python3 -m venv venv
    source venv/bin/activate
    ```
@@ -101,79 +111,90 @@ A real-time stabilization system for quadruped robots using IMU-based orientatio
 
 4. **Run the System:**
    ```bash
+   # For hardware mode (with actual robot)
    python imu_stabilization.py
+
+   # For simulation mode
+   python test_imu_stabilization.py
    ```
 
-## 🎮 Controls & Visualization
+## 🎮 Visualization Features
 
 The 3D visualization provides:
-- Real-time robot pose display
-- Color-coded legs:
+- Real-time robot pose with accurate dimensions
+- Color-coded legs with segment indicators:
   - 🔴 Front Left
-  - 🟢 Front Right
-  - 🔵 Back Left
-  - 🟡 Back Right
-- Interactive view controls:
-  - Left-click & drag: Rotate
+  - 🔵 Front Right
+  - 💛 Back Left
+  - 🟣 Back Right
+- IMU orientation display:
+  - Red: X-axis
+  - Green: Y-axis
+  - Blue: Z-axis
+- Performance metrics:
+  - Update rate
+  - Servo positions
+  - Stabilization status
+- Interactive controls:
+  - Left-click & drag: Rotate view
   - Right-click & drag: Zoom
   - Middle-click & drag: Pan
 
-## 📐 Servo Configuration
+## ⚙️ Stabilization Parameters
 
+Adjustable parameters in `stabilization_control.py`:
 ```python
-Servo Layout:
-FL (Front Left):  Pins 5, 6, 7   [Shoulder, Knee, Ankle]
-FR (Front Right): Pins 2, 3, 4
-BL (Back Left):   Pins 11, 12, 13
-BR (Back Right):  Pins 8, 9, 10
-```
+# Movement Ranges (cm)
+X_RANGE = (-5, 5)    # Forward/backward
+Y_RANGE = (-3, 3)    # Left/right
+Z_RANGE = (-18, -12) # Height
 
-## 🔧 Customization
+# Compensation Factors
+PITCH_COMPENSATION = 1.2  # Increased pitch response
+ROLL_COMPENSATION = 1.0   # Normal roll response
+YAW_COMPENSATION = 0.8    # Reduced yaw response
 
-Adjust robot dimensions in `stabilization_control.py`:
-```python
-self.BODY_LENGTH = 274  # mm
-self.BODY_WIDTH = 140   # mm
-self.LEG_LENGTH = 193   # mm
-self.DEFAULT_HEIGHT = 125  # mm
+# Safety Limits
+MAX_ANGLE_CHANGE = 30  # Maximum degrees per update
+SERVO_SPEED = 0.5      # Seconds per 60 degrees
 ```
 
 ## 🔍 Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| No IMU detected | 1. Check connections<br>2. Run `sudo i2cdetect -y 1`<br>3. Verify 3.3V power<br>4. Check I2C enabled |
-| Arduino not found | 1. Check USB connection<br>2. Run `ls /dev/ttyACM*`<br>3. Set permissions with `sudo usermod -a -G dialout $USER` |
-| Servo jitter | 1. Verify power supply capacity<br>2. Check ground connections<br>3. Reduce update frequency |
-| Visualization lag | 1. Reduce visualization update rate<br>2. Close other applications<br>3. Check CPU usage |
+| Visualization lag | - Reduce update rate<br>- Close other applications<br>- Check CPU usage |
+| Servo jitter | - Verify power supply<br>- Check angle limits<br>- Adjust MAX_ANGLE_CHANGE |
+| IMU drift | - Calibrate IMU<br>- Check update rate<br>- Verify connections |
+| Unstable movement | - Adjust compensation factors<br>- Check movement ranges<br>- Verify servo speed |
 
-## 🛟 Common Commands
+## 🛟 Debug Commands
 
 ```bash
-# Check I2C devices
-sudo i2cdetect -y 1
+# Monitor IMU data and performance
+python imu_stabilization.py --debug
 
-# Monitor IMU data
-python imu_stabilization.py
+# Test visualization only
+python test_imu_stabilization.py
 
-# Test servos individually
+# Check servo positions
 python
 >>> import serial
 >>> arduino = serial.Serial('/dev/ttyACM0', 115200)
->>> arduino.write(b"S,0,0,90;")  # Move leg 0, servo 0 to 90°
+>>> arduino.write(b"S,0,135;")  # Center leg 0
 
-# Check system logs
-journalctl -f  # Monitor system logs
-dmesg | grep -i i2c  # Check I2C related messages
+# System logs
+journalctl -f | grep stabilization
 ```
 
 ## 📝 Development Notes
 
-- The system automatically detects if running on Raspberry Pi and switches to appropriate mode
-- Hardware mode requires I2C and serial connections
-- Simulation mode available for testing without hardware
-- All angles are in degrees
-- Servo commands format: "S,leg,servo,angle;" (e.g., "S,0,0,90;")
+- System automatically detects hardware/simulation mode
+- Real-time performance monitoring available
+- Servo commands format: "S,leg,angle;" (e.g., "S,0,135;")
+- All dimensions in centimeters, angles in degrees
+- Safety constraints prevent dangerous movements
+- Smooth transitions between positions
 
 ## 🤝 Contributing
 
