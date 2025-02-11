@@ -18,13 +18,13 @@
     </a>
 
 </p>
+</div>
 
-<div align="center">
 
 more [here](https://github.com/IERoboticsAILab/botzo)
 
 # STL_files
-here u can download the STL for the robot
+here u can download the STLs for the robot
 
 ![botzo](https://github.com/botzo-team/our_images_and_videos/blob/main/botzo_final_full_body.jpg)
 
@@ -33,10 +33,21 @@ If you have Fusion360 licence you can download the .f3z and modify models as you
 ![leg](https://github.com/botzo-team/our_images_and_videos/blob/main/FULL_LEG.gif)
 
 
-### URFD
+### The Leg
+
+The leg design was inspired by [Chop]() from _Miguel Ayusto Parrilla_. With this design the leg weight is concentated in the shoulder, decreaseing the inertia when walking and so improve stability.
+
+### The Body
+
+For the body we make room for all components and cable, plus leaving space on the dorso to add Lidar and Webcams for future abilities.
+
+
+<br>
+
+# URFD
 
 To create URDF visit our repo [here](https://github.com/botzo-team/create_URDF).
-You will use [body_urdf.f3d](https://github.com/botzo-team/STL_files/blob/main/URDF%20file/body_urdf.f3d) file to build your urdf, or just download ours
+You will use [body_urdf.f3d](https://github.com/botzo-team/STL_files/blob/main/URDF%20file/body_urdf.f3d) file to build your urdf, or just download ours [here](https://github.com/IERoboticsAILab/botzo_STLs/tree/main/URDF%20file)
 
 leg:
 
