@@ -19,7 +19,7 @@
 
 </p>
 
-<div align="center">
+</div>
 
 more [here](https://github.com/IERoboticsAILab/botzo)
 
