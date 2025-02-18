@@ -26,11 +26,26 @@ class QuadrupedStabilizer:
         self.TIBIA_LENGTH = 9.8       # F
         self.FOCUS_DIST = 2.8         # Distance from focus point to servo
         
+        # Servo configuration
+        self.NUM_LEGS = 4
+        self.SERVOS_PER_LEG = 3
+        self.SERVO_PINS = {
+            'FL': [5, 6, 7],    # Front Left: shoulder, femur, tibia
+            'FR': [2, 3, 4],    # Front Right
+            'BL': [11, 12, 13], # Back Left
+            'BR': [8, 9, 10]    # Back Right
+        }
+        
         # Servo limits and parameters
         self.SERVO_MIN = 0
         self.SERVO_MAX = 270  # DS3225 has 270° range
         self.SERVO_CENTER = 135  # Center position
         self.SERVO_SPEED = 0.5  # Seconds per 60 degrees
+        
+        # Servo angle ranges (degrees)
+        self.SHOULDER_RANGE = (0, 270)   # Horizontal rotation
+        self.FEMUR_RANGE = (45, 225)     # Vertical lift
+        self.TIBIA_RANGE = (90, 270)     # Extension
         
         # Stabilization parameters
         self.MAX_ANGLE_CHANGE = 30  # Maximum angle change per update
@@ -39,9 +54,9 @@ class QuadrupedStabilizer:
         self.YAW_COMPENSATION = 0.8    # Reduced yaw response
         
         # Movement ranges (in cm)
-        self.X_RANGE = (-5, 5)  # Forward/backward range
-        self.Y_RANGE = (-3, 3)  # Left/right range
-        self.Z_RANGE = (-18, -12)  # Height range
+        self.X_RANGE = (-5, 5)    # Forward/backward
+        self.Y_RANGE = (-3, 3)    # Left/right
+        self.Z_RANGE = (-18, -12) # Height
         
         # Default standing height
         self.DEFAULT_HEIGHT = 12.5  # cm from body to ground
@@ -81,10 +96,11 @@ class QuadrupedStabilizer:
 
     def _center_all_servos(self):
         """Center all servos on startup"""
-        for leg in range(4):
-            command = f"S,{leg},{self.SERVO_CENTER:.1f};"
-            self.arduino.write(command.encode())
-            time.sleep(0.5)  # Longer delay for initialization
+        for leg in range(self.NUM_LEGS):
+            for servo in range(self.SERVOS_PER_LEG):
+                command = f"S,{leg},{servo},{self.SERVO_CENTER:.1f};"
+                self.arduino.write(command.encode())
+                time.sleep(0.5)  # Longer delay for initialization
 
     def _update_debug_stats(self):
         """Update debug statistics"""
@@ -222,9 +238,19 @@ class QuadrupedStabilizer:
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
 
+    def _constrain_servo_angle(self, servo_type, angle):
+        """Constrain servo angle based on type and limits"""
+        if servo_type == 0:  # Shoulder
+            return np.clip(angle, *self.SHOULDER_RANGE)
+        elif servo_type == 1:  # Femur
+            return np.clip(angle, *self.FEMUR_RANGE)
+        else:  # Tibia
+            return np.clip(angle, *self.TIBIA_RANGE)
+
     def compute_leg_adjustments(self, rotation_matrix):
         """
         Convert rotation matrix to leg adjustments with enhanced stabilization
+        Returns angles for all servos in each leg
         """
         # Extract Euler angles from rotation matrix
         pitch = np.arctan2(rotation_matrix[2,1], rotation_matrix[2,2])
@@ -269,23 +295,30 @@ class QuadrupedStabilizer:
             rotated_target = rotation_matrix.dot(target)
             
             # Calculate angles using inverse kinematics
-            angles = self.calculate_leg_angles(rotated_target)
-            leg_positions_3d.append(angles)
+            shoulder_angle, femur_angle, tibia_angle = self.calculate_leg_angles(rotated_target)
             
-            # Convert to servo angle (only coxa angle for servos)
-            servo_angle = np.degrees(angles[0])
+            # Store angles for visualization
+            leg_positions_3d.append([shoulder_angle, femur_angle, tibia_angle])
+            
+            # Convert to servo angles and apply constraints
+            servo_angles = [
+                self._constrain_servo_angle(0, np.degrees(shoulder_angle)),
+                self._constrain_servo_angle(1, np.degrees(femur_angle)),
+                self._constrain_servo_angle(2, np.degrees(tibia_angle))
+            ]
             
             # Limit maximum angle change per update
             if hasattr(self, 'last_angles'):
-                angle_diff = servo_angle - self.last_angles[i]
-                if abs(angle_diff) > self.MAX_ANGLE_CHANGE:
-                    servo_angle = (self.last_angles[i] + 
-                                 np.sign(angle_diff) * self.MAX_ANGLE_CHANGE)
+                for j in range(self.SERVOS_PER_LEG):
+                    angle_diff = servo_angles[j] - self.last_angles[i][j]
+                    if abs(angle_diff) > self.MAX_ANGLE_CHANGE:
+                        servo_angles[j] = (self.last_angles[i][j] + 
+                                        np.sign(angle_diff) * self.MAX_ANGLE_CHANGE)
             
-            adjustments.append(servo_angle)
+            adjustments.append(servo_angles)
         
         # Store angles for next update
-        self.last_angles = adjustments.copy()
+        self.last_angles = [angles.copy() for angles in adjustments]
         
         # Update debug stats
         self._update_debug_stats()
@@ -299,29 +332,30 @@ class QuadrupedStabilizer:
     def send_servo_commands(self, servo_angles):
         """
         Send servo angles to Arduino with rate limiting
+        servo_angles: list of [shoulder, femur, tibia] angles for each leg
         """
-        for leg in range(4):
-            angle = servo_angles[leg]
-            # Constrain angle to valid range
-            angle = max(self.SERVO_MIN, min(self.SERVO_MAX, angle))
-            
-            # Calculate required movement time based on angle change
-            if hasattr(self, 'last_sent_angles'):
-                angle_diff = abs(angle - self.last_sent_angles[leg])
-                move_time = (angle_diff / 60.0) * self.SERVO_SPEED
-            else:
-                move_time = self.SERVO_SPEED
-                self.last_sent_angles = [0] * 4
-            
-            command = f"S,{leg},{angle:.1f};"
-            
-            if not self.simulation_mode:
-                self.arduino.write(command.encode())
-                time.sleep(min(move_time, 0.01))  # Limit minimum delay
-            else:
-                print(f"Simulated command: {command}")
-            
-            self.last_sent_angles[leg] = angle
+        for leg in range(self.NUM_LEGS):
+            for servo in range(self.SERVOS_PER_LEG):
+                angle = servo_angles[leg][servo]
+                
+                # Calculate required movement time based on angle change
+                if hasattr(self, 'last_sent_angles'):
+                    angle_diff = abs(angle - self.last_sent_angles[leg][servo])
+                    move_time = (angle_diff / 60.0) * self.SERVO_SPEED
+                else:
+                    move_time = self.SERVO_SPEED
+                    self.last_sent_angles = [[0] * self.SERVOS_PER_LEG 
+                                           for _ in range(self.NUM_LEGS)]
+                
+                command = f"S,{leg},{servo},{angle:.1f};"
+                
+                if not self.simulation_mode:
+                    self.arduino.write(command.encode())
+                    time.sleep(min(move_time, 0.01))  # Limit minimum delay
+                else:
+                    print(f"Simulated command: {command}")
+                
+                self.last_sent_angles[leg][servo] = angle
 
     def stabilize(self, rotation_matrix):
         """
