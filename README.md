@@ -25,6 +25,11 @@ more about botzo [here](https://github.com/IERoboticsAILab/botzo)
 </div>
 
 
+
+<iframe src="https://drive.google.com/file/d/1czPk45Xd2ltpSe7baF9zT-7nEJ74sJd3/view?usp=sharing" width="640" height="360" allow="autoplay" allowfullscreen></iframe>
+
+
+
 # STL_files
 here u can download the **STLs** for the robot, find the **list of components**, **price** and **assembly procedure**
 
@@ -53,7 +58,6 @@ _comming soon_
 </video>
 
 
-<iframe src="https://drive.google.com/file/d/1czPk45Xd2ltpSe7baF9zT-7nEJ74sJd3/view?usp=sharing" width="640" height="360" allow="autoplay" allowfullscreen></iframe>
 
 
 
