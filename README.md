@@ -19,10 +19,11 @@
 
 more about botzo [here](https://github.com/IERoboticsAILab/botzo)
 
+![botzo](https://github.com/botzo-team/our_images_and_videos/blob/main/botzo_new_final_design.png)
+
 </p>
 </div>
 
-![botzo](https://github.com/botzo-team/our_images_and_videos/blob/main/botzo_new_final_design.png)
 
 # STL_files
 here u can download the **STLs** for the robot, find the **list of components**, **price** and **assembly procedure**
@@ -32,7 +33,7 @@ _If you have Fusion360 licence you can download the .f3z and modify models as yo
 
 ### The Leg
 
-The leg design was inspired by [Chop]() from _Miguel Ayusto Parrilla_. With this design the leg weight is concentated in the shoulder, decreaseing the inertia when walking and so improve stability.
+The leg design was inspired by [Chop](https://hackaday.io/project/171456-diy-hobby-servos-quadruped-robot/details) from _Miguel Ayusto Parrilla_. With this design the leg weight is concentated in the shoulder, decreaseing the inertia when walking and so improve stability.
 
 ![leg](https://github.com/botzo-team/our_images_and_videos/blob/main/FULL_LEG.gif)
 
