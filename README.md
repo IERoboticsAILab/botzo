@@ -52,7 +52,8 @@ _comming soon_
   Your browser does not support the video tag.
 </video>
 
-<iframe src="https://drive.google.com/file/d/FILE_ID/preview" width="640" height="360" allow="autoplay" allowfullscreen></iframe>
+
+<iframe src="https://drive.google.com/file/d/1czPk45Xd2ltpSe7baF9zT-7nEJ74sJd3/view?usp=sharing" width="640" height="360" allow="autoplay" allowfullscreen></iframe>
 
 
 
