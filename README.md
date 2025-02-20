@@ -26,11 +26,7 @@ more about botzo [here](https://github.com/IERoboticsAILab/botzo)
 
 
 
-<iframe src="https://drive.google.com/file/d/1czPk45Xd2ltpSe7baF9zT-7nEJ74sJd3/view?usp=sharing" width="640" height="360" allow="autoplay" allowfullscreen></iframe>
-
-
-
-# STL_files
+# Design
 here u can download the **STLs** for the robot, find the **list of components**, **price** and **assembly procedure**
 
 _If you have Fusion360 licence you can download the .f3z and modify models as you like. Otherwise just download the stl file and you will be rady to 3D print your own Botzo_
@@ -45,21 +41,11 @@ The leg design was inspired by [Chop](https://hackaday.io/project/171456-diy-hob
 
 ### The Body
 
-For the body we make room for all components and cable, plus leaving space on the dorso to add Lidar and Webcams for future abilities.
+For the body we make room for all components and cables, plus leaving space on the dorso to add Lidar and Webcams for future abilities.
 
+![leg](https://github.com/botzo-team/our_images_and_videos/blob/main/animation_new_final_body.gif)
 
 # Assembly the robot
-
-_comming soon_
-
-<video width="600" autoplay loop muted playsinline>
-  <source src="https://drive.google.com/file/d/1czPk45Xd2ltpSe7baF9zT-7nEJ74sJd3/view?usp=sharing" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-
-
-
 
 <details>
   <summary><strong>Components List</strong></summary>
@@ -87,11 +73,42 @@ _comming soon_
 
 </details>
 
-<to do>
+<br>
+<br>
 
+<details>
+  <summary><strong>Circuit Diagram</strong></summary>
+
+  ![circuit design](https://github.com/botzo-team/our_images_and_videos/blob/main/full_circuit_scketch.png)
+
+</details>
+
+<br>
+<br>
+
+<details>
+  <summary><strong>Leg Assemble</strong></summary>
+
+![leg](https://github.com/botzo-team/our_images_and_videos/blob/main/assemble_one_leg_timelapse.gif)
+
+</details>
+
+<br>
+<br>
+
+<details>
+  <summary><strong>Body Assemble</strong></summary>
+
+
+</details>
+
+<br>
+<br>
 <br>
 
 # URFD
+
+_deprecated_
 
 To create URDF visit our repo [here](https://github.com/botzo-team/create_URDF).
 You will use [body_urdf.f3d](https://github.com/botzo-team/STL_files/blob/main/URDF%20file/body_urdf.f3d) file to build your urdf, or just download ours [here](https://github.com/IERoboticsAILab/botzo_STLs/tree/main/URDF%20file)
