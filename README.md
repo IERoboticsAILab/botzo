@@ -63,13 +63,19 @@ For the body we make room for all components and cables, plus leaving space on t
 | x2       | LiPo batteries RC                | Amazon      | 45.99€         | 91.98€         | In the lab   | Power in series                     |              |
 | x1       | Oled Display                     | Amazon      | 9.99€          | 9.99€          | In the lab   | Display informations                |              |
 | x1       | PS3 controller                   | Amazon      | 17.99€         | 17.99€         | In the lab   | PS3 controller to move robot        |              |
+|        |                    |       |         |        |   |       |              |
 | x20      | 8x3x4 mm bearings                | Amazon (x2) | 7.09€          | 14.18€         | Need to buy  | Bearings for moving parts           |              |
+| x4 | 10x5x4 mm bearings | | | | | For shoulder stronger axes| |
 | x1       | Dean T Connectors                | Amazon      | 9.99€          | 9.99€          | In the lab   | Connection of the circuit           |              |
 | x1       | Cables 14 AWG                    | Amazon      | 25.5€          | 25.5€          | In the lab   | Cables high current                 |              |
 | x1       | Cables 10 AWG                    | Amazon      | 16.99€         | 16.99€         | Need to buy  | Cables high current                 |              |
 | x1       | TPU Bambu filament               | Bambu       | 44.73€         | 44.73€         | Need to buy  | TPU for foot                        |              |
+| | Set of M3, M2.5 and M2 screws| | | | | | |
+| | Set of inserts for M3, M2.5 and M2 screws | | | | | | |
 
 **Total: 256.39€**
+
+_Price can vary depending on what you already have, but the goal is to stay  under 500€_
 
 </details>
 
@@ -87,7 +93,7 @@ For the body we make room for all components and cables, plus leaving space on t
 <br>
 
 <details>
-  <summary><strong>Leg Assemble</strong></summary>
+  <summary><strong>Leg Assembly</strong></summary>
 
 ![leg](https://github.com/botzo-team/our_images_and_videos/blob/main/assemble_one_leg_timelapse.gif)
 
@@ -97,8 +103,9 @@ For the body we make room for all components and cables, plus leaving space on t
 <br>
 
 <details>
-  <summary><strong>Body Assemble</strong></summary>
+  <summary><strong>Body Assembly</strong></summary>
 
+_commin soon_
 
 </details>
 
