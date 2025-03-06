@@ -7,8 +7,8 @@ Servo SBR, FBR, TBR;  // Back Right
 Servo SBL, FBL, TBL;  // Back Left
 
 // Servo pins for Arduino Mega
-const int SFR_PIN = 2, FFR_PIN = 3, TFR_PIN = 4;  // Front Right Pins
-const int SFL_PIN = 5, FFL_PIN = 6, TFL_PIN = 7;  // Front Left Pins
+const int SFR_PIN = 7, FFR_PIN = 6, TFR_PIN = 5;  // Front Right Pins
+const int SFL_PIN = 4, FFL_PIN = 3, TFL_PIN = 2;  // Front Left Pins
 const int SBR_PIN = 8, FBR_PIN = 9, TBR_PIN = 10; // Back Right Pins
 const int SBL_PIN = 11, FBL_PIN = 12, TBL_PIN = 13; // Back Left Pins
 
@@ -39,6 +39,27 @@ void setup() {
   SBL.attach(SBL_PIN);
   FBL.attach(FBL_PIN);
   TBL.attach(TBL_PIN);
+
+  // Front Right (SFR, FFR, TFR)
+  SFR.writeMicroseconds(1283);  // from your FR_steps first row
+  FFR.writeMicroseconds(832);
+  TFR.writeMicroseconds(1558);
+
+  // Front Left (SFL, FFL, TFL)
+  SFL.writeMicroseconds(1324);  // from your FL_steps first row
+  FFL.writeMicroseconds(1743);
+  TFL.writeMicroseconds(926);
+
+  // Back Right (SBR, FBR, TBR)
+  SBR.writeMicroseconds(1300);  // from your BR_steps first row
+  FBR.writeMicroseconds(793);
+  TBR.writeMicroseconds(1492);
+
+  // Back Left (SBL, FBL, TBL)
+  SBL.writeMicroseconds(1351);  // from your BL_steps first row
+  FBL.writeMicroseconds(1760);
+  TBL.writeMicroseconds(1033);
+  // --- end ---
 
 }
 
