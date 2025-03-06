@@ -3,8 +3,8 @@ import serial
 import time
 
 a_SFR = 0
-b_SFR = 7.527
-c_SFR = 597.6
+b_SFR = 7.378
+c_SFR = 616.0
 coefficents_SFR = np.array([a_SFR, b_SFR, c_SFR])
 
 a_FFR = 0
@@ -19,8 +19,8 @@ coefficents_TFR = np.array([a_TFR, b_TFR, c_TFR])
 #------------------------
 
 a_SFL = 0
-b_SFL = 7.493
-c_SFL = 588.142
+b_SFL = 7.649
+c_SFL = 638.486
 coefficents_SFL = np.array([a_SFL, b_SFL, c_SFL])
 
 a_FFL = 0
@@ -29,15 +29,15 @@ c_FFL = 625.428
 coefficents_FFL = np.array([a_FFL, b_FFL, c_FFL])
 
 a_TFL = 0.001
-b_TFL = 7.233
-c_TFL = 549.999
+b_TFL = 7.234
+c_TFL = 550.0
 coefficents_TFL = np.array([a_TFL, b_TFL, c_TFL])
 
 #------------------------
 
-a_SBR = 0.001
-b_SBR = 7.387
-c_SBR = 584.285
+a_SBR = 0
+b_SBR = 7.514
+c_SBR = 626.428
 coefficents_SBR = np.array([a_SBR, b_SBR, c_SBR])
 
 a_FBR = 0.001
@@ -52,9 +52,9 @@ coefficents_TBR = np.array([a_TBR, b_TBR, c_TBR])
 
 #------------------------
 
-a_SBL = 0
-b_SBL = 7.384
-c_SBL = 614.857
+a_SBL = 0.001
+b_SBL = 7.673
+c_SBL = 648.857
 coefficents_SBL = np.array([a_SBL, b_SBL, c_SBL])
 
 a_FBL = 0
@@ -117,7 +117,7 @@ def BR_legIK(x,y,z):
   shoulder_angle = np.arctan2(x,D) + np.arcsin((tibia * np.sin(knee_angle)) / G)
   adjustment = np.arccos((real_femur**2 + femur**2 - dist_focuspoint_servo_femurtibia**2) / (2 * real_femur * femur))
 
-  coxa_angle = (np.arctan2(y,z) + np.arctan2(D,coxa))
+  coxa_angle = deg2rad(180) - (np.arctan2(y,z) + np.arctan2(D,coxa))
   femur_angle = deg2rad(90) - (shoulder_angle + adjustment)
   tibia_angle = np.pi - knee_angle + femur_angle + adjustment
 
@@ -136,10 +136,11 @@ def FL_legIK(x,y,z):
 
   coxa_angle = (deg2rad(180) - (np.arctan2(y,z) + np.arctan2(D,coxa))) - (2 * ((deg2rad(180) - (np.arctan2(y,z) + np.arctan2(D,coxa)))-deg2rad(90)))
   #coxa_angle = (np.arctan2(y,z) + np.arctan2(D,coxa))
-  femur_angle = (deg2rad(90) - (shoulder_angle + adjustment))
-  tibia_angle = deg2rad(180) - (np.pi - knee_angle + femur_angle + adjustment)
+  femur_angle = deg2rad(90) - (shoulder_angle + adjustment)
+  tibia_angle = np.pi - knee_angle + femur_angle + adjustment
 
   femur_angle = deg2rad(180) - femur_angle
+  tibia_angle = deg2rad(180) - tibia_angle
 
   return rad2deg([coxa_angle, femur_angle, tibia_angle])
 
@@ -155,7 +156,7 @@ def BL_legIK(x,y,z):
   #print(f"adjustment: {adjustment*180/np.pi}")
 
   #coxa_angle = (np.arctan2(y,z) + np.arctan2(D,coxa))
-  coxa_angle = deg2rad(180) - ((deg2rad(180) - (np.arctan2(y,z) + np.arctan2(D,coxa))) - (2 * ((deg2rad(180) - (np.arctan2(y,z) + np.arctan2(D,coxa)))-deg2rad(90))))
+  coxa_angle = ((deg2rad(180) - (np.arctan2(y,z) + np.arctan2(D,coxa))) - (2 * ((deg2rad(180) - (np.arctan2(y,z) + np.arctan2(D,coxa)))-deg2rad(90))))
   femur_angle = deg2rad(90) - (shoulder_angle + adjustment)
   tibia_angle = deg2rad(180) - (np.pi - knee_angle + femur_angle + adjustment)
   femur_angle = deg2rad(180) - femur_angle
