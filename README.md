@@ -24,3 +24,11 @@
 more [here](https://github.com/IERoboticsAILab/botzo)
 
 # Botzo Pybullet Simulation
+
+---
+
+- `basic.py`: Load URDF
+- `hello_bullet.py`:
+- `hello_bullet2.py`:
+- `hello_bullet3.py`:
+- `hello_bullet4.py`:

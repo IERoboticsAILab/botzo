@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot name="body_urdf">
+<robot name="final_URDF">
 
 <material name="silver">
   <color rgba="0.700 0.700 0.700 1.000"/>
