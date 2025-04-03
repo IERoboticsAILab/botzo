@@ -48,7 +48,7 @@ try:
     while True:
         # x,y,z for IK BR
         x, y, z = list(map(int, input("Enter the x, y, z coordinates for the foot of the robot: ").split()))
-        s_f_t = BR_legIK(x, y, z)
+        s_f_t = legIK(x, y, z)
         angle_shoulder, angle_femur, angle_knee = s_f_t
         target_angle_shoulder = math.radians(real_sim_angle(angle_shoulder,joint_ids["BR"]["shoulder"]))
         target_angle_femur = math.radians(real_sim_angle(angle_femur, joint_ids["BR"]["femur"]))

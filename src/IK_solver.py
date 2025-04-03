@@ -62,12 +62,36 @@ spin_right_targets_FL_BR = [
 ]
 
 def real_sim_angle(angle, id):
-  if id == 7: #  BR_femur_joint
-    sim_angle = 45 - angle
-  elif id == 8: # BR_knee_joint
-    sim_angle = 90 - angle# - 180
-  elif id == 4: # BR_shoulder_joint
+  if id == 4:                 # BR_shoulder_joint
     sim_angle = angle - 90
+  elif id == 7:               # BR_femur_joint
+    sim_angle = 45 - angle
+  elif id == 8:               # BR_knee_joint
+    sim_angle = 90 - angle
+
+  elif id == 13:              # FR_shoulder_joint
+    sim_angle = angle - 90
+  elif id == 16:              # FR_femur_joint
+    sim_angle = 45 - angle
+  elif id == 17:              # FR_knee_joint
+    sim_angle = 90 - angle
+
+  elif id == 24:              # BL_shoulder_joint
+    sim_angle = angle - 90
+  elif id == 27:              # BL_femur_joint
+    sim_angle = 45 - angle
+  elif id == 28:              # BL_knee_joint
+    sim_angle = 90 - angle
+
+  elif id == 33:              # FL_shoulder_joint
+    sim_angle = angle - 90
+  elif id == 36:              # FL_femur_joint
+    sim_angle = 45 - angle
+  elif id == 37:              # FL_knee_joint
+    sim_angle = 90 - angle
+
+  else:
+    sim_angle = angle
   return sim_angle
 
 def rad2deg(rads):
@@ -83,7 +107,7 @@ def deg2rad(deg):
 X (forward(neg), backward(pos)):    |   Y (inside(neg), outside(pos)):      |   Z (taller(neg), shorter(pos)):   |
 '''
 
-def BR_legIK(x,y,z):
+def legIK(x,y,z): #BR
   D = np.sqrt((z**2 + y**2) - coxa**2)
   G = np.sqrt(D**2 + x**2)
   shoulder_angle = np.arctan2(y,z) + np.arctan2(D,coxa)
@@ -91,4 +115,3 @@ def BR_legIK(x,y,z):
   femur_angle = deg2rad(180) - (deg2rad(90) + np.arctan2(x,D) + np.arcsin((tibia * np.sin(knee_angle)) / G))
 
   return rad2deg([shoulder_angle, femur_angle, knee_angle])
-
