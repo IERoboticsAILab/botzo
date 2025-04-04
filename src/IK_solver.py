@@ -81,7 +81,7 @@ def real_sim_angle(angle, id):
   elif id == 27:              # BL_femur_joint
     sim_angle = 45 - angle
   elif id == 28:              # BL_knee_joint
-    sim_angle = 90 - angle
+    sim_angle = angle - 90
 
   elif id == 33:              # FL_shoulder_joint
     sim_angle = angle - 90

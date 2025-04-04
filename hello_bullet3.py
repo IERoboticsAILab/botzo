@@ -59,6 +59,7 @@ try:
             controlMode=p.POSITION_CONTROL,      # Use position control
             targetPosition=target_angle_rad,     # Target position in radians
             force=500                            # Max force applied to reach the target
+            # 25 kg·cm = 25 × 9.81 × 0.01 = ~2.45 N·m
         ) # setJointMotorControl2
 
         foot_side = "BR"
