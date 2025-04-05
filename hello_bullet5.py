@@ -45,6 +45,7 @@ robotId = p.loadURDF("urdf/final_URDF.urdf", cubeStartPos, cubeStartOrientation,
 
 # Run the simulation loop indefinitely
 try:
+    input("Press Enter to start the simulation...")
     while True:
         for i in range(0,len(forward_targets_FR_BL)):
             print(forward_targets_FR_BL[i])
