@@ -21,14 +21,16 @@
 
 </div>
 
-more [here](https://github.com/IERoboticsAILab/botzo)
+> [!NOTE]
+> more about Botzo [here](https://github.com/IERoboticsAILab/botzo)
 
 # Botzo Pybullet Simulation
 
 ---
 
-- `basic.py`: Load URDF
+- `basic.py`: Load URDF, basic script of PyBullet
 - `hello_bullet.py`:
 - `hello_bullet2.py`:
 - `hello_bullet3.py`:
 - `hello_bullet4.py`:
+- `hello_bullet5.py`: After calibrating the zeros of each motor, we can pass coordinates and make Botzo walk
