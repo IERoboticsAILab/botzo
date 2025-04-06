@@ -23,6 +23,14 @@
 
 more [here](https://github.com/IERoboticsAILab/botzo)
 
+# Result
+
+https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result.mp4
+
+![result1](https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result-ezgif.com-video-to-gif-converter.gif)
+
+In `coordinates_to_servos.ipynb` I have combined the use of our IK with the reansformation from degrees to PWM explained in [calibrate servos repo](https://github.com/botzo-team/calibrate_servos)
+
 # Inverse Kinematics for botzo v2s
 
 Inverse Kinematics is used in robots with legs or arms. It is a series of matrix moltiplications and trigonometry formulas (sin, cos,atan2 law of cosin, pitagora, etc...), in order too find the angles each motor in the leg need to have to reach a point in space (x,y,z). Our dog have 3 Degrees of freedom (3DoF), meaning 3 motors per leg.
@@ -116,14 +124,6 @@ Here we will translate the founded angles with the translator in the actual angl
 ```math
 \theta_{\text{tibia}} = \pi - \theta_{\text{knee}} + \text{adjustment} + \theta_{\text{femur}}
 ```
-
-### Result
-
-https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result.mp4
-
-![result1](https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result-ezgif.com-video-to-gif-converter.gif)
-
-In `coordinates_to_servos.ipynb` I have combined the use of our IK with the reansformation from degrees to PWM explained in [calibrate servos repo](https://github.com/botzo-team/calibrate_servos)
 
 ### Resources
 
