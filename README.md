@@ -60,20 +60,9 @@ For the body we make room for all components and cables, plus leaving space on t
 <br>
 <br>
 
-<details>
-  <summary><strong>Body Assembly</strong></summary>
-
-_commin soon_
-
-</details>
-
-<br>
-<br>
-<br>
 
 # URDF
 
-_deprecated_
 
 To create URDF visit our repo [here](https://github.com/botzo-team/create_URDF).
 You will use [body_urdf.f3d](https://github.com/botzo-team/STL_files/blob/main/URDF%20file/body_urdf.f3d) file to build your urdf, or just download ours [here](https://github.com/IERoboticsAILab/botzo_STLs/tree/main/URDF%20file)
