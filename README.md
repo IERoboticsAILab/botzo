@@ -29,7 +29,8 @@ https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_resu
 
 ![result1](https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result-ezgif.com-video-to-gif-converter.gif)
 
-In `coordinates_to_servos.ipynb` I have combined the use of our IK with the reansformation from degrees to PWM explained in [calibrate servos repo](https://github.com/botzo-team/calibrate_servos)
+> [!NOTE]
+> In `coordinates_to_servos.ipynb` I have combined the use of our IK with the reansformation from degrees to PWM explained in [calibrate servos repo](https://github.com/botzo-team/calibrate_servos)
 
 # Inverse Kinematics for botzo v2s
 
@@ -139,7 +140,8 @@ Here we will translate the founded angles with the translator in the actual angl
   <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/body_TFs_scketch.jpg" alt="TFs" width="500"/>
 </div>
 
-[here](https://github.com/botzo-team/rotation_matrices_v1)
+> [!NOTE]
+> Rotation matrices repo [here](https://github.com/botzo-team/rotation_matrices_v1)
 
 ## IK full body
 
