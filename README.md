@@ -25,7 +25,7 @@
 
 https://github.com/IERoboticsAILab/botzo_media/blob/main/botzo%20startup%20animation%20vid.gif
 
-![animation on display](https://raw.githubusercontent.com/IERoboticsAILab/botzo_media/main/botzo%20startup%20animation%20vid.gif)
+<img src="https://raw.githubusercontent.com/IERoboticsAILab/botzo_media/main/botzo%20startup%20animation%20vid.gif" width="400"/>
 
 For the OLED Display we are using the SH1106 I2C arduino oled display.
 
