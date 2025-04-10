@@ -141,7 +141,7 @@ Here we will translate the founded angles with the translator in the actual angl
 </div>
 
 > [!NOTE]
-> Rotation matrices repo [here](https://github.com/botzo-team/rotation_matrices_v1)
+> Rotation matrices repo [here](https://github.com/IERoboticsAILab/botzo_rotation_matrices.git)
 
 ## IK full body
 
