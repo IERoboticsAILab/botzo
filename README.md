@@ -33,7 +33,7 @@ For the OLED Display we are using the SH1106 I2C arduino oled display.
 
 First thing to do is set up the display with an Arduino UNO: Connect VDD to 5V, GND to GND, SCK to A5, SDA to A4. 
 
-| **SH1106 OLED Pin** | **Arduino Mega Pin**     |
+| **SH1106 OLED Pin** | **Arduino UNO Pin**     |
 |---------------------|---------------------------|
 | **VCC**             | **5V**                    |
 | **GND**             | **GND**                   |
