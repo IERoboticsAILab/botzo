@@ -27,16 +27,16 @@ Here's a sneak peek of our current progress:
 </div>
 
 <p align="center">
-    <a href="img/botzo.jpg">
-        <img src="img/botzo.jpg" alt="Leg Design" width="610">
+    <a href="media_assets/botzo_main.jpg">
+        <img src="media_assets/botzo_main.jpg" alt="Leg Design" width="610">
     </a>
 </p>
 <p align="center" style="margin-bottom: 10px;">
-    <a href="img/firststeps.gif">
-        <img src="img/firststeps.gif" alt="First Steps" width="300" style="margin-right: 5px;">
+    <a href="media_assets/firststeps_old_botzo.gif">
+        <img src="media_assets/firststeps_old_botzo.gif" alt="First Steps" width="300" style="margin-right: 5px;">
     </a>
-    <a href="img/walking.gif">
-        <img src="img/walking.gif" alt="Walking" width="300" style="margin-left: 5x;">
+    <a href="media_assets/walking_old_botzo.gif">
+        <img src="media_assets/walking_old_botzo.gif" alt="Walking" width="300" style="margin-left: 5x;">
     </a>
 </p>
 
