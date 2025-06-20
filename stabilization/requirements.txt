@@ -1,0 +1,4 @@
+numpy>=1.24.0
+smbus2>=0.4.2  # Using smbus2 instead of smbus for better compatibility
+matplotlib>=3.8.0  # For 3D visualization
+pyserial>=3.5  # For Arduino communication 
