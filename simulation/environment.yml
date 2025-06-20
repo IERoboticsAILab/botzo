@@ -1,0 +1,6 @@
+name: botzo_sim
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - conda-forge::pybullet

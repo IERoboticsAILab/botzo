@@ -1,0 +1,287 @@
+<?xml version="1.0" ?>
+<robot name="simple_leg_pybullet">
+
+<material name="silver">
+  <color rgba="0.700 0.700 0.700 1.000"/>
+</material>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.7208494750892634 -0.12888386097309137 0.25163567862724456" rpy="0 0 0"/>
+    <mass value="46.04548176197378"/>
+    <inertia ixx="0.8017048676914813" iyy="1.2595635258587237" izz="0.7687726578689222" ixy="-4.669153952363558e-12" iyz="2.4889557082019564e-10" ixz="0.002589849941111666"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="hip_servo_arm1">
+  <inertial>
+    <origin xyz="0.034092323822238035 -0.00014768049968458263 0.07860788048713585" rpy="0 0 0"/>
+    <mass value="3.2700935144949623"/>
+    <inertia ixx="0.03542949459257766" iyy="0.032642520701094524" izz="0.0045055699059785015" ixy="-2.6047868865175516e-06" iyz="0.0004059315391450047" ixz="-0.0003557361179699625"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.505484 0.128884 -0.152548" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/hip_servo_arm1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0.505484 0.128884 -0.152548" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/hip_servo_arm1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="knee_servo_holder1">
+  <inertial>
+    <origin xyz="0.2911322012883448 0.007341260874273475 0.15055385973447286" rpy="0 0 0"/>
+    <mass value="34.703034418237515"/>
+    <inertia ixx="1.023811488482926" iyy="2.8593040779316174" izz="2.335625995537532" ixy="-0.009668647534420871" iyz="0.01808321062817919" ixz="-0.19403734493725966"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.445484 0.128884 -0.152344" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/knee_servo_holder1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0.445484 0.128884 -0.152344" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/knee_servo_holder1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="knee_servo1">
+  <inertial>
+    <origin xyz="0.2292316617618021 0.05443474684650447 -0.05004347896974942" rpy="0 0 0"/>
+    <mass value="46.04548176197379"/>
+    <inertia ixx="0.7687962611612393" iyy="0.801686914226087" izz="1.259557876033734" ixy="-0.002701511393835454" iyz="9.166136898386412e-06" ixz="0.0016651571114383312"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.343989 0.173618 -0.390473" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/knee_servo1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0.343989 0.173618 -0.390473" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/knee_servo1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="tibia_servo1">
+  <inertial>
+    <origin xyz="-0.26209639394711215 0.05443474684650418 0.05328490784446349" rpy="0 0 0"/>
+    <mass value="46.045481761973825"/>
+    <inertia ixx="0.7687962611576804" iyy="0.8016869142236049" izz="1.2595578760347947" ixy="0.0027015113887906006" iyz="-9.166134777860435e-06" ixz="0.0016651571074425275"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.14393 0.173618 -0.082155" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/tibia_servo1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="-0.14393 0.173618 -0.082155" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/tibia_servo1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="knee_servo_arm1">
+  <inertial>
+    <origin xyz="-0.06379990442981712 -0.033825103255293365 -0.04611829989889332" rpy="0 0 0"/>
+    <mass value="3.2700935144949637"/>
+    <inertia ixx="0.014495503196780168" iyy="0.03543155247995455" izz="0.022650529558752908" ixy="-0.0002058635609396009" iyz="-0.0001433153360398398" ixz="-0.013471808043867994"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.213114 0.334884 -0.340763" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/knee_servo_arm1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0.213114 0.334884 -0.340763" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/knee_servo_arm1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="leg_foot1Component161">
+  <inertial>
+    <origin xyz="-0.009597033813685287 0.004998466966501802 0.001971081667967667" rpy="0 0 0"/>
+    <mass value="4.115954761083666"/>
+    <inertia ixx="0.08128951131559603" iyy="0.07805791909566073" izz="0.03652057542960385" ixy="-0.0020446075032746133" iyz="-0.02090309762623699" ixz="-0.0003462892726148539"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.024664 0.458884 0.945855" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/leg_foot1Component161.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="-0.024664 0.458884 0.945855" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/leg_foot1Component161.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="leg_tibia1">
+  <inertial>
+    <origin xyz="-0.26929226364819947 -0.08190966861924237 -0.38738841977327093" rpy="0 0 0"/>
+    <mass value="16.745590583555348"/>
+    <inertia ixx="1.0719037610437123" iyy="1.5337573766475576" izz="0.5637986687243881" ixy="0.016616254344223425" iyz="0.024606718629198387" ixz="-0.6933508003516472"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.213114 0.394884 -0.340763" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/leg_tibia1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0.213114 0.394884 -0.340763" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/leg_tibia1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="leg_ankle1">
+  <inertial>
+    <origin xyz="0.3923382836808676 0.06599569282723788 -0.2698106316820683" rpy="0 0 0"/>
+    <mass value="22.20997101680633"/>
+    <inertia ixx="0.7104830009441105" iyy="1.8142275849970257" izz="1.4151463313382582" ixy="2.7837056675306115e-05" iyz="8.148251020578812e-06" ixz="0.7934334818267423"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.709852 0.524884 0.426566" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/leg_ankle1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+    <material/>
+  </visual>
+  <collision>
+    <origin xyz="0.709852 0.524884 0.426566" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="meshes/leg_ankle1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="hip_joint" type="continuous">
+  <origin xyz="-0.505484 -0.128884 0.152548" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="hip_servo_arm1"/>
+  <axis xyz="-0.999994 0.0 0.003393"/>
+</joint>
+<transmission name="hip_joint_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="hip_joint">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="hip_joint_actr">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<joint name="Rigid_24" type="fixed">
+  <origin xyz="0.06 0.0 -0.000204" rpy="0 0 0"/>
+  <parent link="hip_servo_arm1"/>
+  <child link="knee_servo_holder1"/>
+</joint>
+
+<joint name="Rigid_25" type="fixed">
+  <origin xyz="0.101495 -0.044734 0.238129" rpy="0 0 0"/>
+  <parent link="knee_servo_holder1"/>
+  <child link="knee_servo1"/>
+</joint>
+
+<joint name="Rigid_26" type="fixed">
+  <origin xyz="0.589414 -0.044734 -0.070189" rpy="0 0 0"/>
+  <parent link="knee_servo_holder1"/>
+  <child link="tibia_servo1"/>
+</joint>
+
+<joint name="knee_joint" type="continuous">
+  <origin xyz="0.130875 -0.161266 -0.04971" rpy="0 0 0"/>
+  <parent link="knee_servo1"/>
+  <child link="knee_servo_arm1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+</joint>
+<transmission name="knee_joint_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="knee_joint">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="knee_joint_actr">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<joint name="Rigid_35" type="fixed">
+  <origin xyz="0.734516 0.066 -0.519289" rpy="0 0 0"/>
+  <parent link="leg_ankle1"/>
+  <child link="leg_foot1Component161"/>
+</joint>
+
+<joint name="Rigid_37" type="fixed">
+  <origin xyz="0.0 -0.06 0.0" rpy="0 0 0"/>
+  <parent link="knee_servo_arm1"/>
+  <child link="leg_tibia1"/>
+</joint>
+
+<joint name="tibia_joint" type="continuous">
+  <origin xyz="-0.496738 -0.13 -0.767329" rpy="0 0 0"/>
+  <parent link="leg_tibia1"/>
+  <child link="leg_ankle1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+</joint>
+<transmission name="tibia_joint_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="tibia_joint">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="tibia_joint_actr">
+    <hardwareInterface>PositionJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+</robot>
