@@ -37,11 +37,14 @@ In this repo we will explore how we teach botzo to walk
 # Installation Isaac Sim
 
 Computer specifications:
-- RAM: 64GB
-- GPU: RTX 4090
-- VRAM: 16GB
-- OS: Windows 11
-- Storage: 1TB
+| Component | Specification |
+|-----------|---------------|
+| RAM       | 64GB          |
+| GPU       | RTX 4090      |
+| VRAM      | 16GB          |
+| OS        | Windows 11    |
+| Storage   | 1TB           |
+
 >_Check system requironments compatibility and satisfaction [here](https://download.isaacsim.omniverse.nvidia.com/isaac-sim-comp-check%404.5.0-rc.6%2Brelease.675.f1cca148.gl.windows-x86_64.release.zip)_
 
 Downlaod [IsaacSim](https://download.isaacsim.omniverse.nvidia.com/isaac-sim-standalone%404.5.0-rc.36%2Brelease.19112.f59b3005.gl.windows-x86_64.release.zip) for your OS
