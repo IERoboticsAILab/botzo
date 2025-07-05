@@ -58,8 +58,180 @@ isaac-sim.selector.bat
 >The Isaac Sim app can be run directly via command line with isaac-sim.bat. Start new empty simulation.
 
 > [!NOTE] 
->_extension_examples_ and _standalone_examples_ folder for the tutorials
+>_extension_examples_ and _standalone_examples_ folder for the tutorials (ex: `.\python.bat .\standalone_examples\api\isaacsim.asset.importer.urdf\urdf_import.py`)
 
 ## Getting started with Isaac Sim
 
 Documentation [here](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/introduction/quickstart_index.html#isaac-sim-intro-quickstart-series)
+
+### Tutorial
+
+<details>
+<summary><b>Create Cube</b></summary>
+
+<details>
+<summary>GUI</summary>
+
+1. `isaac-sim.selector.bat`: Load scene
+2. create a new scene: `File > New`
+3. Add ground plane: `Create > Physics > Ground Plane`
+4. Add lightr source: `Create > Lights > Distant Light`
+5. Add visual cube: `Create > Shapes > Cube` (_has no physics attached (no collisions, no mass). If press play the cube doesn't move_)
+6. Add physics and collision propreties:
+    
+    a. find the object (“/World/Cube”) on the stage tree and highlight it
+
+    b. go to the Property panel on the bottom right
+
+    c. click on the Add button and select Physics on the dropdown menu
+
+    d. select Rigid Body with Colliders Preset to add both phyiscs and collision meshes to the object.
+
+    e. press play button
+</details>
+
+<details>
+<summary>Extension</summary>
+    To be
+</details>
+
+<details>
+<summary>Standalone Python</summary>
+
+Script: `standalone_examples/tutorials/getting_started.py`
+
+<details>
+<summary><i>Code</i></summary>
+
+    ```python
+    import numpy as np
+    from isaacsim import SimulationApp
+
+    simulation_app = SimulationApp({"headless": False})
+
+    import omni.usd
+    from isaacsim.core.api import World
+    from isaacsim.core.api.objects import DynamicCuboid, VisualCuboid
+    from isaacsim.core.api.objects.ground_plane import GroundPlane
+    from pxr import Sdf, UsdLux
+
+    # Add Ground Plane
+    GroundPlane(prim_path="/World/GroundPlane", z_position=0)
+
+    # Add Light Source
+    stage = omni.usd.get_context().get_stage()
+    distantLight = UsdLux.DistantLight.Define(stage, Sdf.Path("/DistantLight"))
+    distantLight.CreateIntensityAttr(300)
+
+    # Add Visual Cubes
+    visual_cube = VisualCuboid(
+        prim_path="/visual_cube",
+        name="visual_cube",
+        position=np.array([0, 0.5, 1.0]),
+        size=0.3,
+        color=np.array([255, 255, 0]),
+    )
+
+    visual_cube_static = VisualCuboid(
+        prim_path="/visual_cube_static",
+        name="visual_cube_static",
+        position=np.array([0.5, 0, 0.5]),
+        size=0.3,
+        color=np.array([0, 255, 0]),
+    )
+
+    # Add Physics Cubes
+    dynamic_cube = DynamicCuboid(
+        prim_path="/dynamic_cube",
+        name="dynamic_cube",
+        position=np.array([0, -0.5, 1.5]),
+        size=0.3,
+        color=np.array([0, 255, 255]),
+    )
+
+    # start a world to step simulator
+    my_world = World(stage_units_in_meters=1.0)
+
+    # start the simulator
+    for i in range(3):
+        my_world.reset()
+        print("simulator running", i)
+        if i == 1:
+            print("Adding Physics Properties to the Visual Cube")
+            from isaacsim.core.prims import RigidPrim
+
+            RigidPrim("/visual_cube")
+
+        if i == 2:
+            print("Adding Collision Properties to the Visual Cube")
+            from isaacsim.core.prims import GeometryPrim
+
+            prim = GeometryPrim("/visual_cube")
+            prim.apply_collision_apis()
+
+        for j in range(100):
+            my_world.step(render=True)  # stepping through the simulation
+
+    # shutdown the simulator automatically
+    simulation_app.close()
+    ```
+
+</details>
+
+<br>
+
+Run: `python.bat standalone_examples\tutorials\getting_started.py`
+
+1. Add Ground plane
+    ```python
+    from isaacsim.core.api.objects.ground_plane import GroundPlane
+    GroundPlane(prim_path="/World/GroundPlane", z_position=0)
+    ```
+1. Add Light Source
+    ```python
+    from pxr import Sdf, UsdLux
+    stage = omni.usd.get_context().get_stage()
+    distantLight = UsdLux.DistantLight.Define(stage, Sdf.Path("/DistantLight"))
+    distantLight.CreateIntensityAttr(300)
+    ```
+1. Add Visual Cube
+    ```python
+    import numpy as np
+    from isaacsim.core.api.objects import VisualCuboid
+    VisualCuboid(
+       prim_path="/visual_cube",
+       name="visual_cube",
+       position=np.array([0, 0.5, 0.5]),
+       size=0.3,
+       color=np.array([255, 255, 0]),
+    )
+    ```
+1. Add physics propreties by turning it into "RigidPrim"
+    ```python
+    from isaacsim.core.prims import RigidPrim
+    RigidPrim("/visual_cube")
+    ```
+1. Add Collision Propreties
+    ```python
+    from isaacsim.core.prims import GeometryPrim
+    prim = GeometryPrim("/visual_cube")
+    prim.apply_collision_apis()
+    ```
+1. Move, Rotate and Scale
+    ```python
+    import numpy as np
+    from isaacsim.core.prims.xform_prim import XformPrim
+    from isaacsim.core.prims.prim import Prim
+
+    translate_offset = np.array([[1.5,-0.2,1.0]])
+    rotate_offset = np.array([[90,-90,180]])
+    scale = np.array([[1,1.5,0.2]])
+
+    cube_in_coreapi = XformPrim(Prim(prim_paths_expr="/test_cube"))
+    cube_in_coreapi.set_world_poses(translate_offset, rotate_offset)
+    cube_in_coreapi.set_scales(scale)
+    ```
+
+</details>
+</deatils>
+
