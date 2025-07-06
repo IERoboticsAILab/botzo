@@ -258,8 +258,34 @@ _to be done_
 
 Script: `standalone_examples/tutorials/getting_started_robot.py` (Code [here](https://github.com/IERoboticsAILab/botzo/blob/main/simulation/reinforcment_learning/src/getting_started_robot.py))
 
-Run: `python.bat standalone_examples\tutorials\getting_started_robot.py` OR `.\python.bat ..\Users\$HOME$\botzo\botzo\simulation\reinforcment_learning\src\getting_started_robot.py`
+Run: `python.bat standalone_examples\tutorials\getting_started_robot.py` OR `.\python.bat ..\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\src\getting_started_robot.py`
 
+import necessary modules, add the ground plane, set the camera angle, and add two robots
+
+1. Start simulation
+    ```python
+    from isaacsim import SimulationApp
+    simulation_app = SimulationApp({"headless": False})  # start the simulation app, with GUI open
+    ```
+2. **"World"** object (Controls everything about this virtual world, such as physics and rendering stepping, and holding object handles) 
+    ```python
+    my_world = World(stage_units_in_meters=1.0)
+    ```
+
+    stepping function my_world.step() is called every iteration
+    ```python
+    my_world.step(render=True)
+    ```
+3. Move robot
+    ```python
+    arm.set_joint_positions([[-1.5, 0.0, 0.0, -1.5, 0.0, 1.5, 0.5, 0.04, 0.04]])
+    ```
+    AND
+    ```python
+    car.set_joint_velocities([[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]])
+    car_joint_positions = car.get_joint_positions()
+    print("car joint positions:", car_joint_positions)
+    ```
 
 </details>
 </details>

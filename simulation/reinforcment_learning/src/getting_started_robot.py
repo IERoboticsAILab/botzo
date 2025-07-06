@@ -59,7 +59,7 @@ for i in range(4):
         # move the arm
         arm.set_joint_positions([[-1.5, 0.0, 0.0, -1.5, 0.0, 1.5, 0.5, 0.04, 0.04]])
         # move the car
-        car.set_joint_velocities([[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]])
+        car.set_joint_velocities([[-1.0, -1.0, -1.0, -1.0, 1.0, 1.0, 1.0]])
     if i == 2:
         print("stopping")
         # reset the arm
