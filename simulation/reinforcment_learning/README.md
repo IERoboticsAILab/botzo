@@ -222,26 +222,44 @@ Run: `python.bat standalone_examples\tutorials\getting_started.py` OR `.\python.
     ```
 
 </details>
-</deatils>
+</details>
 
 ---
 
 
 <details>
-<summary><b>Create Cube</b></summary>
+<summary><b>Move robot</b></summary>
 
 <details>
 <summary>GUI</summary>
+
+1. New empty stage: `File > New Stage`
+2. Add robot: `Create > Robot > Franka Emika Panda Arm`
+3. Use Physics Inspector to examine the robot’s joint properties: `Tools > Physics > Physics Inspector`
+4. Open the graph generator: `Tools > Robotics > Omnigraph Controllers > Joint Position`
+5. In the newly appeared `Articulation Position Controller Inputs` popup window, click Add for the `Robot Prim` field, select Franka as the Target.
+6. Click `OK` to generate the graph.
+7. To move the robot, you need to change the values in the `JointCommandArray` node inside the Position_Controller graph.
+8. You can do this by either selecting the node on the Stage tree, or selecting the node in the graph editor. Both will open up lead to the Properties panel showing the joint command values
+9. Press Play first to start the simulation, then type or slide the values with name starting with `input` to see the robot move
+10. To visualize the generated graph, open an graph editor window: `Window > Graph Editors > Action Graph`
 
 </details>
 
 <details>
 <summary>Extension</summary>
-   _to be done_
+
+_to be done_
+
 </details>
 
 <details>
 <summary>Standalone Python</summary>
+
+Script: `standalone_examples/tutorials/getting_started_robot.py` (Code [here](https://github.com/IERoboticsAILab/botzo/blob/main/simulation/reinforcment_learning/src/getting_started_robot.py))
+
+Run: `python.bat standalone_examples\tutorials\getting_started_robot.py` OR `.\python.bat ..\Users\$HOME$\botzo\botzo\simulation\reinforcment_learning\src\getting_started_robot.py`
+
 
 </details>
 </details>
