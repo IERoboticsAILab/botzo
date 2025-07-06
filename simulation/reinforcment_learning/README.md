@@ -58,7 +58,7 @@ post_install.bat
 isaac-sim.selector.bat
 ```
 > [!NOTE] 
->The Isaac Sim app can be run directly via command line with isaac-sim.bat. Start new empty simulation.
+>The Isaac Sim app can be run directly via command line with `isaac-sim.bat`. Start new empty simulation.
 
 > [!NOTE] 
 >_extension_examples_ and _standalone_examples_ folder for the tutorials (ex: `.\python.bat .\standalone_examples\api\isaacsim.asset.importer.urdf\urdf_import.py`)
@@ -95,7 +95,69 @@ Documentation [here](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/introducti
 
 <details>
 <summary>Extension</summary>
-    To be
+    1. Start Isaac Sim with `isaac-sim.bat`
+    2. Open the Extension Manager: `Window > Script Editor`
+    3. Add ground plane:
+        ```python
+        from isaacsim.core.api.objects.ground_plane import GroundPlane
+        GroundPlane(prim_path="/World/GroundPlane", z_position=0)
+        ```
+    4. Press the `Run` button to execute the code.
+    5. Press `Tab` and add another script tab.
+    6. Add light source:
+        ```python
+        from pxr import Sdf, UsdLux
+        stage = omni.usd.get_context().get_stage()
+        distantLight = UsdLux.DistantLight.Define(stage, Sdf.Path("/DistantLight"))
+        distantLight.CreateIntensityAttr(300)
+        ```
+    7. Add visual cube (no physics):
+        ```python
+        import numpy as np
+        from isaacsim.core.api.objects import VisualCuboid
+        VisualCuboid(
+        prim_path="/visual_cube",
+        name="visual_cube",
+        position=np.array([0, 0.5, 0.5]),
+        size=0.3,
+        color=np.array([255, 255, 0]),
+        )
+        VisualCuboid(
+        prim_path="/test_cube",
+        name="test_cube",
+        position=np.array([0, -0.5, 0.5]),
+        size=0.3,
+        color=np.array([0, 255, 255]),
+        )
+        ```
+    8. Add physics propreties cube:
+        ```python
+        import numpy as np
+        from isaacsim.core.api.objects import DynamicCuboid
+
+        DynamicCuboid(
+        prim_path="/dynamic_cube",
+        name="dynamic_cube",
+        position=np.array([0, -1.0, 1.0]),
+        scale=np.array([0.6, 0.5, 0.2]),
+        size=1.0,
+        color=np.array([255, 0, 0]),
+        )
+        ```
+    9. Move, Rotate and Scale:
+        ```python
+        import numpy as np
+        from isaacsim.core.prims import XFormPrim
+
+        translate_offset = np.array([[1.5,1.2,1.0]])
+        orientation_offset = np.array([[0.7,0.7,0,1]])     # note this is in radians
+        scale = np.array([[1,1.5,0.2]])
+
+        stage = omni.usd.get_context().get_stage()
+        cube_in_coreapi = XFormPrim(prim_paths_expr="/test_cube")
+        cube_in_coreapi.set_world_poses(translate_offset, orientation_offset)
+        cube_in_coreapi.set_local_scales(scale)
+        ```
 </details>
 
 <details>
@@ -103,7 +165,8 @@ Documentation [here](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/introducti
 
 Script: `standalone_examples/tutorials/getting_started.py` (Code [here](https://github.com/IERoboticsAILab/botzo/blob/main/simulation/reinforcment_learning/src/getting_started.py))
 
-Run: `python.bat standalone_examples\tutorials\getting_started.py`
+Run: `python.bat standalone_examples\tutorials\getting_started.py` OR `.\python.bat ..\Users\$HOME$\botzo\botzo\simulation\reinforcment_learning\src\getting_started.py`
+
 
 1. Add Ground plane
     ```python
