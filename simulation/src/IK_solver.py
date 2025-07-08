@@ -60,6 +60,32 @@ spin_right_targets_FL_BR = [
     [0,0,12],[0,1,12],[0,2,12],[0,3,12],
     [0,3,13],[0,3,14]
 ]
+joint_ids = {
+    "BR": {
+        "shoulder": 4,
+        "femur": 7,
+        "knee": 8,
+        "foot": 9
+    },
+    "FR": {
+        "shoulder": 13,
+        "femur": 16,
+        "knee": 17,
+        "foot": 18
+    },
+    "BL": {
+        "shoulder": 24,
+        "femur": 27,
+        "knee": 28,
+        "foot": 29
+    },
+    "FL": {
+        "shoulder": 33,
+        "femur": 36,
+        "knee": 37,
+        "foot": 38
+    }
+}
 
 def real_sim_angle(angle, id):
   if id == 4:                 # BR_shoulder_joint

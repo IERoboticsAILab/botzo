@@ -292,8 +292,8 @@ import necessary modules, add the ground plane, set the camera angle, and add tw
 
 ## Import URDF
 
-`.\python.bat ..\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\src\import_botzo_urdf.py`
+`.\python.bat ..\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\standalone_examples\import_botzo_urdf.py`
 
 ## Import USD
 
-`.\python.bat ..\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\src\load_botzo_usd.py --usd_path "C:\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\botzo_USD\botzo_USD.usd"`
+`.\python.bat ..\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\standalone_examples\load_botzo_usd.py --usd_path "C:\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\botzo_USD\botzo_USD.usd"`
