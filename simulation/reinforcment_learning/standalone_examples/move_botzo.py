@@ -48,8 +48,9 @@ usd_path = "C:\\Users\\grego\\Desktop\\GRINGO\\botzo\\botzo\\simulation\\reinfor
 add_reference_to_stage(usd_path=usd_path, prim_path="/World/final_URDF")  # add robot to stage
 botzo = Articulation(prim_paths_expr="/World/final_URDF", name="my_botzo")  # create an articulation object
 
-# set the initial poses of the arm and the car so they don't collide BEFORE the simulation starts
-botzo.set_world_poses(positions=np.array([[0.0, 1.0, 0.0]]) / get_stage_units())
+# Add this after: botzo = Articulation(prim_paths_expr="/World/final_URDF", name="my_botzo")
+botzo.set_world_poses(positions=np.array([[0.0, 0.0, 4.0]]) / get_stage_units())
+# But before: my_world.reset()
 
 # initialize the world
 my_world.reset()
@@ -87,13 +88,25 @@ while my_world.is_playing():
 
         #print("target_FR_angle_shoulder:", target_FR_angle_shoulder)
         # Set joint positions for each leg
-        botzo.set_joint_positions([[target_BL_angle_femur, target_BL_angle_knee, target_BL_angle_shoulder,
-                                target_FL_angle_femur, target_FL_angle_knee, target_FL_angle_shoulder,
-                                target_BR_angle_femur, target_BR_angle_knee, target_BR_angle_shoulder,
-                                target_FR_angle_femur, target_FR_angle_knee, target_FR_angle_shoulder]])
-        for j in range(100):
-            # step the simulation, both rendering and physics
-            my_world.step(render=True)
+        botzo.set_joint_positions([[
+            target_BL_angle_shoulder,  # BL_shoulder_servo_arm_v11
+            target_BL_angle_knee,      # BL_leg_knee_up_v11  
+            target_BL_angle_femur,     # BL_leg_ankle_v11 (this might be your femur)
+            target_BR_angle_shoulder,  # BR_shoulder_servo_arm_v11
+            target_BR_angle_knee,      # BR_leg_knee_up_v11
+            target_BR_angle_femur,     # BR_leg_ankle_v11
+            target_FL_angle_shoulder,  # FL_shoulder_servo_arm_v11
+            target_FL_angle_knee,      # FL_leg_knee_up_v11
+            target_FL_angle_femur,     # FL_leg_ankle_v11
+            target_FR_angle_shoulder,  # FR_shoulder_servo_arm_v11
+            target_FR_angle_knee,      # FR_leg_knee_up_v11
+            target_FR_angle_femur      # FR_leg_ankle_v11
+        ]])
+
+        my_world.step(render=True)
+        #for j in range(100):
+        #    # step the simulation, both rendering and physics
+        #    my_world.step(render=True)
     # print the joint positions of the car at every physics step
     botzo_joint_positions = botzo.get_joint_positions()
     print("botzo joint positions:", botzo_joint_positions)
