@@ -52,13 +52,13 @@ stage = omni.usd.get_context().get_stage()
 scene = UsdPhysics.Scene.Define(stage, Sdf.Path("/physicsScene"))
 # Set gravity
 scene.CreateGravityDirectionAttr().Set(Gf.Vec3f(0.0, 0.0, -1.0))
-scene.CreateGravityMagnitudeAttr().Set(9.81)
+scene.CreateGravityMagnitudeAttr().Set(9.81) # (0.0) no gravity
 # Set solver settings
 PhysxSchema.PhysxSceneAPI.Apply(stage.GetPrimAtPath("/physicsScene"))
 physxSceneAPI = PhysxSchema.PhysxSceneAPI.Get(stage, "/physicsScene")
 physxSceneAPI.CreateEnableCCDAttr(True)
 physxSceneAPI.CreateEnableStabilizationAttr(True)
-physxSceneAPI.CreateEnableGPUDynamicsAttr(False)
+physxSceneAPI.CreateEnableGPUDynamicsAttr(True)
 #physxSceneAPI.CreateBroadphaseTypeAttr("MBP")
 #physxSceneAPI.CreateSolverTypeAttr("TGS")
 
@@ -83,6 +83,7 @@ omni.timeline.get_timeline_interface().play()
 # perform one simulation step so physics is loaded and dynamic control works.
 kit.update()
 art = Articulation("/final_URDF")
+art.set_world_pose(position=Gf.Vec3f(0.0, 0.0, 1.0))  # Lift to 1m height
 art.initialize()
 joints_ids = {
     "BR": {
