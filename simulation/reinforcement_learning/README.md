@@ -34,7 +34,7 @@ In this repo we will explore how we teach botzo to walk
 - theconstrucsim course Mastering Reinforcement Learning for Robotics [link](https://app.theconstruct.ai/courses/mastering-reinforcement-learning-for-robotics-286/)
 - [Isaac Sim](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/index.html)
 
-# Installation Isaac Sim
+# Isaac Sim
 
 Computer specifications:
 | Component | Specification |
@@ -47,7 +47,7 @@ Computer specifications:
 
 >_Check system requirements compatibility and satisfaction with [this](https://download.isaacsim.omniverse.nvidia.com/isaac-sim-comp-check%404.5.0-rc.6%2Brelease.675.f1cca148.gl.windows-x86_64.release.zip)_
 
-[ours](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/isaac_compatability_check.png)
+![ours](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/isaac_compatability_check.png)
 
 Download [IsaacSim](https://download.isaacsim.omniverse.nvidia.com/isaac-sim-standalone%404.5.0-rc.36%2Brelease.19112.f59b3005.gl.windows-x86_64.release.zip) for your OS
 
@@ -65,11 +65,11 @@ isaac-sim.selector.bat
 > [!NOTE] 
 >_extension_examples_ and _standalone_examples_ folder for the tutorials (ex: `.\python.bat .\standalone_examples\api\isaacsim.asset.importer.urdf\urdf_import.py`)
 
-## Getting started with Isaac Sim
+### Getting started with Isaac Sim
 
 Documentation [here](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/introduction/quickstart_index.html#isaac-sim-intro-quickstart-series)
 
-### Tutorial
+#### Tutorial
 
 <details>
 <summary><b>Create Cube</b></summary>
@@ -292,12 +292,20 @@ import necessary modules, add the ground plane, set the camera angle, and add tw
 </details>
 </details>
 
-## Import URDF
+### Import URDF
 
 `.\python.bat ..\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\standalone_examples\import_botzo_urdf.py`
 
-## Import USD
+### Import USD
 
 `.\python.bat ..\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\standalone_examples\load_botzo_usd.py --usd_path "C:\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\botzo_USD\botzo_USD.usd"`
 
 [result](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/isaac_sim_botzo.png)
+
+<br>
+
+<br>
+
+### Isaac Lab
+
+Isaac Lab is a collection of tools and libraries for building and simulating robots in Isaac Sim. It provides a set of APIs for creating robots, sensors, and environments, as well as tools for training and deploying reinforcement learning agents.
