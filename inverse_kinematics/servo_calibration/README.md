@@ -34,7 +34,7 @@ We have to calibrate each servo motor, because the datasheets are an ideal funct
 You should end up with some results like this:
 
 <p align="center">
-  <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/result_of_one_leg_calibration.png" alt="result" width="400"/>
+  <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/result_of_one_leg_calibration.png" alt="result" width="400"/>
 </p>
 
 ---
@@ -47,10 +47,10 @@ You should end up with some results like this:
     </tr>
     <tr>
         <td>
-        <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/before_calibration.gif" alt="Before calibration" width="300"/>
+        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/before_calibration.gif" alt="Before calibration" width="300"/>
         </td>
         <td>
-        <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/after_calibration.gif" alt="After calibration" width="300"/>
+        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/after_calibration.gif" alt="After calibration" width="300"/>
         </td>
     </tr>
     </table>
