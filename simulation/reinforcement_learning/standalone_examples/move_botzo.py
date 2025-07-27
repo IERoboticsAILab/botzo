@@ -91,7 +91,7 @@ while my_world.is_playing():
         botzo.set_joint_positions([[
             target_BL_angle_shoulder,  # BL_shoulder_servo_arm_v11
             target_BL_angle_knee,      # BL_leg_knee_up_v11  
-            target_BL_angle_femur,     # BL_leg_ankle_v11 (this might be your femur)
+            target_BL_angle_femur,     # BL_leg_ankle_v11 
             target_BR_angle_shoulder,  # BR_shoulder_servo_arm_v11
             target_BR_angle_knee,      # BR_leg_knee_up_v11
             target_BR_angle_femur,     # BR_leg_ankle_v11
