@@ -19,7 +19,7 @@
 
 more about botzo [here](https://github.com/IERoboticsAILab/botzo)
 
-![botzo](https://github.com/botzo-team/our_images_and_videos/blob/main/botzo_new_final_design.png)
+![botzo](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/botzo_new_final_design.png)
 
 </p>
 </div>
@@ -36,14 +36,14 @@ _If you have Fusion360 licence you can download the .f3z and modify models as yo
 
 The leg design was inspired by [Chop](https://hackaday.io/project/171456-diy-hobby-servos-quadruped-robot/details) from _Miguel Ayusto Parrilla_. With this design the leg weight is concentated in the shoulder, decreaseing the inertia when walking and so improve stability.
 
-![leg](https://github.com/botzo-team/our_images_and_videos/blob/main/FULL_LEG.gif)
+![leg](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/FULL_LEG.gif)
 
 
 ### The Body
 
 For the body we make room for all components and cables, plus leaving space on the dorso to add Lidar and Webcams for future abilities.
 
-![leg](https://github.com/botzo-team/our_images_and_videos/blob/main/animation_new_final_body.gif)
+![leg](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/animation_new_final_body.gif)
 
 # Assembly the robot
 
@@ -53,7 +53,7 @@ For the body we make room for all components and cables, plus leaving space on t
 <details>
   <summary><strong>Leg Assembly</strong></summary>
 
-![leg](https://github.com/botzo-team/our_images_and_videos/blob/main/assemble_one_leg_timelapse.gif)
+![leg](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/assemble_one_leg_timelapse.gif)
 
 </details>
 
@@ -69,8 +69,8 @@ You will use [body_urdf.f3d](https://github.com/botzo-team/STL_files/blob/main/U
 
 leg:
 
-![urdf](https://github.com/botzo-team/our_images_and_videos/blob/main/urdf_leg.png)
+![urdf](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/urdf_leg.png)
 
 Body:
 
-![urfd](https://github.com/botzo-team/our_images_and_videos/blob/main/urdf_body.png)
+![urfd](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/urdf_body.png)

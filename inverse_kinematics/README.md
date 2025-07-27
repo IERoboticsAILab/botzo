@@ -25,9 +25,9 @@ more [here](https://github.com/IERoboticsAILab/botzo)
 
 # Result
 
-https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result.mp4
+https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/IK_3dof_first_result.mp4
 
-![result1](https://github.com/botzo-team/our_images_and_videos/blob/main/IK_3dof_first_result-ezgif.com-video-to-gif-converter.gif)
+![result1](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/IK_3dof_first_result-ezgif.com-video-to-gif-converter.gif)
 
 > [!NOTE]
 > In `coordinates_to_servos.ipynb` I have combined the use of our IK with the reansformation from degrees to PWM explained in [calibrate servos repo](https://github.com/botzo-team/calibrate_servos)
@@ -43,11 +43,11 @@ Both uses known constants such as lenght of each "bone". For Inverse Kinematic a
 ## 3 DoF IK Of 1 leg
 
 <div align="center">
-  <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/IK_back_of_leg.png" alt="back_of_leg" width="500"/>
+  <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/IK_back_of_leg.png" alt="back_of_leg" width="500"/>
 </div>
 
 <div align="center">
-  <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/IK_side_of_leg.png" alt="side_of_leg" width="500"/>
+  <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/IK_side_of_leg.png" alt="side_of_leg" width="500"/>
 </div>
 
 ### Solver
@@ -67,7 +67,7 @@ X, Y, Z = given target point
 ```
 
 <div align="center">
-  <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/IK_trigonometrics_drawing.png" alt="trigonometrics_drawing" width="500"/>
+  <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/IK_trigonometrics_drawing.png" alt="trigonometrics_drawing" width="500"/>
 </div>
 
 1. Distance Calculation
@@ -105,7 +105,7 @@ G = \sqrt{D^2 + X^2}
 Here we will translate the founded angles with the translator in the actual angles we will pass to the robot servos
 
 <div align="center">
-  <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/IK_desire_angles.png" alt="actual_desire_angles" width="500"/>
+  <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/IK_desire_angles.png" alt="actual_desire_angles" width="500"/>
 </div>
 
 1. Adjustment
@@ -137,7 +137,7 @@ Here we will translate the founded angles with the translator in the actual angl
 ## Rotation Matrices
 
 <div align="center">
-  <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/body_TFs_scketch.jpg" alt="TFs" width="500"/>
+  <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/body_TFs_scketch.jpg" alt="TFs" width="500"/>
 </div>
 
 > [!NOTE]
@@ -224,9 +224,9 @@ Use `IK_solver4Lgs.ipynb`. It is a way to manualy retrive angles for each leg to
 
 5. We parse the result in a way the we can just copy and paste it in the `test_4legs.ino.ino` arduino code. The arduino code connect to each servo and move them coordinately. So we where able to manualy simulate a Walking Gate. For a more general and sophisticated gate look [here](https://github.com/IERoboticsAILab/botzo_gait_plan)
 
-![Leg Design](https://github.com/botzo-team/our_images_and_videos/blob/main/botzo.jpg)
+![Leg Design](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/botzo.jpg)
 
 <div style="display: flex; justify-content: center; gap: 10px;">
-    <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/firststeps.gif" alt="First Steps" width="300">
-    <img src="https://github.com/botzo-team/our_images_and_videos/blob/main/walking.gif" alt="Walking" width="300">
+    <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/firststeps.gif" alt="First Steps" width="300">
+    <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/walking.gif" alt="Walking" width="300">
 </div>
