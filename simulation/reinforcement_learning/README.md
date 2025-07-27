@@ -306,6 +306,6 @@ import necessary modules, add the ground plane, set the camera angle, and add tw
 
 <br>
 
-### Isaac Lab
+# Isaac Lab
 
 Isaac Lab is a collection of tools and libraries for building and simulating robots in Isaac Sim. It provides a set of APIs for creating robots, sensors, and environments, as well as tools for training and deploying reinforcement learning agents.
