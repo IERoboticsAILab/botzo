@@ -316,7 +316,7 @@ After the installation of Isaac Sim and Isaac Lab, you run examples such as:
 (env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>python scripts\tutorials\03_envs\create_quadruped_base_env.py
 ```
 
-![example](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/isaaclab.png)
+![example](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/isaaclab.gif)
 
 ```shell
 (env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>python scripts\tutorials\01_assets\add_new_robot.py
