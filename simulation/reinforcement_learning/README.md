@@ -37,7 +37,7 @@ In this repo we will explore how we teach botzo to walk
 # Isaac Sim
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/IERoboticsAILab/botzo/main/media_assests/botzo_btw_friends.png" width="350"/>
+  <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/botzo_btw_friends.png" width="350"/>
 </p>
 <p align="center"><em>Botzo between the giants & friends</em></p>
 
