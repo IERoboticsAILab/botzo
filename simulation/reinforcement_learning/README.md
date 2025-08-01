@@ -351,6 +351,12 @@ python scripts\reinforcement_learning\skrl\play.py --task=Isaac-Botzo-Direct-v0
 Notice that you did not need to specify the path for the checkpoint file! This is because Isaac Lab handles much of the minute details like checkpoint saving, loading, and logging. In this case, the train.py script will create two directories: logs and output, which are used as the default output directories for tasks run by this project.
 
 
+<details>
+<summary><b>Jetbot RL example</b></summary>
+
+
+Isaac Lab Documentation [here](https://isaac-sim.github.io/IsaacLab/main/source/setup/walkthrough/index.html)
+
 ### Train Jetbot to drive forward
 
 ![example](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/isaac_lab_train_jetbot.gif)
@@ -362,3 +368,196 @@ python scripts\environments\list_envs.py      # find for the task/project/templa
 python scripts\reinforcement_learning\skrl\train.py --task=Isaac-Jetbot-Marl-Direct-v0
 python scripts\reinforcement_learning\skrl\play.py --task=Isaac-Jetbot-Marl-Direct-v0
 ```
+
+### Train Jetbot to follow commands (Controller with RL)
+
+Objective: now start modifying our observations and rewards in order to train a policy to act as a controller for the Jetbot. As a user, we would like to be able to specify the desired direction for the Jetbot to drive, and have the wheels turn such that the robot drives in that specified direction as fast as possible.
+
+
+1. Create template:
+
+```shell
+isaaclab.bat --new # will create new task such as: Generating 'Isaac-Jetbot-Controller-Direct-v0'
+```
+
+2. Check the task:
+
+```shell
+python scripts\environments\list_envs.py
+```
+
+3. create the logic for setting commands for each Jetbot on the stage. Each command will be a unit vector, and we need one for every clone of the robot on the stage, which means a tensor of shape [num_envs, 3]. And setup visualizations, so we can more easily tell what the policy is doing during training and inference. So we define two arrow VisualizationMarkers: one to represent the “forward” direction of the robot, and one to represent the command direction. When the policy is fully trained, these arrows should be aligned! 
+
+4. Add arrow visualization to the `*_env.py`:
+
+```python
+from isaaclab.markers import VisualizationMarkers, VisualizationMarkersCfg
+from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
+import isaaclab.utils.math as math_utils
+
+def define_markers() -> VisualizationMarkers:
+    """Define markers with various different shapes."""
+    marker_cfg = VisualizationMarkersCfg(
+        prim_path="/Visuals/myMarkers",
+        markers={
+                "forward": sim_utils.UsdFileCfg(
+                    usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/UIElements/arrow_x.usd",
+                    scale=(0.25, 0.25, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 1.0)),
+                ),
+                "command": sim_utils.UsdFileCfg(
+                    usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/UIElements/arrow_x.usd",
+                    scale=(0.25, 0.25, 0.5),
+                    visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0)),
+                ),
+        },
+    )
+    return VisualizationMarkers(cfg=marker_cfg)
+```
+
+5. expand the initialization and setup steps to construct the data we need for tracking the commands as well as the marker positions and rotations. Replace the contents of _setup_scene with the following
+
+```python
+def _setup_scene(self):
+    self.robot = Articulation(self.cfg.robot_cfg)
+    # add ground plane
+    spawn_ground_plane(prim_path="/World/ground", cfg=GroundPlaneCfg())
+    # clone and replicate
+    self.scene.clone_environments(copy_from_source=False)
+    # add articulation to scene
+    self.scene.articulations["robot"] = self.robot
+    # add lights
+    light_cfg = sim_utils.DomeLightCfg(intensity=2000.0, color=(0.75, 0.75, 0.75))
+    light_cfg.func("/World/Light", light_cfg)
+
+    self.visualization_markers = define_markers()
+
+    # setting aside useful variables for later
+    self.up_dir = torch.tensor([0.0, 0.0, 1.0]).cuda()
+    self.yaws = torch.zeros((self.cfg.scene.num_envs, 1)).cuda()
+    self.commands = torch.randn((self.cfg.scene.num_envs, 3)).cuda()
+    self.commands[:,-1] = 0.0
+    self.commands = self.commands/torch.linalg.norm(self.commands, dim=1, keepdim=True)
+
+    # offsets to account for atan range and keep things on [-pi, pi]
+    ratio = self.commands[:,1]/(self.commands[:,0]+1E-8)
+    gzero = torch.where(self.commands > 0, True, False)
+    lzero = torch.where(self.commands < 0, True, False)
+    plus = lzero[:,0]*gzero[:,1]
+    minus = lzero[:,0]*lzero[:,1]
+    offsets = torch.pi*plus - torch.pi*minus
+    self.yaws = torch.atan(ratio).reshape(-1,1) + offsets.reshape(-1,1)
+
+    self.marker_locations = torch.zeros((self.cfg.scene.num_envs, 3)).cuda()
+    self.marker_offset = torch.zeros((self.cfg.scene.num_envs, 3)).cuda()
+    self.marker_offset[:,-1] = 0.5
+    self.forward_marker_orientations = torch.zeros((self.cfg.scene.num_envs, 4)).cuda()
+    self.command_marker_orientations = torch.zeros((self.cfg.scene.num_envs, 4)).cuda()
+```
+
+<img src="https://isaac-sim.github.io/IsaacLab/main/_images/walkthrough_training_vectors.svg" alt="quat_calc" width="300"/>
+
+6. Next we have the method for actually visualizing the markers. Remember, these markers aren’t scene entities! We need to “draw” them whenever we want to see them.
+
+```python
+def _visualize_markers(self):
+    # get marker locations and orientations
+    self.marker_locations = self.robot.data.root_pos_w
+    self.forward_marker_orientations = self.robot.data.root_quat_w
+    self.command_marker_orientations = math_utils.quat_from_angle_axis(self.yaws, self.up_dir).squeeze()
+
+    # offset markers so they are above the jetbot
+    loc = self.marker_locations + self.marker_offset
+    loc = torch.vstack((loc, loc))
+    rots = torch.vstack((self.forward_marker_orientations, self.command_marker_orientations))
+
+    # render the markers
+    all_envs = torch.arange(self.cfg.scene.num_envs)
+    indices = torch.hstack((torch.zeros_like(all_envs), torch.ones_like(all_envs)))
+    self.visualization_markers.visualize(loc, rots, marker_indices=indices)
+```
+
+7. See result for now: `python scripts\reinforcement_learning\skrl\train.py --task=Isaac-Jetbot-Controller-Direct-v0`
+
+8. Observations
+
+```python
+def _get_observations(self) -> dict:
+    self.velocity = self.robot.data.root_com_vel_w
+    self.forwards = math_utils.quat_apply(self.robot.data.root_link_quat_w, self.robot.data.FORWARD_VEC_B)
+    obs = torch.hstack((self.velocity, self.commands))
+    observations = {"policy": obs}
+    return observations
+```
+
+9. Reward (When the robot is behaving as desired, it will be driving at full speed in the direction of the command. If we reward both “driving forward” and “alignment to the command”, then maximizing that combined signal)
+
+```python
+def _get_rewards(self) -> torch.Tensor:
+    forward_reward = self.robot.data.root_com_lin_vel_b[:,0].reshape(-1,1)
+    alignment_reward = torch.sum(self.forwards * self.commands, dim=-1, keepdim=True)
+    total_reward = forward_reward + alignment_reward
+    return total_reward
+```
+
+10. Test this setup: `python scripts\reinforcement_learning\skrl\train.py --task=Isaac-Jetbot-Controller-Direct-v0`
+
+11. **Reward and Observation Tuning**
+
+    a. keep the observation space as small as possible (reduce the number parameters & training time) 
+    b. reduce and simplify the reward function as much as possible
+
+    **SO**: encode our alignment to the command and our forward speed.
+
+12. New observations
+
+```python
+def _get_observations(self) -> dict:
+    self.velocity = self.robot.data.root_com_vel_w
+    self.forwards = math_utils.quat_apply(self.robot.data.root_link_quat_w, self.robot.data.FORWARD_VEC_B)
+
+    dot = torch.sum(self.forwards * self.commands, dim=-1, keepdim=True)
+    cross = torch.cross(self.forwards, self.commands, dim=-1)[:,-1].reshape(-1,1)
+    forward_speed = self.robot.data.root_com_lin_vel_b[:,0].reshape(-1,1)
+    obs = torch.hstack((dot, cross, forward_speed))
+
+    observations = {"policy": obs}
+    return observations
+```
+
+13. The dot or inner product tells us how aligned two vectors are as a single scalar quantity
+
+
+    **SO**: 
+        
+        Before: we are rewarding driving forward and being aligned to the command by adding them together, so our agent can be reward for driving forward OR being aligned to the command.
+
+        Now: learn to drive in the direction of the command, we should only reward the agent driving forward AND being aligned. Logical AND suggests multiplication and therefore the following reward function:
+
+14. New reward function
+
+```python
+def _get_rewards(self) -> torch.Tensor:
+    forward_reward = self.robot.data.root_com_lin_vel_b[:,0].reshape(-1,1)
+    alignment_reward = torch.sum(self.forwards * self.commands, dim=-1, keepdim=True)
+    total_reward = forward_reward*alignment_reward
+    return total_reward
+```
+
+15. Jetbots have learned to drive in reverse if the command is pointed behind them. (degenerate solutions)
+16. New reward to avoid neg *neg = positive rewards but bad behavior
+
+```python
+def _get_rewards(self) -> torch.Tensor:
+    forward_reward = self.robot.data.root_com_lin_vel_b[:,0].reshape(-1,1)
+    alignment_reward = torch.sum(self.forwards * self.commands, dim=-1, keepdim=True)
+    total_reward = forward_reward*torch.exp(alignment_reward)
+    return total_reward
+```
+
+10. Train: `python scripts\reinforcement_learning\skrl\train.py --task=Isaac-Jetbot-Controller-Direct-v0`
+11. Play: `python scripts\reinforcement_learning\skrl\play.py --task=Isaac-Jetbot-Controller-Direct-v0`
+
+![result](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/jetbot_controller_learn.gif)
+
+</details>
