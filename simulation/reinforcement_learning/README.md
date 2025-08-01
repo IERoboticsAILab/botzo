@@ -322,3 +322,43 @@ After the installation of Isaac Sim and Isaac Lab, you run examples such as:
 (env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>python scripts\tutorials\01_assets\add_new_robot.py
 ```
 ![example](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/add_new_robot.png)
+
+I created my own project using Isaac Lab template:
+
+```shell
+./isaaclab.sh --new
+
+(env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>python -m pip install -e source\isaaclab_tasks
+
+(env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>python scripts\environments\list_envs.py
+```
+Result: 
+`|   7    | Isaac-Botzo-Direct-v0                                         | isaaclab_tasks.direct.botzo.botzo_env:BotzoEnv                                                        | isaaclab_tasks.direct.botzo.botzo_env_cfg:BotzoEnvCfg`
+
+Now I can use my environment to train:
+```shell
+(env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>python scripts\reinforcement_learning\skrl\train.py --task=Isaac-Botzo-Direct-v0
+```
+
+by default, this should start a cartpole training environment.
+
+Let the training finish and then run the following command to see the trained policy in action!
+
+```shell
+python scripts\reinforcement_learning\skrl\play.py --task=Isaac-Botzo-Direct-v0
+```
+
+Notice that you did not need to specify the path for the checkpoint file! This is because Isaac Lab handles much of the minute details like checkpoint saving, loading, and logging. In this case, the train.py script will create two directories: logs and output, which are used as the default output directories for tasks run by this project.
+
+
+### Train Jetbot to drive forward
+
+![example](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/isaac_lab_train_jetbot.gif)
+
+```shell
+isaaclab.bat --new
+python scripts\environments\list_envs.py      # find for the task/project/template just created
+# if you don't find it try this comand:  python -m pip install -e source\isaaclab_tasks
+python scripts\reinforcement_learning\skrl\train.py --task=Isaac-Jetbot-Marl-Direct-v0
+python scripts\reinforcement_learning\skrl\play.py --task=Isaac-Jetbot-Marl-Direct-v0
+```
