@@ -71,7 +71,7 @@ As stated in the [Fusion2PyBullet repo](https://github.com/yanshil/Fusion2PyBull
     - Under `My Script` you should see `Joint2Graphviz`
     - Press it. It will create a `graph.txt` (see mine [here](https://github.com/botzo-team/create_URDF/blob/main/test_urdf_exporter/graph.txt))
     <p align="center">
-        <img src="https://github.com/botzo-team/create_URDF/blob/main/test_urdf_exporter/graph_from_webgraphviz.png" alt="Graph Image" width="200"/>
+        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF%20file/wrong_graph/graph_from_webgraphviz.png" alt="Graph Image" width="200"/>
     </p>
 
     - Copy and pase the text content to [Webgraphviz](http://www.webgraphviz.com/) and check your robot tf structure to be valid.
