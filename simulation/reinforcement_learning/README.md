@@ -36,6 +36,12 @@ In this repo we will explore how we teach botzo to walk
 
 # Isaac Sim
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/IERoboticsAILab/botzo/main/media_assests/botzo_btw_friends.png" width="350"/>
+</p>
+<p align="center"><em>Botzo between the giants & friends</em></p>
+
+
 Computer specifications:
 | Component | Specification |
 |-----------|---------------|
@@ -47,7 +53,7 @@ Computer specifications:
 
 >_Check system requirements compatibility and satisfaction with [this](https://download.isaacsim.omniverse.nvidia.com/isaac-sim-comp-check%404.5.0-rc.6%2Brelease.675.f1cca148.gl.windows-x86_64.release.zip)_
 
-<img src="https://raw.githubusercontent.com/IERoboticsAILab/botzo/main/media_assests/isaac_compatability_check.png" alt="ours" width="200"/>
+<img src="https://raw.githubusercontent.com/IERoboticsAILab/botzo/main/media_assests/isaac_compatability_check.png" alt="ours" width="250"/>
 
 Download [IsaacSim](https://download.isaacsim.omniverse.nvidia.com/isaac-sim-standalone%404.5.0-rc.36%2Brelease.19112.f59b3005.gl.windows-x86_64.release.zip) for your OS
 
@@ -319,7 +325,7 @@ After the installation of Isaac Sim and Isaac Lab, you run examples such as:
 ![example](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/isaaclab.gif)
 
 ```shell
-(env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>python scripts\tutorials\01_assets\add_new_robot.py
+(env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>python scripts\tutorials\01_assets\add_new_robot.py #  --num_envs 10
 ```
 ![example](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/add_new_robot.png)
 
