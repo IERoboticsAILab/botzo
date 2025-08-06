@@ -21,12 +21,12 @@
 
 🚨🚧 **Project Under Construction!** 🚧🚨
 
-> [!NOTE]
-> A new documentation is currently being written 😃. It is already available [here](https://IERoboticsAILab.github.io/botzo/)
-
 Here's a sneak peek of our current progress:
 
 </div>
+
+> [!NOTE]
+> A new documentation is currently being written 😃. It is already available [here](https://IERoboticsAILab.github.io/botzo/)
 
 <p align="center">
     <a href="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/botzo_main.jpg">
