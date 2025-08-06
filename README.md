@@ -29,16 +29,16 @@ Here's a sneak peek of our current progress:
 > A new documentation is currently being written 😃. It is already available [here](https://IERoboticsAILab.github.io/botzo/)
 
 <p align="center">
-    <a href="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/botzo_main.jpg">
-        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/botzo_main.jpg" alt="Leg Design" width="610">
+    <a href="https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/botzo_main.jpg">
+        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/botzo_main.jpg" alt="Leg Design" width="610">
     </a>
 </p>
 <p align="center" style="margin-bottom: 10px;">
-    <a href="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/firststeps_old_botzo.gif">
-        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/firststeps_old_botzo.gif" alt="First Steps" width="300" style="margin-right: 5px;">
+    <a href="https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/gifs/firststeps_old_botzo.gif">
+        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/gifs/firststeps_old_botzo.gif" alt="First Steps" width="300" style="margin-right: 5px;">
     </a>
-    <a href="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/walking_old_botzo.gif">
-        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/walking_old_botzo.gif" alt="Walking" width="300" style="margin-left: 5x;">
+    <a href="https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/gifs/walking_old_botzo.gif">
+        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/gifs/walking_old_botzo.gif" alt="Walking" width="300" style="margin-left: 5x;">
     </a>
 </p>
 
@@ -77,8 +77,8 @@ We stand in the middle of a trade of between high quality software and hardware,
 
 For a deeper dive into this phase, check out our [Canva Board Proposal](https://www.canva.com/design/DAGQqN2k1i4/RCJst_pNSHRcbE02HOKgEw/edit?utm_content=DAGQqN2k1i4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton).
 
-![Basic Circuit](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/basic_circuit_scketch.png)
-![Full Circuit](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/full_circuit_scketch.png)
+![Basic Circuit](https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/basic_circuit_scketch.png)
+![Full Circuit](https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/full_circuit_scketch.png)
 
 <details>
   <summary><strong>Components List</strong></summary>
