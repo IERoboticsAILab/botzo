@@ -50,8 +50,8 @@ try:
     input("Press Enter to start the simulation...")
     while True:
         for i in range(0,len(forward_targets_FR_BL)):
-            print(forward_targets_FR_BL[i])
-            print(forward_targets_FL_BR[i])
+            #print(forward_targets_FR_BL[i])
+            #print(forward_targets_FL_BR[i])
 
             # calculate front right shoulder, femur, knee angles
             FR_s_f_t = legIK(forward_targets_FR_BL[i][0], forward_targets_FR_BL[i][1], forward_targets_FR_BL[i][2])
@@ -81,6 +81,11 @@ try:
             target_BL_angle_femur = math.radians(real_sim_angle(BL_angle_femur, joint_ids["BL"]["femur"]))
             target_BL_angle_knee = math.radians(real_sim_angle(BL_angle_knee, joint_ids["BL"]["knee"]))
             #------------------------------
+
+            print(f"target to reach: {forward_targets_FR_BL[i]}")
+            print(f"target_BL_angle_shoulder: {target_BL_angle_shoulder}, target_BR_angle_shoulder: {target_BR_angle_shoulder}, target_FL_angle_shoulder: {target_FL_angle_shoulder}, target_FR_angle_shoulder: {target_FR_angle_shoulder}")
+            print(f"target_BL_angle_femur: {target_BL_angle_femur}, target_BR_angle_femur: {target_BR_angle_femur}, target_FL_angle_femur: {target_FL_angle_femur}, target_FR_angle_femur: {target_FR_angle_femur}")
+            print(f"target_BL_angle_knee: {target_BL_angle_knee}, target_BR_angle_knee: {target_BR_angle_knee}, target_FL_angle_knee: {target_FL_angle_knee}, target_FR_angle_knee: {target_FR_angle_knee}")
 
             # MOVE ALL JOINTS
             # Move front right shoulder

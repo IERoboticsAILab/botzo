@@ -567,3 +567,38 @@ def _get_rewards(self) -> torch.Tensor:
 ![result](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/jetbot_controller_learn.gif)
 
 </details>
+
+## Train Flags
+
+```python
+# add argparse arguments
+parser = argparse.ArgumentParser(description="Train an RL agent with Stable-Baselines3.")
+parser.add_argument("--video", action="store_true", default=False, help="Record videos during training.")
+parser.add_argument("--video_length", type=int, default=200, help="Length of the recorded video (in steps).")
+parser.add_argument("--video_interval", type=int, default=2000, help="Interval between video recordings (in steps).")
+parser.add_argument("--num_envs", type=int, default=None, help="Number of environments to simulate.")
+parser.add_argument("--task", type=str, default=None, help="Name of the task.")
+parser.add_argument("--seed", type=int, default=None, help="Seed used for the environment")
+parser.add_argument("--log_interval", type=int, default=100_000, help="Log data every n timesteps.")
+parser.add_argument("--checkpoint", type=str, default=None, help="Continue the training from checkpoint.")
+parser.add_argument("--max_iterations", type=int, default=None, help="RL Policy training iterations.")
+```
+
+`python scripts\reinforcement_learning\skrl\train.py --task=Isaac-Jetbot-Controller-Direct-v0` or `isaaclab.bat scripts\reinforcement_learning\skrl\train.py --task=Isaac-Jetbot-Controller-Direct-v0` or (RANDOM AGENT) `./isaaclab.sh -p scripts/environments/random_agent.py --task Isaac-Cartpole-v0 --num_envs 32`
+
+- Add number of environments to train in parallel: `--num_envs 10`
+- Add training mode: 
+
+    - `--headless` (simulation is not rendered during training)
+    - `--num_envs 64 --headless --video`: `--enable_cameras` which enables off-screen rendering. Additionally, we pass the flag `--video` which records a video of the agent’s behavior during training. (The videos are saved to the `logs/sb3/Isaac-Cartpole-v0/<run-dir>/videos/train directory`.)
+    - ignore the `--headless` to see the simulation rendered in a window and manipulate it (slow down the training process since the simulation is rendered on the screen)
+
+- Play with last checkpoint: `python scripts\reinforcement_learning\skrl\play.py --task=Isaac-Jetbot-Controller-Direct-v0 --num_envs 32 --use_last_checkpoint` (You can also specify a specific checkpoint by passing the `--checkpoint` flag)
+
+EXAMPLE:
+
+`isaaclab.bat -p scripts/reinforcement_learning/rsl_rl/train.py --task Isaac-Velocity-Rough-H1-v0 --headless`
+
+`isaaclab.bat -p scripts/reinforcement_learning/rsl_rl/play.py --task Isaac-Velocity-Rough-H1-v0 --num_envs 64 --checkpoint logs/rsl_rl/h1_rough/EXPERIMENT_NAME/POLICY_FILE.pt`
+
+`isaaclab.bat -p scripts/tutorials/03_envs/policy_inference_in_usd.py --checkpoint logs/rsl_rl/h1_rough/EXPERIMENT_NAME/exported/policy.pt`
