@@ -114,6 +114,8 @@ Go to isaaclab/source/isaaclab_assets/robots and create a new python file with t
 <details>
 <summary><b> `botzo.py` Code Robot configuration script </b></summary>
 
+[Full Code](https://github.com/GRINGOLOCO7/IsaacLab/blob/main/source/isaaclab_assets/isaaclab_assets/robots/botzo.py)
+
 ```python
 
 import isaaclab.sim as sim_utils
@@ -184,6 +186,8 @@ BOTZO_CONFIG = ArticulationCfg(
 <details>
 <summary><b> `dofrobot.py` Code Robot configuration script </b></summary>
 
+[Full Code](https://github.com/GRINGOLOCO7/IsaacLab/blob/main/source/isaaclab_assets/isaaclab_assets/robots/dofrobot.py)
+
 ```python
 
 import isaaclab.sim as sim_utils
@@ -245,6 +249,8 @@ DOFBOT_CONFIG = ArticulationCfg(
 <details>
 <summary><b> `jetbot.py` Code Robot configuration script </b></summary>
 
+[Full Code](https://github.com/GRINGOLOCO7/IsaacLab/blob/main/source/isaaclab_assets/isaaclab_assets/robots/jetbot.py)
+
 ```python
 
 import isaaclab.sim as sim_utils
@@ -278,6 +284,8 @@ Now that we configured our robot, we can simply import it and use it in any pyth
 
 <details>
 <summary><b> Spawn various robots </b></summary>
+
+[Full Code](https://github.com/GRINGOLOCO7/IsaacLab/blob/main/scripts/demos/quadrupeds.py)
 
 ```python
 # Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
@@ -490,6 +498,8 @@ if __name__ == "__main__":
 <details>
 <summary><b> Spawn various robots and move them </b></summary>
 
+[full Code](https://github.com/GRINGOLOCO7/IsaacLab/blob/main/scripts/tutorials/01_assets/add_new_robot.py)
+
 ```python
 # Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
 # All rights reserved.
@@ -699,6 +709,8 @@ if __name__ == "__main__":
 <details>
 <summary><b> Create digital twin of botzo and move it with our IK </b></summary>
 
+https://github.com/GRINGOLOCO7/IsaacLab/blob/main/scripts/tutorials/01_assets/botzo_move_IK.py
+
 ```python
 import argparse
 
@@ -886,11 +898,17 @@ if __name__ == "__main__":
 
 </details>
 
+add a note here:
+
+> [!NOTE]
+> Remember to add `botzo_IK_solver.py` in the same directory (`scripts\tutorials\01_assets\`), so we can use the inverse kinematics solver for the Botzo robot. Code can be found [here](https://github.com/IERoboticsAILab/botzo/blob/main/simulation/src/IK_solver.py or [here](https://github.com/GRINGOLOCO7/IsaacLab/blob/main/scripts/tutorials/01_assets/botzo_IK_solver.py))
 
 4. `python scripts\tutorials\05_controllers\botzo_diff_ik.py`
 
 <details>
 <summary><b> Create digital twin of botzo and move it with NVIDIA IK tools </b></summary>
+
+[Full Code](https://github.com/GRINGOLOCO7/IsaacLab/blob/main/scripts/tutorials/05_controllers/botzo_diff_ik.py)
 
 ```python
 work in progress
@@ -917,6 +935,7 @@ Then we have the **environment configuration** files, which define the specific 
 <details>
 <summary><b>Jetbot RL example</b></summary>
 
+[Full Code Jetbot Template](https://github.com/GRINGOLOCO7/IsaacLab/tree/main/source/isaaclab_tasks/isaaclab_tasks/direct/jetbot_controller)
 
 Isaac Lab Documentation [here](https://isaac-sim.github.io/IsaacLab/main/source/setup/walkthrough/index.html)
 
@@ -1166,7 +1185,7 @@ EXAMPLE:
 
 ### BOTZO RL TEMPLATE
 
-I created my own project using Isaac Lab template:
+I created my own project using Isaac Lab template: [Botzo Template](https://github.com/GRINGOLOCO7/IsaacLab/tree/main/source/isaaclab_tasks/isaaclab_tasks/direct/botzo)
 
 ```shell
 ./isaaclab.sh --new
