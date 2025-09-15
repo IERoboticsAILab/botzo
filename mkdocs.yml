@@ -1,0 +1,95 @@
+site_name: Botzo
+site_url: https://github.com/IERoboticsAILab/botzo
+repo_url: https://github.com/IERoboticsAILab/botzo
+theme:
+  logo: assets/botzo_logo.jpg
+  favicon: assets/botzo_logo.jgp
+  features:
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+    - content.footnote.tooltips
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.footer
+
+  icon:
+    repo: fontawesome/brands/github
+  name: material
+  palette:
+    # Dark Mode
+    - scheme: slate
+      primary: green
+      accent: red
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+    # Light Mode
+    - scheme: default
+      primary: green
+      accent: red
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+markdown_extensions:
+  - admonition
+  - abbr
+  - attr_list
+  - md_in_html
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.blocks.caption
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - footnotes
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator:
+        !!python/name:material.extensions.emoji.to_svg # Page tree
+
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/IERoboticsAILab/botzo
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/botzo.ie/
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@Botzoie
+
+nav:
+  - Home:
+      - Botzo: index.md
+  - Getting Started:
+      - Installation & Setup: getting-started/installation.md
+  - Build Botzo:
+      - Hardware Overview: build/hardware.md
+      - CAD:
+          - CAD Model: build/cad/cad-model.md
+          - URDF: build/cad/urdf.md
+      - Assembly Guide: build/assembly.md
+      - Software:
+          - Firmware: build/software/firmware.md
+          - ROS: build/software/ros.md
+  - Learn:
+      - Servo Calibration: learn/servo-calibration.md
+      - Inverse Kinematics: learn/inverse-kinematics.md
+      - Generating a URDF: learn/create-urdf.md
+      - Reinforcement Learning: learn/reinforcement-learning.md
+  - Simulation:
+      - Simulation Setup: simulation/setup.md
+  - Contribute:
+      - How to Contribute: contribute/how-to.md
+      - FAQ: contribute/faq.md
+  - Changelog: changelog/index.md
