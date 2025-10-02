@@ -1211,3 +1211,13 @@ python scripts\reinforcement_learning\skrl\play.py --task=Isaac-Botzo-Direct-v0
 ```
 
 Notice that you did not need to specify the path for the checkpoint file! This is because Isaac Lab handles much of the minute details like checkpoint saving, loading, and logging. In this case, the train.py script will create two directories: logs and output, which are used as the default output directories for tasks run by this project.
+
+
+"""
+1. (env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>   python scripts\environments\list_envs.py
+|   3    | Isaac-Velocity-Flat-Anymal-C-Direct-v0           | isaaclab_tasks.direct.anymal_c.anymal_c_env:AnymalCEnv    | isaaclab_tasks.direct.anymal_c.anymal_c_env_cfg:AnymalCFlatEnvCfg                                                                                         |
+|   4    | Isaac-Velocity-Rough-Anymal-C-Direct-v0          | isaaclab_tasks.direct.anymal_c.anymal_c_env:AnymalCEnv    | isaaclab_tasks.direct.anymal_c.anymal_c_env_cfg:AnymalCRoughEnvCfg  
+
+2. (env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>   python scripts\reinforcement_learning\skrl\train.py --task Isaac-Velocity-Flat-Anymal-C-Direct-v0
+3. (env_isaaclab) C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab>   python scripts\reinforcement_learning\skrl\play.py --task Isaac-Velocity-Flat-Anymal-C-Direct-v0
+"""
