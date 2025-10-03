@@ -1,0 +1,71 @@
+BOTZO_URDF_controller:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position Controllers --------------------------------------
+  LH_HAA_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LH_HAA
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RH_HAA_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RH_HAA
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RF_HAA_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RF_HAA
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LF_HAA_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LF_HAA
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LF_HFE_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LF_HFE
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RF_HFE_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RF_HFE
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RH_HFE_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RH_HFE
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LH_HFE_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LH_HFE
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LF_KFE_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LF_KFE
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RF_KFE_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RF_KFE
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LH_KFE_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LH_KFE
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RH_KFE_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RH_KFE
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RH_shank_fixed_RH_FOOT_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RH_shank_fixed_RH_FOOT
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LH_shank_fixed_LH_FOOT_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LH_shank_fixed_LH_FOOT
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  LF_shank_fixed_LF_FOOT_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LF_shank_fixed_LF_FOOT
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  RF_shank_fixed_RF_FOOT_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RF_shank_fixed_RF_FOOT
+    pid: {p: 100.0, i: 0.01, d: 10.0}

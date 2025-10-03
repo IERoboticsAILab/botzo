@@ -1,0 +1,180 @@
+<?xml version="1.0" ?>
+<robot name="BOTZO_URDF" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<transmission name="LH_HAA_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="LH_HAA">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="LH_HAA_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="RH_HAA_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="RH_HAA">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="RH_HAA_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="RF_HAA_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="RF_HAA">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="RF_HAA_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="LF_HAA_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="LF_HAA">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="LF_HAA_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="LF_HFE_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="LF_HFE">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="LF_HFE_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="RF_HFE_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="RF_HFE">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="RF_HFE_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="RH_HFE_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="RH_HFE">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="RH_HFE_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="LH_HFE_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="LH_HFE">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="LH_HFE_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="LF_KFE_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="LF_KFE">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="LF_KFE_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="RF_KFE_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="RF_KFE">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="RF_KFE_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="LH_KFE_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="LH_KFE">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="LH_KFE_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="RH_KFE_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="RH_KFE">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="RH_KFE_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="RH_shank_fixed_RH_FOOT_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="RH_shank_fixed_RH_FOOT">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="RH_shank_fixed_RH_FOOT_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="LH_shank_fixed_LH_FOOT_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="LH_shank_fixed_LH_FOOT">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="LH_shank_fixed_LH_FOOT_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="LF_shank_fixed_LF_FOOT_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="LF_shank_fixed_LF_FOOT">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="LF_shank_fixed_LF_FOOT_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="RF_shank_fixed_RF_FOOT_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="RF_shank_fixed_RF_FOOT">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="RF_shank_fixed_RF_FOOT_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+</robot>

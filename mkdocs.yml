@@ -78,7 +78,8 @@ nav:
       - CAD:
           - CAD Model: build/cad/cad-model.md
           - URDF: build/cad/urdf.md
-      - Assembly Guide: build/assembly.md
+      - Assembly:
+          - Guide: build/assembly.md
       - Software:
           - Firmware: build/software/firmware.md
           - ROS: build/software/ros.md
