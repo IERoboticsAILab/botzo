@@ -1,8 +1,8 @@
 # Robot URDF
 
-![botzo](https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/botzo_URDF.png)
+![botzo](../../assets/botzo_URDF.png)
 
-[OWR URDF]([here](https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf))
+[OWR URDF](https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf)
 
 ## What is a URDF and why we need it?
 
@@ -13,7 +13,9 @@ A URDF is a file used in robotics to import the robot in a simulation. It uses t
 From the CAD files, we created a URDF file for Botzo using Fusion 360 and [fusion2urdf](https://github.com/syuntoku14/fusion2urdf). A repo that give us a package for exporting URDF from a Fusion 360 packages.
 
 Visit directly the repos if you don't understand something. This is a resume of what they do:
+
 - [Webgraphviz](http://www.webgraphviz.com/) (for debugging purposes)
+
 - [fusion2urdf](https://github.com/syuntoku14/fusion2urdf) (for exporting URDF from Fusion 360 file assembled with joints)
 
 
@@ -94,4 +96,4 @@ As stated in the [Fusion2PyBullet repo](https://github.com/yanshil/Fusion2PyBull
     ros2 run xacro xacro <your_file>.xacro > <your_file>.urdf
     ```
 
-6. [OWR URDF]([here](https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf))
+6. [OWR URDF](https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf)

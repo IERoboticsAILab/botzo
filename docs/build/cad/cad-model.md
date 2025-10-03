@@ -10,7 +10,7 @@ Since Botzo is designed for 3D printing, all printable components are provided a
 STL files. These are ready to be loaded into a slicer and printed using an FDM
 printer.
 
-All CAD files are available in the Botzo repository: [📁 View on GitHub](https://github.com/IERoboticsAILab/botzo/tree/main/CAD_files)
+All CAD files are available in the Botzo repository: [📁 View on GitHub](https://github.com/IERoboticsAILab/botzo/tree/main/CAD_files/designs)
 
 ## About the Design
 

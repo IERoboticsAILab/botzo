@@ -17,11 +17,11 @@
         <img alt="Views" src="https://komarev.com/ghpvc/?username=botzo&color=blue&style=for-the-badge&abbreviated=true" />
     </a>
 
+more about botzo [here](https://github.com/IERoboticsAILab/botzo)
+
+for specific Gaits documentation [here](https://ieroboticsailab.github.io/botzo/learn/gait-plan/)
+
+![results]()
+
 </p>
-
 </div>
-
-more [here](https://github.com/IERoboticsAILab/botzo)
-
-# botzo_gait_plan
-Repo explains how we crate the gait plan for our robot dog

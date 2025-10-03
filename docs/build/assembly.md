@@ -2,4 +2,4 @@
 
     To be done!
 
-![leg](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/assemble_one_leg_timelapse.gif)
+![leg](../assets/gifs/assemble_one_leg_timelapse.gif)

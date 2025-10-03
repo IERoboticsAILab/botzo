@@ -17,11 +17,11 @@
         <img alt="Views" src="https://komarev.com/ghpvc/?username=botzo&color=blue&style=for-the-badge&abbreviated=true" />
     </a>
 
+more about botzo [here](https://github.com/IERoboticsAILab/botzo)
+
+for specific Rotation documentation [here](https://ieroboticsailab.github.io/botzo/learn/rotation-matrices/)
+
+![results]()
+
 </p>
-
 </div>
-
-more [here](https://github.com/IERoboticsAILab/botzo)
-
-# rotation matrices
-Repo explains how we create the rotation matrices for our robot dog

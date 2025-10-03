@@ -27,7 +27,7 @@ With calibration, servo motion becomes noticeably more accurate and consistent.
    regression to convert angles to PWM values specific to each servo.
 
 2. `calibarte_servos.ino`: Arduino code to help identify real PWM values using the  
-   [Calibration Tool](https://github.com/botzo-team/STL_files/tree/main/servo_calibration_tools).
+   [Calibration Tool](https://github.com/IERoboticsAILab/botzo/tree/main/CAD_files/designs/servo_calibration_tools).
 
 3. `save_coefficients/`: Folder containing `.csv` and `.xlsx` files used to store  
    calibration data for each leg and servo.
@@ -112,7 +112,7 @@ print("\nPlease run these PWM signals and record the actual angles reached.")
 1. Upload the Arduino sketch.
 2. Open the serial monitor and set the PWM to 500.
 3. Attach the servo arm using the  
-   [calibration tool](https://github.com/botzo-team/STL_files/blob/main/servo_calibration_tools/arm_for_calibration_tool.stl)  
+   [calibration tools](https://github.com/IERoboticsAILab/botzo/tree/main/CAD_files/designs/servo_calibration_tools)  
    aligned as closely as possible to 0°.
 4. Adjust the PWM value until the arm aligns perfectly with 0°.
 5. Record the PWM, and repeat for 45°, 90°, 135°, and 180°.

@@ -86,6 +86,8 @@ nav:
   - Learn:
       - Servo Calibration: learn/servo-calibration.md
       - Inverse Kinematics: learn/inverse-kinematics.md
+      - Rotation Matrices: learn/rotation-matrices.md
+      - Gait Planning: learn/gait-plan.md
       - Generating a URDF: learn/create-urdf.md
       - Reinforcement Learning: learn/reinforcement-learning.md
   - Simulation:
