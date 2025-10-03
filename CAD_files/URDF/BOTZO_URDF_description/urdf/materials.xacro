@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<robot name="BOTZO_URDF" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+  <!-- Body Material -->
+  <material name="body_material">
+    <color rgba="0.3 0.4 0.6 1.0"/> <!-- steel blue -->
+  </material>
+
+  <!-- Shoulder Material -->
+  <material name="shoulder_material">
+    <color rgba="0.2 0.6 0.9 1.0"/> <!-- light blue -->
+  </material>
+
+  <!-- Legs Material -->
+  <material name="legs_material">
+    <color rgba="1.0 0.5 0.0 1.0"/> <!-- orange -->
+  </material>
+
+  <!-- Foot Material -->
+  <material name="foot_material">
+    <color rgba="1.0 1.0 1.0 1.000"/> <!-- white -->
+  </material>
+
+</robot>
