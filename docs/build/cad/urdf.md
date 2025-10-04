@@ -29,10 +29,8 @@ As stated in the [Fusion2PyBullet repo](https://github.com/yanshil/Fusion2PyBull
 1. All bodies/peaces/future links must be **components**.
 2. Add physical materials
 3. Add **joint** to connect all components. In fusion you can select various type of joint (static, rotational, etc...) and also the pivot point.
-4. Call one componet as `base_link`
-5. Remove links of comonents (if the are right clik on it and press Break Link)
-    Result: https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/fusion_joints_one_leg.mp4
-    ![result](https://github.com/IERoboticsAILab/botzo/blob/main/media_assests/fusion_joints_one_leg.gif)
+4. Call one component as `base_link`
+5. Remove links of components (if the are right click on it and press Break Link)
 6. Check STL joint-link structure using [Webgraphviz](http://www.webgraphviz.com/). Here how:
     - Download [Joint2Graphviz repo](https://github.com/yanshil/Joint2Graphviz) as a ZIP.
     - Extract the ZIP in a known directory.
@@ -55,10 +53,7 @@ As stated in the [Fusion2PyBullet repo](https://github.com/yanshil/Fusion2PyBull
     - Open the file of the robot
     - Go to utility > Addins
     - Under `My Script` you should see `Joint2Graphviz`
-    - Press it. It will create a `graph.txt` (see mine [here](https://github.com/botzo-team/create_URDF/blob/main/test_urdf_exporter/graph.txt))
-    <p align="center">
-        <img src="https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF%20file/wrong_graph/graph_from_webgraphviz.png" alt="Graph Image" width="200"/>
-    </p>
+    - Press it. It will create a `graph.txt`
 
     - Copy and pase the text content to [Webgraphviz](http://www.webgraphviz.com/) and check your robot tf structure to be valid.
 

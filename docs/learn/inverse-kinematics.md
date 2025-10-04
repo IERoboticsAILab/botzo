@@ -18,13 +18,9 @@ Both uses known constants such as lenght of each "bone". For Inverse Kinematic a
 
 ## 3 DoF IK Of 1 leg
 
-<div align="center">
-  <img src="../assets/IK_back_of_leg.png" alt="back_of_leg" width="500"/>
-</div>
+![IK_back_of_leg](../assets/IK_back_of_leg.png)
 
-<div align="center">
-  <img src="../assets/IK_side_of_leg.png" alt="side_of_leg" width="500"/>
-</div>
+![IK_side_of_leg](../assets/IK_side_of_leg.png)
 
 ### Solver
 
@@ -42,9 +38,7 @@ dist_focuspoint_servo_femurtibia = 2.8 cm
 X, Y, Z = given target point
 ```
 
-<div align="center">
-  <img src="../assets/IK_trigonometrics_drawing.png" alt="IK_trigonometrics_drawing" width="600"/>
-</div>
+![IK_trigonometrics_drawing](../assets/IK_trigonometrics_drawing.png)
 
 1. Distance Calculation
 
@@ -80,9 +74,7 @@ G = \sqrt{D^2 + X^2}
 
 Here we will translate the founded angles with the translator in the actual angles we will pass to the robot servos
 
-<div align="center">
-  <img src="../assets/IK_desire_angles.png" alt="translator_drawing" width="500"/>
-</div>
+![IK_desire_angles](../assets/IK_desire_angles.png)
 
 1. Adjustment
 
@@ -105,16 +97,16 @@ Here we will translate the founded angles with the translator in the actual angl
 ### Resources
 
 [Spot-Micro](https://spotmicroai.readthedocs.io/en/latest/simulation/)
+
   - [Spot-Micro GitHub](https://gitlab.com/public-open-source/spotmicroai/simulation/-/tree/master/Basic%20simulation%20by%20user%20Florian%20Wilk/Kinematics?ref_type=heads)
+
   - [Spot-Micro IK solver video](https://www.youtube.com/watch?v=4rc8N1xuWvc)
 
 [OpenQuadruped/spot_mini_mini](https://github.com/OpenQuadruped/spot_mini_mini)
 
 ## Rotation Matrices
 
-<div align="center">
-  <img src="../assets/body_TFs_scketch.jpg" alt="body_TFs_scketch" width="600"/>
-</div>
+![body_TFs_scketch](../assets/body_TFs_scketch.jpg)
 
 !!! note
 
@@ -172,27 +164,19 @@ and robot dimentions.
 
     We want to achive this:
 
-    <div align="center">
-      <img src="../assets/IK_full_body_desire.png" alt="desire" width="250"/>
-    </div>
+    ![IK_full_body_desire](../assets/IK_full_body_desire.png)
 
     But the math make the robot beleve it is in this configuration (where the leg is duplicated, not mirrored):
 
-    <div align="center">
-      <img src="../assets/IK_full_body_math_config.png" alt="math config" width="250"/>
-    </div>
+    ![IK_full_body_math_config](../assets/IK_full_body_math_config.png)
 
     So the result of IK solver is something like this (not precise, and mooving on a curve rather than a line):
 
-    <div align="center">
-      <img src="../assets/IK_full_body_wrongIKresult.png" alt="result of IK" width="250"/>
-    </div>
+    ![IK_full_body_wrongIKresult](../assets/IK_full_body_wrongIKresult.png)
 
     After the flip we end up in the desire configuration (we basically move the shoulder inside the robot. In other words we flip the output angle of the shoulder based on the vertical line):
 
-    <div align="center">
-      <img src="../assets/IK_full_body_goal_achived.png" alt="achive goal" width="250"/>
-    </div>
+    ![IK_full_body_goal_achived](../assets/IK_full_body_goal_achived.png)
 
     *FR*
 
@@ -209,7 +193,6 @@ and robot dimentions.
 
 5. We parse the result in a way the we can just copy and paste it in the `test_4legs.ino.ino` arduino code. The arduino code connect to each servo and move them coordinately. So we where able to manualy simulate a Walking Gate. For a more general and sophisticated gate look [here](https://github.com/IERoboticsAILab/botzo/tree/main/control/gait_plan)
 
-<div style="display: flex; justify-content: center; gap: 10px;">
-  <img src="../assets/gifs/firststeps_old_botzo.jpg" alt="Leg Design" width="300"/>
-  <img src="../assets/gifs/walking.gif" alt="Walking Gate" width="300"/>
-</div>
+
+![firststeps](../assets/gifs/firststeps_old_botzo.gif)
+![walking](../assets/gifs/walking.gif)

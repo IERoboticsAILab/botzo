@@ -23,7 +23,7 @@ for specific Servo Calibration documentation [here](https://ieroboticsailab.gith
 
 | Before Calibration                                                        | After Calibration                                                       |
 | ------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| ![Before Calibration](../assets/gifs/before_calibration.gif){width="50%"} | ![After Calibration](../assets/gifs/after_calibration.gif){width="50%"} |
+| ![Before Calibration](https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/gifs/before_calibration.gif){width="50%"} | ![After Calibration](https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/gifs/after_calibration.gif){width="50%"} |
 
 </p>
 </div>

@@ -60,18 +60,18 @@ However, these are idealized values—calibration helps find the real-world equi
    datasheet formula.
 
 2. **Align servo using Arduino code**  
-   Upload the [Arduino sketch](https://github.com/botzo-team/calibrate_servos/blob/main/calibarte_servos.ino)  
+   Upload the [Arduino sketch](https://github.com/IERoboticsAILab/botzo/blob/main/control/inverse_kinematics/servo_calibration/calibarte_servos.ino)  
    and use the serial monitor to manually tune PWM values until the servo aligns with  
    target angles (0°, 45°, 90°, 135°, 180°).
 
 3. **Record the actual PWM values**  
    Example values from the Front Right leg:
 
-   ^^^python
+   ```python
    real_pwm_SFR = np.array([564, 890, 1219, 1564, 1897])
    real_pwm_FFR = np.array([606, 930, 1265, 1606, 1930])
    real_pwm_TFR = np.array([555, 895, 1230, 1580, 1910])
-   ^^^
+   ```
 
 4. **Fit a regression curve**  
    Use least-squares regression to generate coefficients for the curve that maps  
@@ -111,9 +111,7 @@ print("\nPlease run these PWM signals and record the actual angles reached.")
 
 1. Upload the Arduino sketch.
 2. Open the serial monitor and set the PWM to 500.
-3. Attach the servo arm using the  
-   [calibration tools](https://github.com/IERoboticsAILab/botzo/tree/main/CAD_files/designs/servo_calibration_tools)  
-   aligned as closely as possible to 0°.
+3. Attach the servo arm using the [calibration tools](https://github.com/IERoboticsAILab/botzo/tree/main/CAD_files/designs/servo_calibration_tools) aligned as closely as possible to 0°.
 4. Adjust the PWM value until the arm aligns perfectly with 0°.
 5. Record the PWM, and repeat for 45°, 90°, 135°, and 180°.
 

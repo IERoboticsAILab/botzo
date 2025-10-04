@@ -4,7 +4,7 @@ Documentation on how to build our URDF from STL file
 
 A URDF is a file used i robotics to import the robot in a simulation. It uses the STL/CAD files as a base. Assemble them with rigid or rotatory joins, and save positions of each bone and pivot in the joints. To sum up, it is file that describe your robot in deep details and precision.
 
-Download our URDF [here](https://github.com/botzo-team/create_URDF/blob/main/final_URDF.zip)
+Download our URDF [here](https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf)
 
 ## Resources
 
@@ -51,7 +51,7 @@ As stated in the [Fusion2PyBullet repo](https://github.com/yanshil/Fusion2PyBull
    - Open the file of the robot
    - Go to utility > Addins
    - Under `My Script` you should see `Joint2Graphviz`
-   - Press it. It will create a `graph.txt` (see mine [here](https://github.com/botzo-team/create_URDF/blob/main/test_urdf_exporter/graph.txt))
+   - Press it. It will create a `graph.txt`
    - Copy and pase the text content to [Webgraphviz](http://www.webgraphviz.com/) and check your robot tf structure to be valid.
 
 **(for more infors check [Joint2Graphviz readme](https://github.com/yanshil/Joint2Graphviz))**
@@ -81,6 +81,6 @@ As stated in the [Fusion2PyBullet repo](https://github.com/yanshil/Fusion2PyBull
    ```
 
 4. Open fusion > utils > addins > my scripts > Bullet_URDF_Exporter
-5. My URDF [here](https://github.com/botzo-team/create_URDF/blob/main/final_URDF.zip)
+5. My URDF [here](https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf)
 
 **(for more infors check [fusion2urdf readme](https://github.com/syuntoku14/fusion2urdf/blob/master/README.md) or [Fusion2PyBullet readme](https://github.com/yanshil/Fusion2PyBullet/blob/master/README.md))**
