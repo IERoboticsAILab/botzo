@@ -1,6 +1,6 @@
 # CAD Model
 
-![Botzo CAD Model](https://github.com/IERoboticsAILab/botzo/blob/main/docs/assets/botzo_new_final_design.png)
+![Botzo CAD Model](../../assets/botzo_new_final_design.png)
 
 Botzo has been primarily designed using Fusion 360 CAD software. To support this,
 we provide a `.f3z` file that can be imported directly into Fusion 360. Additionally,
