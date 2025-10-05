@@ -2,7 +2,7 @@ import pybullet as p
 import time
 import pybullet_data
 import math
-from src.IK_solver import *
+from utils.IK_solver import *
 
 # Connect to PyBullet
 physicsClient = p.connect(p.GUI)  # or p.DIRECT for non-graphical version

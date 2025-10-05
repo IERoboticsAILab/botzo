@@ -2,7 +2,7 @@ import pybullet as p
 import time
 import pybullet_data
 import math
-from src.IK_solver import *
+from utils.IK_solver import *
 #import torch # pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 #device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

@@ -29,3 +29,7 @@ leaving space on the dorsal side for mounting additional modules like a LiDAR or
 webcams—supporting future capabilities like mapping and vision.
 
 ![Body](../../assets/gifs/animation_new_final_body.gif)
+
+---
+
+[BOTZO CAD REPO](https://github.com/IERoboticsAILab/botzo/tree/main/CAD_files)
