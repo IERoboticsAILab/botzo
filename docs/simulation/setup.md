@@ -21,7 +21,7 @@ Our final aim is to train and teach botzo to perform tasks using Reinforcement L
   - `move_one_joint.py`: Just to showcase how we access and move joints in Pybullet. So in this script we move one joint of botzo (find [here](https://github.com/IERoboticsAILab/botzo/tree/main/simulation/move_one_joint.py))
   - `debugger.py`: A script that allow us to move specific joints defined by the user. It is used to find the joint zeros, so we create a [function](https://github.com/IERoboticsAILab/botzo/blob/main/simulation/utils/IK_solver.py#L90) that transform simulation joint to real joint position (find [here](https://github.com/IERoboticsAILab/botzo/tree/main/simulation/debugger.py))
   - `IK_one_leg.py`: A script to test and visualize the Inverse Kinematics algorithm for one leg of botzo in PyBullet. It allows us to see how the IK algorithm calculates the joint angles needed to position the leg's foot at a desired location in 3D space. (find [here](https://github.com/IERoboticsAILab/botzo/tree/main/simulation/IK_one_leg.py))
-  - `digital_twin.py`: The main script to simulate the full botzo robot in PyBullet using the URDF file. It incorporates the Inverse Kinematics algorithm to control the robot's movements, allowing us to test and visualize how botzo would behave in a digital environment. (find [here](https://github.com/IERoboticsAILab/botzo/tree/main/simulation/digital_twin_botzo.py))
+  - `digital_twin.py`: The main script to simulate the full botzo robot in PyBullet using the URDF file. It incorporates the Inverse Kinematics algorithm to control the robot's movements, allowing us to test and visualize how botzo would behave in a digital environment. (find [here](https://github.com/IERoboticsAILab/botzo/blob/main/simulation/digital_twin.py))
 
 ---
 
