@@ -51,3 +51,7 @@ locomotion with reinforcement learning, Botzo encourages curiosity and hands-on 
 
 If you're interested in robotics, simulation, or intelligent locomotion,
 Botzo isn't just a project — it's a platform for learning.
+
+---
+
+[BOTZO GITHUB REPO](https://github.com/IERoboticsAILab/botzo)

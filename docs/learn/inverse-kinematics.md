@@ -196,3 +196,7 @@ and robot dimentions.
 
 ![firststeps](../assets/gifs/firststeps_old_botzo.gif)
 ![walking](../assets/gifs/walking.gif)
+
+---
+
+[BOTZO IK REPO](https://github.com/IERoboticsAILab/botzo/tree/main/control/inverse_kinematics)

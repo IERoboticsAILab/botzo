@@ -92,3 +92,7 @@ As stated in the [Fusion2PyBullet repo](https://github.com/yanshil/Fusion2PyBull
     ```
 
 6. [OWR URDF](https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf)
+
+---
+
+[BOTZO URDF REPO](https://github.com/IERoboticsAILab/botzo/tree/main/CAD_files/URDF)

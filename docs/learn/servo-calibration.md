@@ -163,3 +163,7 @@ plt.show()
 
 By following this process, you’ll significantly improve servo positioning accuracy,  
 making your robot’s motion more reliable and repeatable.
+
+---
+
+[BOTZO SERVO CALIBRATION REPO](https://github.com/IERoboticsAILab/botzo/tree/main/control/inverse_kinematics/servo_calibration)
