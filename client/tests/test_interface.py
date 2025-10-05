@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 
 from client.interfaces import SerialInterface
-from client.protocol import START_BYTE, CmdType, Packet
+from client.protocol import START_BYTE, CMDType, Packet
 from tests.mocks import MockMCU, MockSerial
 
 
@@ -38,7 +38,7 @@ class TestInterface:
             interface = SerialInterface("/dev/ttyMOCK", 115200)
             await interface.connect()
 
-            packet = Packet(cmd_type=CmdType.PING)
+            packet = Packet(cmd_type=CMDType.PING)
             result = await interface.send(packet)
 
             assert result is True
@@ -61,7 +61,7 @@ class TestInterface:
             await interface.connect()
 
             # Send ping
-            packet = Packet(cmd_type=CmdType.PING)
+            packet = Packet(cmd_type=CMDType.PING)
 
             # Simulate MCU processing in background
             async def simulate_mcu():
@@ -71,12 +71,12 @@ class TestInterface:
             task = asyncio.create_task(simulate_mcu())
 
             # Wait for response
-            response = await interface.send_and_wait(packet, CmdType.ACK, timeout=1.0)
+            response = await interface.send_and_wait(packet, CMDType.ACK, timeout=1.0)
 
             await task
 
             assert response is not None
-            assert response.cmd_type == CmdType.ACK
+            assert response.cmd_type == CMDType.ACK
 
             await interface.disconnect()
 
@@ -101,10 +101,10 @@ class TestInterface:
             await interface.connect()
 
             # Register callback
-            interface.on(CmdType.ACK, on_ack)
+            interface.on(CMDType.ACK, on_ack)
 
             # Send ping and simulate response
-            packet = Packet(cmd_type=CmdType.PING)
+            packet = Packet(cmd_type=CMDType.PING)
             await interface.send(packet)
 
             mock_mcu.process_commands()
@@ -114,6 +114,6 @@ class TestInterface:
 
             assert callback_called
             assert received_packet is not None
-            assert received_packet.cmd_type == CmdType.ACK
+            assert received_packet.cmd_type == CMDType.ACK
 
             await interface.disconnect()

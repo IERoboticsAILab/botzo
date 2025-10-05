@@ -1,6 +1,6 @@
 import struct
 
-from client.protocol import CmdType, Packet
+from client.protocol import CMDType, Packet
 
 from .mock_serial import MockSerial
 
@@ -24,48 +24,48 @@ class MockMCU:
             return
 
         # Parse packet
-        packet = Packet.from_bytes(data)
+        packet = Packet.deserialize(data)
         if not packet:
             return
 
         # Handle commands
-        if packet.cmd_type == CmdType.PING:
+        if packet.cmd_type == CMDType.PING:
             self._respond_ack()
 
-        elif packet.cmd_type == CmdType.MOVE_SERVO:
+        elif packet.cmd_type == CMDType.MOVE_SERVO:
             if len(packet.payload) == 3:
                 servo_id = packet.payload[0]
                 position = struct.unpack(">H", packet.payload[1:3])[0]
                 self.servo_positions[servo_id] = position
 
-        elif packet.cmd_type == CmdType.SET_GPIO:
+        elif packet.cmd_type == CMDType.SET_GPIO:
             if len(packet.payload) == 2:
                 pin = packet.payload[0]
                 state = packet.payload[1]
                 self.gpio_states[pin] = bool(state)
 
-        elif packet.cmd_type == CmdType.GET_IMU:
+        elif packet.cmd_type == CMDType.GET_IMU:
             self._send_imu_data()
 
-        elif packet.cmd_type == CmdType.START_IMU_STREAM:
+        elif packet.cmd_type == CMDType.START_IMU_STREAM:
             if len(packet.payload) == 1:
                 self.imu_streaming = True
                 self.imu_rate = packet.payload[0]
 
-        elif packet.cmd_type == CmdType.STOP_IMU_STREAM:
+        elif packet.cmd_type == CMDType.STOP_IMU_STREAM:
             self.imu_streaming = False
 
     def _respond_ack(self):
         """Send ACK response"""
-        ack_packet = Packet(cmd_type=CmdType.ACK)
-        self.serial.inject_data(ack_packet.to_bytes())
+        ack_packet = Packet(cmd_type=CMDType.ACK)
+        self.serial.inject_data(ack_packet.serialize())
 
     def _send_imu_data(self):
         """Send IMU data response"""
         # Fake IMU data: 6 floats (accel_xyz, gyro_xyz)
         imu_data = struct.pack(">6f", 0.1, 0.2, 9.8, 0.01, 0.02, 0.03)
-        imu_packet = Packet(cmd_type=CmdType.IMU_DATA, payload=imu_data)
-        self.serial.inject_data(imu_packet.to_bytes())
+        imu_packet = Packet(cmd_type=CMDType.IMU_DATA, payload=imu_data)
+        self.serial.inject_data(imu_packet.serialize())
 
     def simulate_imu_stream(self, count: int = 1):
         """Simulate streaming IMU data"""
