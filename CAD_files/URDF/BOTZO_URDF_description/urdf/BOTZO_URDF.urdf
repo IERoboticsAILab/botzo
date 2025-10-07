@@ -1310,29 +1310,45 @@
     <parent link="base"/>
     <child link="FR_hip_servo"/>
   </joint>
-  <joint name="LH_HAA" type="continuous">
+  <joint name="LH_HAA" type="revolute">
     <origin rpy="0 0 0" xyz="-0.0106 -0.0148 0.005"/>
     <parent link="BR_hip_servo"/>
     <child link="LH_HIP"/>
     <axis xyz="1.0 0.0 0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="RH_HAA" type="continuous">
+  <joint name="RH_HAA" type="revolute">
     <origin rpy="0 0 0" xyz="-0.0106 0.0148 0.005"/>
     <parent link="BL_hip_servo"/>
     <child link="RH_HIP"/>
     <axis xyz="-1.0 -0.0 -0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="RF_HAA" type="continuous">
+  <joint name="RF_HAA" type="revolute">
     <origin rpy="0 0 0" xyz="0.0106 0.0148 0.005"/>
     <parent link="FL_hip_servo"/>
     <child link="RF_HIP"/>
     <axis xyz="-1.0 -0.0 -0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="LF_HAA" type="continuous">
+  <joint name="LF_HAA" type="revolute">
     <origin rpy="0 0 0" xyz="0.0106 -0.0148 0.005"/>
     <parent link="FR_hip_servo"/>
     <child link="LF_HIP"/>
     <axis xyz="1.0 -0.0 0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
   <joint name="Rigid 11" type="fixed">
     <origin rpy="0 0 0" xyz="0.006 0.0 0.02"/>
@@ -1399,77 +1415,117 @@
     <parent link="base"/>
     <child link="imu_link"/>
   </joint>
-  <joint name="LF_HFE" type="continuous">
+  <joint name="LF_HFE" type="revolute">
     <origin rpy="0 0 0" xyz="0.0148 0.0106 0.005"/>
     <parent link="FR_femur_servo"/>
     <child link="LF_THIGH"/>
     <axis xyz="-0.0 1.0 -0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="RF_HFE" type="continuous">
+  <joint name="RF_HFE" type="revolute">
     <origin rpy="0 0 0" xyz="0.0148 -0.0106 0.005"/>
     <parent link="FL_femur_servo"/>
     <child link="RF_THIGH"/>
     <axis xyz="-0.0 1.0 0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="RH_HFE" type="continuous">
+  <joint name="RH_HFE" type="revolute">
     <origin rpy="0 0 0" xyz="-0.0348 -0.0106 0.005"/>
     <parent link="BL_femur_servo"/>
     <child link="RH_THIGH"/>
     <axis xyz="-0.0 1.0 0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="LH_HFE" type="continuous">
+  <joint name="LH_HFE" type="revolute">
     <origin rpy="0 0 0" xyz="-0.0348 0.0106 0.005"/>
     <parent link="BR_femur_servo"/>
     <child link="LH_THIGH"/>
     <axis xyz="-0.0 1.0 -0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="LF_KFE" type="continuous">
+  <joint name="LF_KFE" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 0.013 -0.090579"/>
     <parent link="LF_THIGH"/>
     <child link="LF_SHANK"/>
     <axis xyz="-0.0 1.0 -0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="RF_KFE" type="continuous">
+  <joint name="RF_KFE" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 -0.013 -0.090579"/>
     <parent link="RF_THIGH"/>
     <child link="RF_SHANK"/>
     <axis xyz="-0.0 1.0 0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="LH_KFE" type="continuous">
+  <joint name="LH_KFE" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 0.013 -0.090579"/>
     <parent link="LH_THIGH"/>
     <child link="LH_SHANK"/>
     <axis xyz="-0.0 1.0 -0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="RH_KFE" type="continuous">
+  <joint name="RH_KFE" type="revolute">
     <origin rpy="0 0 0" xyz="0.0 -0.013 -0.090579"/>
     <parent link="RH_THIGH"/>
     <child link="RH_SHANK"/>
     <axis xyz="-0.0 1.0 0.0"/>
+    <!-- Motion limits: lower=-90°, upper=90° (converted to radians) -->
+    <limit effort="500" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!-- Physics properties -->
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="RH_shank_fixed_RH_FOOT" type="continuous">
+  <joint name="RH_shank_fixed_RH_FOOT" type="revolute">
     <origin rpy="0 0 0" xyz="0.089947 0.0066 -0.001191"/>
     <parent link="RH_SHANK"/>
     <child link="RH_FOOT"/>
     <axis xyz="0.646191 -0.0 -0.763176"/>
+    <limit effort="500" lower="0" upper="0" velocity="0"/>
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="LH_shank_fixed_LH_FOOT" type="continuous">
+  <joint name="LH_shank_fixed_LH_FOOT" type="revolute">
     <origin rpy="0 0 0" xyz="0.089947 -0.0066 -0.001191"/>
     <parent link="LH_SHANK"/>
     <child link="LH_FOOT"/>
     <axis xyz="-0.646191 0.0 0.763176"/>
+    <limit effort="500" lower="0" upper="0" velocity="0"/>
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="LF_shank_fixed_LF_FOOT" type="continuous">
+  <joint name="LF_shank_fixed_LF_FOOT" type="revolute">
     <origin rpy="0 0 0" xyz="0.089946 -0.0066 -0.001191"/>
     <parent link="LF_SHANK"/>
     <child link="LF_FOOT"/>
     <axis xyz="-0.646191 -0.0 0.763176"/>
+    <limit effort="500" lower="0" upper="0" velocity="0"/>
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
-  <joint name="RF_shank_fixed_RF_FOOT" type="continuous">
+  <joint name="RF_shank_fixed_RF_FOOT" type="revolute">
     <origin rpy="0 0 0" xyz="0.089906 0.006586 -0.001225"/>
     <parent link="RF_SHANK"/>
     <child link="RF_FOOT"/>
     <axis xyz="0.646191 -0.0 -0.763176"/>
+    <limit effort="500" lower="0" upper="0" velocity="0"/>
+    <dynamics damping="0.005" friction="0.1"/>
   </joint>
   <joint name="Rigid 36" type="fixed">
     <origin rpy="0 0 0" xyz="-0.00664 -0.018475 0.0624"/>
