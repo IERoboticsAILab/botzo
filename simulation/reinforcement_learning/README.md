@@ -90,3 +90,8 @@ File structure:
     b. Create your custom robot config in `isaaclab_tasks\isaaclab_tasks\manager_based\locomotion\velocity\config\<custom_robot_name>` (Copy and paste from another robot and modify as needed observations, rewards and hyperparameters)
     c. Train using: `python .\scripts\reinforcement_learning\skrl\train.py --task=Isaac-Velocity-Flat-Botzo-v0 --headless --video`
     d. Monitor training with tensorboard: `(env_isaaclab) PS C:\Users\grego\Desktop\GRINGO\IsaacLab\IsaacLab> tensorboard --logdir .\logs\`
+
+5. Troubleshooting
+    a. Fix Stiffness, Damping, Effort, etc... in Botzo Config file to make movement smoother and not shaky
+    b. Check/Fix rewards
+    c. Check/Fix observations
