@@ -89,34 +89,12 @@
   </actuator>
 </transmission>
 
-<transmission name="LF_KFE_tran">
-  <type>transmission_interface/SimpleTransmission</type>
-  <joint name="LF_KFE">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-  </joint>
-  <actuator name="LF_KFE_actr">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
-</transmission>
-
 <transmission name="RF_KFE_tran">
   <type>transmission_interface/SimpleTransmission</type>
   <joint name="RF_KFE">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
   <actuator name="RF_KFE_actr">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
-</transmission>
-
-<transmission name="LH_KFE_tran">
-  <type>transmission_interface/SimpleTransmission</type>
-  <joint name="LH_KFE">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-  </joint>
-  <actuator name="LH_KFE_actr">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     <mechanicalReduction>1</mechanicalReduction>
   </actuator>
@@ -133,45 +111,23 @@
   </actuator>
 </transmission>
 
-<transmission name="RH_shank_fixed_RH_FOOT_tran">
+<transmission name="LF_KFE_tran">
   <type>transmission_interface/SimpleTransmission</type>
-  <joint name="RH_shank_fixed_RH_FOOT">
+  <joint name="LF_KFE">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
-  <actuator name="RH_shank_fixed_RH_FOOT_actr">
+  <actuator name="LF_KFE_actr">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     <mechanicalReduction>1</mechanicalReduction>
   </actuator>
 </transmission>
 
-<transmission name="LH_shank_fixed_LH_FOOT_tran">
+<transmission name="LH_KFE_tran">
   <type>transmission_interface/SimpleTransmission</type>
-  <joint name="LH_shank_fixed_LH_FOOT">
+  <joint name="LH_KFE">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
   </joint>
-  <actuator name="LH_shank_fixed_LH_FOOT_actr">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
-</transmission>
-
-<transmission name="LF_shank_fixed_LF_FOOT_tran">
-  <type>transmission_interface/SimpleTransmission</type>
-  <joint name="LF_shank_fixed_LF_FOOT">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-  </joint>
-  <actuator name="LF_shank_fixed_LF_FOOT_actr">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    <mechanicalReduction>1</mechanicalReduction>
-  </actuator>
-</transmission>
-
-<transmission name="RF_shank_fixed_RF_FOOT_tran">
-  <type>transmission_interface/SimpleTransmission</type>
-  <joint name="RF_shank_fixed_RF_FOOT">
-    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-  </joint>
-  <actuator name="RF_shank_fixed_RF_FOOT_actr">
+  <actuator name="LH_KFE_actr">
     <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     <mechanicalReduction>1</mechanicalReduction>
   </actuator>

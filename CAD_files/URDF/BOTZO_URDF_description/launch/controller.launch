@@ -1,7 +1,7 @@
 <launch>
 
 <rosparam file="$(find BOTZO_URDF_description)/launch/controller.yaml" command="load"/>
-<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="BOTZO_URDF" args="LH_HAA_position_controller RH_HAA_position_controller RF_HAA_position_controller LF_HAA_position_controller LF_HFE_position_controller RF_HFE_position_controller RH_HFE_position_controller LH_HFE_position_controller LF_KFE_position_controller RF_KFE_position_controller LH_KFE_position_controller RH_KFE_position_controller RH_shank_fixed_RH_FOOT_position_controller LH_shank_fixed_LH_FOOT_position_controller LF_shank_fixed_LF_FOOT_position_controller RF_shank_fixed_RF_FOOT_position_controller joint_state_controller "/>
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="BOTZO_URDF" args="LH_HAA_position_controller RH_HAA_position_controller RF_HAA_position_controller LF_HAA_position_controller LF_HFE_position_controller RF_HFE_position_controller RH_HFE_position_controller LH_HFE_position_controller RF_KFE_position_controller RH_KFE_position_controller LF_KFE_position_controller LH_KFE_position_controller joint_state_controller "/>
 <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
   <remap from="/joint_states" to="/BOTZO_URDF/joint_states"/>
 </node>
