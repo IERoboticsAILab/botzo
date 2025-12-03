@@ -12,8 +12,8 @@ import numpy as np
 coxa = 3.14 # from shoulder servo to the 2 other servos in the shoulder
 femur = 9.05 # from top sevo to knee
 tibia = 9.85 # from knee to foot
-L = 24.09 # body length
-W = 13.52  # body width
+L = 7.0536 + 8.9735 # body length
+W = 10.6  # body width
 
 
 
@@ -55,7 +55,20 @@ def Rz(yaw):
                       [np.sin(yaw),  np.cos(yaw), 0, 0],
                       [          0,            0, 1, 0],
                       [          0,            0, 0, 1]])
-    
+
+def RotMatrix(rotation=[0,0,0], is_radiants=True, order='xyz'):
+    roll, pitch, yaw = rotation
+    # Convert to radiants if input is in degrees
+    if not is_radiants:
+        roll = math.radians(roll)
+        pitch = math.radians(pitch)
+        yaw = math.radians(yaw)
+    rotX = Rx(roll)
+    rotY = Ry(pitch)
+    rotZ = Rz(yaw)
+    if order == 'xyz': rotation_matrix = rotX * rotY * rotZ
+    elif order == 'zyx': rotation_matrix = rotZ * rotY * rotX
+    return rotation_matrix # roll, pitch, yaw rotation matrix
 
 # ------------------- SIMULATIONS FUNCTIONS -------------------
 
