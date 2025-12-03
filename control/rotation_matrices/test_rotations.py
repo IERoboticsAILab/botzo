@@ -25,6 +25,10 @@ roll = 0
 pitch = 0
 yaw = 0
 
+rotation_step = math.radians(0.5)  # grad per step
+translation_step = 0.1  # cm per step
+pivot_point_increment = 0.01  # cm per step
+
 target_FL = [0,3,16]
 target_FR = [0,3,16]
 target_BL = [0,3,16]
@@ -45,6 +49,7 @@ def key_listener():
     # translation of body comands
     print("KEYS:\n\t'w' -> forward\n\t's' -> backward\n\t'a' -> left\n\t'd' -> right\n\t''r' -> up\n\t'f' -> down")
     print("\t'i' -> roll +\n\t'k' -> roll -\n\t'j' -> pitch +\n\t'l' -> pitch -\n\t'y' -> yaw +\n\t'h' -> yaw -")
+    print("\t'c' -> shift center of mass/pivot point forward\n\t'v' -> shift center of mass/pivot point backward\n\t'b' -> shift center of mass/pivot point left\n\t'n' -> shift center of mass/pivot point right")
     print("\t'x' -> stop\n\t'q' -> exit\nINPUT:")
     while True:
         if msvcrt.kbhit():      # Key pressed?
@@ -79,8 +84,6 @@ robotId = p.loadURDF("../CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.u
                      flags=p.URDF_USE_INERTIA_FROM_FILE, globalScaling=10)
 
 # Run the simulation loop indefinitely
-rotation_step = math.radians(0.5)  # grad per step
-translation_step = 0.1  # cm per step
 try:
     while True:
         if last_key_pressed is not None:
@@ -141,6 +144,26 @@ try:
                 rotated_targetBL[2] -= translation_step
                 rotated_targetFR[2] -= translation_step
                 rotated_targetBR[2] -= translation_step
+            elif last_key_pressed == "c":
+                FR[0] += pivot_point_increment
+                FL[0] += pivot_point_increment
+                BR[0] += pivot_point_increment
+                BL[0] += pivot_point_increment
+            elif last_key_pressed == "v":
+                FR[0] -= pivot_point_increment
+                FL[0] -= pivot_point_increment
+                BR[0] -= pivot_point_increment
+                BL[0] -= pivot_point_increment
+            elif last_key_pressed == "b":
+                FR[1] += pivot_point_increment
+                FL[1] -= pivot_point_increment
+                BR[1] += pivot_point_increment
+                BL[1] -= pivot_point_increment
+            elif last_key_pressed == "n":
+                FR[1] -= pivot_point_increment
+                FL[1] += pivot_point_increment
+                BR[1] -= pivot_point_increment
+                BL[1] += pivot_point_increment
             elif last_key_pressed == "i":
                 roll += rotation_step
             elif last_key_pressed == "k":
@@ -160,13 +183,17 @@ try:
                 #yaw = 0
                 pass
         
+        print(f"pitch: {pitch}, roll: {roll}, yaw: {yaw}")
+        print(f"Pivot Point FR: {FR[0]}, {FR[1]}, {FR[2]}")
+        print(f"Pivot Point FL: {FL[0]}, {FL[1]}, {FL[2]}")
+        print(f"Pivot Point BR: {BR[0]}, {BR[1]}, {BR[2]}")
+        print(f"Pivot Point BL: {BL[0]}, {BL[1]}, {BL[2]}\n")
         if last_key_pressed in ["i", "k", "j", "l", "y", "h"]:
             target_to_bodyFR = [target_FR[0], target_FR[1], target_FR[2]]
             target_to_bodyFL = [target_FL[0], -target_FL[1], target_FL[2]]
             target_to_bodyBR = [target_BR[0], target_BR[1], target_BR[2]]
             target_to_bodyBL = [target_BL[0], -target_BL[1], target_BL[2]]
 
-            print(f"pitch: {pitch}, roll: {roll}, yaw: {yaw}")
             R = RotMatrix(rotation=[roll, pitch, yaw], is_radiants=True, order='xyz')
 
             FRr = R * np.matrix([[FR[0]], [FR[1]], [FR[2]], [1]])
@@ -188,19 +215,6 @@ try:
             rotated_targetFL = [FLtr[0,0] - FL[0], -(FLtr[1,0] - FL[1]), FLtr[2,0] - FL[2]]
             rotated_targetBR = [BRtr[0,0] - BR[0], BRtr[1,0] - BR[1], BRtr[2,0] - BR[2]]
             rotated_targetBL = [BLtr[0,0] - BL[0], -(BLtr[1,0] - BL[1]), BLtr[2,0] - BL[2]]
-            print(f"Result Rotated Target FR: {rotated_targetFR[0]}, {rotated_targetFR[1]}, {rotated_targetFR[2]}")
-            print(f"Result Rotated Target FL: {rotated_targetFL[0]}, {rotated_targetFL[1]}, {rotated_targetFL[2]}")
-            print(f"Result Rotated Target BR: {rotated_targetBR[0]}, {rotated_targetBR[1]}, {rotated_targetBR[2]}")
-            print(f"Result Rotated Target BL: {rotated_targetBL[0]}, {rotated_targetBL[1]}, {rotated_targetBL[2]}\n\n")
-
-
-
-
-
-
-
-            
-        
 
 
         if rotated_targetFR is not None:
