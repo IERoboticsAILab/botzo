@@ -43,6 +43,7 @@ Usage:
 
 import asyncio
 import sys
+from argparse import ArgumentParser
 
 from botzo_sdk import BotzoClient, get_logger
 
@@ -67,8 +68,17 @@ async def main():
         0: Successful ping/pong exchange
         1: Connection failure
     """
+    parser = ArgumentParser(
+        prog="SimplePingExample",
+        description="A simple example of how to ping the MCU connected to a serial port.",
+    )
+    parser.add_argument("--serial", "-s", default=SERIAL_PORT)
+    parser.add_argument("--baud", "-b", default=SERIAL_BAUD)
+
+    args = parser.parse_args()
+
     # Initialize client with serial parameters
-    client = BotzoClient(SERIAL_PORT, SERIAL_BAUD)
+    client = BotzoClient(args.serial, args.baud)
 
     # Attempt connection
     if not await client.connect():
