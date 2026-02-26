@@ -1,0 +1,19 @@
+[Unit]
+Description=Botzo Controller
+After=bluetooth.target bluetooth.service multi-user.target
+Wants=bluetooth.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/botzo/main
+ExecStart=/bin/bash /home/pi/botzo/main/start_bot.sh
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+
+
