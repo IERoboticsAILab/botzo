@@ -13,7 +13,7 @@ p.setGravity(0, 0, -9.8)
 planeId = p.loadURDF("plane.urdf")
 cubeStartPos = [0, 0, 2]
 cubeStartOrientation = p.getQuaternionFromEuler([math.pi, 0, 0]) # rotate the robot of 180 degrees around the x axis
-robotId = p.loadURDF("../CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf", cubeStartPos, cubeStartOrientation,
+robotId = p.loadURDF("../CAD_files/URDF/botzo.urdf", cubeStartPos, cubeStartOrientation,
                      flags=p.URDF_USE_INERTIA_FROM_FILE, globalScaling=10)
 
 # Run the simulation loop indefinitely

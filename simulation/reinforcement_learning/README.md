@@ -75,6 +75,8 @@ isaac-sim.selector.bat
 
 For more tutorials: Documentation [here](https://docs.isaacsim.omniverse.nvidia.com/4.5.0/introduction/quickstart_index.html#isaac-sim-intro-quickstart-series)
 
+`conda activate env_isaaclab`
+
 #### Import URDF
 
 `.\python.bat ..\Users\grego\Desktop\GRINGO\botzo\botzo\simulation\reinforcment_learning\standalone_examples\import_botzo_urdf.py`

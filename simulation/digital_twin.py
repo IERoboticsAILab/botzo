@@ -16,7 +16,7 @@ p.setGravity(0, 0, -9.8)
 planeId = p.loadURDF("plane.urdf")
 cubeStartPos = [0, 0, 1]
 cubeStartOrientation = p.getQuaternionFromEuler([0, 0, 0])
-robotId = p.loadURDF("../CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf", cubeStartPos, cubeStartOrientation,
+robotId = p.loadURDF("../CAD_files/URDF/botzo.urdf", cubeStartPos, cubeStartOrientation,
                      flags=p.URDF_USE_INERTIA_FROM_FILE, globalScaling=10)
 
 # Run the simulation loop indefinitely
@@ -80,12 +80,6 @@ try:
             p.setJointMotorControl2(bodyUniqueId=robotId, jointIndex=joint_ids["BL"]["femur"], controlMode=p.POSITION_CONTROL, targetPosition=target_BL_angle_femur, force=50)
             # Move back left knee
             p.setJointMotorControl2(bodyUniqueId=robotId, jointIndex=joint_ids["BL"]["knee"], controlMode=p.POSITION_CONTROL, targetPosition=target_BL_angle_knee, force=50)
-            #------------------------------
-            # set foot joint to fixed position
-            p.setJointMotorControl2(bodyUniqueId=robotId, jointIndex=joint_ids["FR"]["foot"], controlMode=p.POSITION_CONTROL, targetPosition=0, force=50)
-            p.setJointMotorControl2(bodyUniqueId=robotId, jointIndex=joint_ids["FL"]["foot"], controlMode=p.POSITION_CONTROL, targetPosition=0, force=50)
-            p.setJointMotorControl2(bodyUniqueId=robotId, jointIndex=joint_ids["BR"]["foot"], controlMode=p.POSITION_CONTROL, targetPosition=0, force=50)
-            p.setJointMotorControl2(bodyUniqueId=robotId, jointIndex=joint_ids["BL"]["foot"], controlMode=p.POSITION_CONTROL, targetPosition=0, force=50)
 
             # Step the simulation and wait for a short time to observe movement
             for _ in range(10):  # Let the movement settle

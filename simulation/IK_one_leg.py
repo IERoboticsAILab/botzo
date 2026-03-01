@@ -13,7 +13,7 @@ p.setGravity(0, 0, -9.8)
 planeId = p.loadURDF("plane.urdf")
 cubeStartPos = [0, 0, 2]
 cubeStartOrientation = p.getQuaternionFromEuler([0, 0, 0])
-robotId = p.loadURDF("../CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf", cubeStartPos, cubeStartOrientation,
+robotId = p.loadURDF("../CAD_files/URDF/botzo.urdf", cubeStartPos, cubeStartOrientation,
                      flags=p.URDF_USE_INERTIA_FROM_FILE, globalScaling=10)
 
 # Run the simulation loop indefinitely
@@ -42,24 +42,6 @@ try:
             p.setJointMotorControl2(bodyUniqueId=robotId, jointIndex=joint_ids["BR"]["shoulder"], controlMode=p.POSITION_CONTROL, targetPosition=target_angle_shoulder, force=500)
             p.setJointMotorControl2(bodyUniqueId=robotId, jointIndex=joint_ids["BR"]["femur"], controlMode=p.POSITION_CONTROL, targetPosition=target_angle_femur, force=500)
             p.setJointMotorControl2(bodyUniqueId=robotId, jointIndex=joint_ids["BR"]["knee"], controlMode=p.POSITION_CONTROL, targetPosition=target_angle_knee, force=500)
-        # Print end effector positions
-        foot_side = "FL" # LF_shank_fixed_LF_FOOT
-        foot_state = p.getLinkState(robotId, joint_ids[foot_side]["foot"])
-        foot_position = foot_state[0]  # (x, y, z) coordinates of the foot
-        print(f"{foot_side} Foot Position: {foot_position}")
-        foot_side = "FR" # RF_shank_fixed_RF_FOOT
-        foot_state = p.getLinkState(robotId, joint_ids[foot_side]["foot"])
-        foot_position = foot_state[0]  # (x, y, z) coordinates of the foot
-        print(f"{foot_side} Foot Position: {foot_position}")
-        foot_side = "BL" # LH_shank_fixed_LH_FOOT
-        foot_state = p.getLinkState(robotId, joint_ids[foot_side]["foot"])
-        foot_position = foot_state[0]  # (x, y, z) coordinates
-        print(f"{foot_side} Foot Position: {foot_position}")
-        foot_side = "BR" # RH_shank_fixed_RH_FOOT
-        foot_state = p.getLinkState(robotId, joint_ids[foot_side]["foot"])
-        foot_position = foot_state[0]  # (x, y, z) coordinates
-        print(f"{foot_side} Foot Position: {foot_position}")
-        print("\n")
 
 except KeyboardInterrupt:
     print("Simulation terminated.")

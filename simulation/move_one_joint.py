@@ -3,6 +3,7 @@ import time
 import pybullet_data
 import math
 
+'''
 joint_ids = {
     "BR": { # RH
         "shoulder": 11, # RH_HAA
@@ -29,6 +30,29 @@ joint_ids = {
         "foot": 32 # LF_shank_fixed_LF_FOOT
     }
 }
+'''
+joint_ids = {
+    "BR": { # RH
+        "shoulder": 3, # RH_HAA
+        "femur": 4, # RH_HFE
+        "knee": 5, # RH_KFE
+    },
+    "FR": { # RF
+        "shoulder": 9, # RF_HAA
+        "femur": 10, # RF_HFE
+        "knee": 11, # RF_KFE
+    },
+    "BL": { # LH
+        "shoulder": 0, # LH_HAA
+        "femur": 1, # LH_HFE
+        "knee": 2, # LH_KFE
+    },
+    "FL": { # LF
+        "shoulder": 6, # LF_HAA
+        "femur": 7, # LF_HFE
+        "knee": 8, #LF_KFE
+    }
+}
 
 # Connect to PyBullet
 physicsClient = p.connect(p.GUI)  # or p.DIRECT for non-graphical version
@@ -39,10 +63,10 @@ p.setGravity(0, 0, -10)
 planeId = p.loadURDF("plane.urdf")
 cubeStartPos = [0, 0, 0.1]
 cubeStartOrientation = p.getQuaternionFromEuler([0, 0, 0])
-robotId = p.loadURDF("../CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf", cubeStartPos, cubeStartOrientation,
+robotId = p.loadURDF("../CAD_files/URDF/botzo.urdf", cubeStartPos, cubeStartOrientation,
                      flags=p.URDF_USE_INERTIA_FROM_FILE)
 
-'''
+
 # Print joint information
 num_joints = p.getNumJoints(robotId)
 print(f"Number of joints in the URDF: {num_joints}\n") #-> 41
@@ -57,63 +81,72 @@ for joint_index in range(num_joints):
         print(f"  Parent Frame Position: {joint_info[14]}")
         print(f"  Parent Frame Orientation: {joint_info[15]}")
         print("")
-# Joint 3:
-#   Name: RF_HAA
-#   Child Link: RF_HIP
-# Joint 6:
-#   Name: RF_HFE
-#   Child Link: RF_THIGH
-# Joint 7:
-#   Name: RF_KFE
-#   Child Link: RF_SHANK
-# Joint 8:
-#   Name: RF_shank_fixed_RF_FOOT
-#   Child Link: RF_FOOT
+'''
+Joint 0:
+  Name: Revolute 1
+  Type: 0
+  Child Link: BL_shoulder
 
-# Joint 11:
-#   Name: RH_HAA
-#   Child Link: RH_HIP
-# Joint 14:
-#   Name: RH_HFE
-#   Child Link: RH_THIGH
-# Joint 15:
-#   Name: RH_KFE
-#   Child Link: RH_SHANK
-# Joint 16:
-#   Name: RH_shank_fixed_RH_FOOT
-#   Child Link: RH_FOOT
+Joint 1:
+  Name: Revolute 11
+  Type: 0
+  Child Link: BL_femur
 
-# Joint 19:
-#   Name: LH_HAA
-#   Child Link: LH_HIP
-# Joint 22:
-#   Name: LH_HFE
-#   Child Link: LH_THIGH
-# Joint 23:
-#   Name: LH_KFE
-#   Child Link: LH_SHANK
-# Joint 24:
-#   Name: LH_shank_fixed_LH_FOOT
-#   Child Link: LH_FOOT
+Joint 2:
+  Name: Revolute 12
+  Type: 0
+  Child Link: BL_tibia
 
-# Joint 27:
-#   Name: LF_HAA
-#   Child Link: LF_HIP
-# Joint 30:
-#   Name: LF_HFE
-#   Child Link: LF_THIGH
-# Joint 31:
-#   Name: LF_KFE
-#   Child Link: LF_SHANK
-# Joint 32:
-#   Name: LF_shank_fixed_LF_FOOT
-#   Child Link: LF_FOOT
+Joint 3:
+  Name: Revolute 2
+  Type: 0
+  Child Link: BR_shoulder
+
+Joint 4:
+  Name: Revolute 9
+  Type: 0
+  Child Link: BR_femur
+
+Joint 5:
+  Name: Revolute 10
+  Type: 0
+  Child Link: BR_tibia
+
+Joint 6:
+  Name: Revolute 3
+  Type: 0
+  Child Link: FL_shoulder
+
+Joint 7:
+  Name: Revolute 7
+  Type: 0
+  Child Link: FL_femur
+
+Joint 8:
+  Name: Revolute 8
+  Type: 0
+  Child Link: FL_tibia
+
+Joint 9:
+  Name: Revolute 4
+  Type: 0
+  Child Link: FR_shoulder
+
+Joint 10:
+  Name: Revolute 5
+  Type: 0
+  Child Link: FR_femur
+
+Joint 11:
+  Name: Revolute 6
+  Type: 0
+  Child Link: FR_tibia
 '''
 
 while True:
     try:
         # Move joint 36 (FL_femur_joint) to 45 degrees
-        joint_index = 31
+        joint_index = 0
         target_angle_deg = float(input("desire angle:"))  # Target angle in degrees
         target_angle_rad = math.radians(target_angle_deg)  # Convert to radians
 
@@ -125,11 +158,6 @@ while True:
             targetPosition=target_angle_rad,     # Target position in radians
             force=500                            # Max force applied to reach the target
         ) # setJointMotorControl2
-
-        foot_side = "FL" # LF_shank_fixed_LF_FOOT
-        foot_state = p.getLinkState(robotId, joint_ids[foot_side]["foot"])
-        foot_position = foot_state[0]  # (x, y, z) coordinates of the foot
-        print(f"{foot_side} Foot Position: {foot_position}")
 
         for i in range(240):  # Simulate for 1 second (240 steps at 240 Hz)
             p.stepSimulation()

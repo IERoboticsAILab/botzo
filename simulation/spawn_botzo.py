@@ -7,9 +7,9 @@ p.setAdditionalSearchPath(pybullet_data.getDataPath()) #optionally
 p.setGravity(0,0,-10)
 
 planeId = p.loadURDF("plane.urdf")
-startPos = [0,0,1]
+startPos = [0,0,0.1]
 startOrientation = p.getQuaternionFromEuler([0,0,0])
-robotId = p.loadURDF("../CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf", startPos, startOrientation,
+robotId = p.loadURDF("../CAD_files/URDF/botzo.urdf", startPos, startOrientation,
                      flags=p.URDF_USE_INERTIA_FROM_FILE)
 
 

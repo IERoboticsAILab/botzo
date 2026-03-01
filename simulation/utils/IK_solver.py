@@ -63,58 +63,51 @@ spin_right_targets_FL_BR = [
 
 joint_ids = {
     "BR": { # RH
-        "shoulder": 11, # RH_HAA
-        "femur": 14, # RH_HFE
-        "knee": 15, # RH_KFE
-        "foot": 16 # RH_shank_fixed_RH_FOOT
+        "shoulder": 3, # RH_HAA
+        "femur": 4, # RH_HFE
+        "knee": 5, # RH_KFE
     },
     "FR": { # RF
-        "shoulder": 3, # RF_HAA
-        "femur": 6, # RF_HFE
-        "knee": 7, # RF_KFE
-        "foot": 8 # RF_shank_fixed_RF_FOOT
+        "shoulder": 9, # RF_HAA
+        "femur": 10, # RF_HFE
+        "knee": 11, # RF_KFE
     },
     "BL": { # LH
-        "shoulder": 19, # LH_HAA
-        "femur": 22, # LH_HFE
-        "knee": 23, # LH_KFE
-        "foot": 24 # LH_shank_fixed_LH_FOOT
+        "shoulder": 0, # LH_HAA
+        "femur": 1, # LH_HFE
+        "knee": 2, # LH_KFE
     },
     "FL": { # LF
-        "shoulder": 27, # LF_HAA
-        "femur": 30, # LF_HFE
-        "knee": 31, #LF_KFE
-        "foot": 32 # LF_shank_fixed_LF_FOOT
+        "shoulder": 6, # LF_HAA
+        "femur": 7, # LF_HFE
+        "knee": 8, #LF_KFE
     }
 }
 
 def real_sim_angle(angle, id):
-  if id == 11:                # RH_HAA (shoulder) 
+  if id == 3: # BR shoulder
     sim_angle = angle - 90
-  elif id == 14:               # RH_HFE (femur)
+  elif id == 4: # BR femur
     sim_angle = 90 - angle
-  elif id == 15:               # RH_KFE (knee)
+  elif id == 5: # BR knee
     sim_angle = angle - 90
-
-  elif id == 3:              # RF_HAA (shoulder)
+  elif id == 9: # FR shoulder
     sim_angle = angle - 90
-  elif id == 6:              # RF_HFE (femur)
+  elif id == 10: # FR femur
     sim_angle = 90 - angle
-  elif id == 7:              # RF_KFE (knee)
+  elif id == 11: # FR knee
     sim_angle = angle - 90
-
-  elif id == 19:              # LH_HAA (shoulder)
+  elif id == 0: # BL shoulder
     sim_angle = angle - 90
-  elif id == 22:              # LH_HFE (femur)
+  elif id == 1: # BL femur
     sim_angle = 90 - angle
-  elif id == 23:              # LH_KFE (knee)
+  elif id == 2: # BL knee
     sim_angle = angle - 90
-
-  elif id == 27:              # LF_HAA (shoulder)
+  elif id == 6: # FL shoulder
     sim_angle = angle - 90
-  elif id == 30:              # LF_HFE (femur)
+  elif id == 7: # FL femur
     sim_angle = 90 - angle
-  elif id == 31:              # LF_KFE (knee)
+  elif id == 8: # FL knee
     sim_angle = angle - 90
 
   else:

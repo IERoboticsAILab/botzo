@@ -1,0 +1,566 @@
+<?xml version="1.0" ?>
+<robot name="botzo">
+
+
+
+
+  <!-- Body Material -->
+  <material name="body_material">
+    <color rgba="0.3 0.4 0.6 1.0"/>
+    <!-- steel blue -->
+  </material>
+  <material name="limbs_material">
+    <color rgba="1.0 0.5 0.0 1.0"/>
+    <!-- orange -->
+  </material>
+
+
+
+
+  <transmission name="Revolute 1_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 1_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 2_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 2_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 3_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 3">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 3_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 4_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 4">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 4_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 5_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 5">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 5_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 6_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 6">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 6_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 7_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 7">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 7_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 8_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 8">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 8_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 9_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 9">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 9_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 10_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 10">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 10_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 11_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 11">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 11_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="Revolute 12_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="Revolute 12">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="Revolute 12_actr">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="control"/>
+  </gazebo>
+  <gazebo reference="base">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+    <gravity>true</gravity>
+  </gazebo>
+  <gazebo reference="BL_shoulder">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="BR_shoulder">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="FL_shoulder">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="FR_shoulder">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="FR_femur">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="FR_tibia">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="FL_femur">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="FL_tibia">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="BR_femur">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="BR_tibia">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="BL_femur">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <gazebo reference="BL_tibia">
+    <material>Gazebo/Silver</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+
+
+  
+
+  <link name="base">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0004582873296189677 -0.0002865140714721542 0.064627583528461"/>
+      <mass value="0.7893620452930467"/>
+      <inertia ixx="0.002233" ixy="1.3e-05" ixz="1.6e-05" iyy="0.004326" iyz="1.4e-05" izz="0.004626"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/base.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="body_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/base.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="BL_shoulder">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.03752793520024612 0.002007582464765928 0.010711593323082934"/>
+      <mass value="0.10894741172095637"/>
+      <inertia ixx="3.1e-05" ixy="0.0" ixz="1e-06" iyy="5.3e-05" iyz="0.0" izz="4.6e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.04255 0.0531 -0.0522"/>
+      <geometry>
+        <mesh filename="meshes/BL_shoulder.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.04255 0.0531 -0.0522"/>
+      <geometry>
+        <mesh filename="meshes/BL_shoulder.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="BR_shoulder">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.03752795235962702 -0.0020133047527714915 0.010710440129393366"/>
+      <mass value="0.10894732734955483"/>
+      <inertia ixx="3.1e-05" ixy="-0.0" ixz="1e-06" iyy="5.3e-05" iyz="-0.0" izz="4.6e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.04255 -0.0531 -0.0522"/>
+      <geometry>
+        <mesh filename="meshes/BR_shoulder.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.04255 -0.0531 -0.0522"/>
+      <geometry>
+        <mesh filename="meshes/BR_shoulder.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FL_shoulder">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.03733001797786554 0.0020131800950347473 0.010709605239346186"/>
+      <mass value="0.10895629411716044"/>
+      <inertia ixx="3.1e-05" ixy="-0.0" ixz="-1e-06" iyy="5.3e-05" iyz="0.0" izz="4.6e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.04255 0.0531 -0.0522"/>
+      <geometry>
+        <mesh filename="meshes/FL_shoulder.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.04255 0.0531 -0.0522"/>
+      <geometry>
+        <mesh filename="meshes/FL_shoulder.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FR_shoulder">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.03733001634412595 -0.00201054852272476 0.010710033996158143"/>
+      <mass value="0.1089563019083912"/>
+      <inertia ixx="3.1e-05" ixy="0.0" ixz="-1e-06" iyy="5.3e-05" iyz="-0.0" izz="4.6e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.04255 -0.0531 -0.0522"/>
+      <geometry>
+        <mesh filename="meshes/FR_shoulder.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.04255 -0.0531 -0.0522"/>
+      <geometry>
+        <mesh filename="meshes/FR_shoulder.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FR_femur">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.04670121848460076 0.008185053377990609 0.0015481236726892916"/>
+      <mass value="0.01663804705601809"/>
+      <inertia ixx="1e-06" ixy="-0.0" ixz="1e-06" iyy="1.5e-05" iyz="0.0" izz="1.5e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.091123 -0.0719 -0.050621"/>
+      <geometry>
+        <mesh filename="meshes/FR_femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.091123 -0.0719 -0.050621"/>
+      <geometry>
+        <mesh filename="meshes/FR_femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FR_tibia">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00046565926526049445 -0.006596009939999856 -0.05485786854630329"/>
+      <mass value="0.02685067474548009"/>
+      <inertia ixx="2.6e-05" ixy="0.0" ixz="0.0" iyy="2.5e-05" iyz="0.0" izz="2e-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.000544 -0.0849 -0.050621"/>
+      <geometry>
+        <mesh filename="meshes/FR_tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.000544 -0.0849 -0.050621"/>
+      <geometry>
+        <mesh filename="meshes/FR_tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FL_femur">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.04670134392194205 -0.008187000609746323 0.0015498678648720662"/>
+      <mass value="0.01663808878200678"/>
+      <inertia ixx="1e-06" ixy="0.0" ixz="1e-06" iyy="1.5e-05" iyz="-0.0" izz="1.5e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.091123 0.0719 -0.050625"/>
+      <geometry>
+        <mesh filename="meshes/FL_femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.091123 0.0719 -0.050625"/>
+      <geometry>
+        <mesh filename="meshes/FL_femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="FL_tibia">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00046566122225385874 0.006584330690178511 -0.054859540417466914"/>
+      <mass value="0.026850714584678873"/>
+      <inertia ixx="2.6e-05" ixy="-0.0" ixz="0.0" iyy="2.5e-05" iyz="-0.0" izz="2e-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.000544 0.0849 -0.050628"/>
+      <geometry>
+        <mesh filename="meshes/FL_tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="-0.000544 0.0849 -0.050628"/>
+      <geometry>
+        <mesh filename="meshes/FL_tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="BR_femur">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.04670048111666723 0.008184055329044218 0.001550627307348583"/>
+      <mass value="0.0166380470560182"/>
+      <inertia ixx="1e-06" ixy="-0.0" ixz="1e-06" iyy="1.5e-05" iyz="0.0" izz="1.5e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.071723 -0.071901 -0.050625"/>
+      <geometry>
+        <mesh filename="meshes/BR_femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.071723 -0.071901 -0.050625"/>
+      <geometry>
+        <mesh filename="meshes/BR_femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="BR_tibia">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00046564986947178477 -0.006583418684337247 -0.05485980183517331"/>
+      <mass value="0.0268506747454801"/>
+      <inertia ixx="2.6e-05" ixy="0.0" ixz="0.0" iyy="2.5e-05" iyz="0.0" izz="2e-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.162302 -0.084901 -0.050629"/>
+      <geometry>
+        <mesh filename="meshes/BR_tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.162302 -0.084901 -0.050629"/>
+      <geometry>
+        <mesh filename="meshes/BR_tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="BL_femur">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.04670076868330274 -0.008187978467027804 0.0015453975945706813"/>
+      <mass value="0.016638088782005175"/>
+      <inertia ixx="1e-06" ixy="0.0" ixz="1e-06" iyy="1.5e-05" iyz="-0.0" izz="1.5e-05"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.071723 0.071899 -0.050615"/>
+      <geometry>
+        <mesh filename="meshes/BL_femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.071723 0.071899 -0.050615"/>
+      <geometry>
+        <mesh filename="meshes/BL_femur.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="BL_tibia">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.00046565182648261594 0.006613758250461149 -0.05485613170141751"/>
+      <mass value="0.026850714584678158"/>
+      <inertia ixx="2.6e-05" ixy="-0.0" ixz="0.0" iyy="2.5e-05" iyz="0.0" izz="2e-06"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.162302 0.084899 -0.050611"/>
+      <geometry>
+        <mesh filename="meshes/BL_tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="limbs_material"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.162302 0.084899 -0.050611"/>
+      <geometry>
+        <mesh filename="meshes/BL_tibia.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+
+
+  <joint name="Revolute 1" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.04255 -0.0531 0.0522"/>
+    <parent link="base"/>
+    <child link="BL_shoulder"/>
+    <axis xyz="-1.0 -0.0 -0.0"/>
+  </joint>
+  <joint name="Revolute 2" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.04255 0.0531 0.0522"/>
+    <parent link="base"/>
+    <child link="BR_shoulder"/>
+    <axis xyz="1.0 0.0 0.0"/>
+  </joint>
+  <joint name="Revolute 3" type="continuous">
+    <origin rpy="0 0 0" xyz="0.04255 -0.0531 0.0522"/>
+    <parent link="base"/>
+    <child link="FL_shoulder"/>
+    <axis xyz="-1.0 -0.0 0.0"/>
+  </joint>
+  <joint name="Revolute 4" type="continuous">
+    <origin rpy="0 0 0" xyz="0.04255 0.0531 0.0522"/>
+    <parent link="base"/>
+    <child link="FR_shoulder"/>
+    <axis xyz="1.0 -0.0 -0.0"/>
+  </joint>
+  <joint name="Revolute 5" type="continuous">
+    <origin rpy="0 0 0" xyz="0.048573 0.0188 -0.001579"/>
+    <parent link="FR_shoulder"/>
+    <child link="FR_femur"/>
+    <axis xyz="0.0 1.0 0.0"/>
+  </joint>
+  <joint name="Revolute 6" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.090579 0.013 0.0"/>
+    <parent link="FR_femur"/>
+    <child link="FR_tibia"/>
+    <axis xyz="0.0 1.0 0.0"/>
+  </joint>
+  <joint name="Revolute 7" type="continuous">
+    <origin rpy="0 0 0" xyz="0.048573 -0.0188 -0.001575"/>
+    <parent link="FL_shoulder"/>
+    <child link="FL_femur"/>
+    <axis xyz="-0.0 1.0 -0.000213"/>
+  </joint>
+  <joint name="Revolute 8" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.090579 -0.013 3e-06"/>
+    <parent link="FL_femur"/>
+    <child link="FL_tibia"/>
+    <axis xyz="-0.0 1.0 -0.000213"/>
+  </joint>
+  <joint name="Revolute 9" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.029173 0.018801 -0.001575"/>
+    <parent link="BR_shoulder"/>
+    <child link="BR_femur"/>
+    <axis xyz="-0.0 1.0 0.000241"/>
+  </joint>
+  <joint name="Revolute 10" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.090579 0.013 4e-06"/>
+    <parent link="BR_femur"/>
+    <child link="BR_tibia"/>
+    <axis xyz="-0.0 1.0 0.000241"/>
+  </joint>
+  <joint name="Revolute 11" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.029173 -0.018799 -0.001585"/>
+    <parent link="BL_shoulder"/>
+    <child link="BL_femur"/>
+    <axis xyz="-0.0 1.0 0.000326"/>
+  </joint>
+  <joint name="Revolute 12" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.090579 -0.013 -4e-06"/>
+    <parent link="BL_femur"/>
+    <child link="BL_tibia"/>
+    <axis xyz="-0.0 1.0 0.000326"/>
+  </joint>
+</robot>
