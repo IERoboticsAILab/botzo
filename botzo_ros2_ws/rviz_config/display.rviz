@@ -1,0 +1,524 @@
+Panels:
+  - Class: rviz_common/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+      Splitter Ratio: 0.5
+    Tree Height: 555
+  - Class: rviz_common/Selection
+    Name: Selection
+  - Class: rviz_common/Tool Properties
+    Expanded:
+      - /2D Goal Pose1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz_common/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz_common/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: ""
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Class: rviz_default_plugins/TF
+      Enabled: true
+      Filter (blacklist): ""
+      Filter (whitelist): ""
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        BL_femur_servo:
+          Value: true
+        BL_hip_holder:
+          Value: true
+        BL_hip_servo:
+          Value: true
+        BL_tibia_servo:
+          Value: true
+        BR_femur_servo:
+          Value: true
+        BR_hip_holder:
+          Value: true
+        BR_hip_servo:
+          Value: true
+        BR_tibia_servo:
+          Value: true
+        FL_femur_servo:
+          Value: true
+        FL_hip_holder:
+          Value: true
+        FL_hip_servo:
+          Value: true
+        FL_tibia_servo:
+          Value: true
+        FR_femur_servo:
+          Value: true
+        FR_hip_holder:
+          Value: true
+        FR_hip_servo:
+          Value: true
+        FR_tibia_servo:
+          Value: true
+        LF_FOOT:
+          Value: true
+        LF_HIP:
+          Value: true
+        LF_SHANK:
+          Value: true
+        LF_THIGH:
+          Value: true
+        LH_FOOT:
+          Value: true
+        LH_HIP:
+          Value: true
+        LH_SHANK:
+          Value: true
+        LH_THIGH:
+          Value: true
+        RF_FOOT:
+          Value: true
+        RF_HIP:
+          Value: true
+        RF_SHANK:
+          Value: true
+        RF_THIGH:
+          Value: true
+        RH_FOOT:
+          Value: true
+        RH_HIP:
+          Value: true
+        RH_SHANK:
+          Value: true
+        RH_THIGH:
+          Value: true
+        base:
+          Value: true
+        battery_case:
+          Value: true
+        battery_lid:
+          Value: true
+        face:
+          Value: true
+        imu_link:
+          Value: true
+        internal_infra:
+          Value: true
+        plaque_left:
+          Value: true
+        plaque_right:
+          Value: true
+        rear:
+          Value: true
+        top:
+          Value: true
+      Marker Scale: 0.20000000298023224
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Tree:
+        base:
+          BL_hip_servo:
+            RH_HIP:
+              BL_hip_holder:
+                BL_femur_servo:
+                  RH_THIGH:
+                    RH_SHANK:
+                      RH_FOOT:
+                        {}
+                BL_tibia_servo:
+                  {}
+          BR_hip_servo:
+            LH_HIP:
+              BR_hip_holder:
+                BR_femur_servo:
+                  LH_THIGH:
+                    LH_SHANK:
+                      LH_FOOT:
+                        {}
+                BR_tibia_servo:
+                  {}
+          FL_hip_servo:
+            RF_HIP:
+              FL_hip_holder:
+                FL_femur_servo:
+                  RF_THIGH:
+                    RF_SHANK:
+                      RF_FOOT:
+                        {}
+                FL_tibia_servo:
+                  {}
+          FR_hip_servo:
+            LF_HIP:
+              FR_hip_holder:
+                FR_femur_servo:
+                  LF_THIGH:
+                    LF_SHANK:
+                      LF_FOOT:
+                        {}
+                FR_tibia_servo:
+                  {}
+          battery_case:
+            battery_lid:
+              {}
+          face:
+            {}
+          imu_link:
+            {}
+          plaque_left:
+            {}
+          plaque_right:
+            {}
+          rear:
+            internal_infra:
+              {}
+            top:
+              {}
+      Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: /home/gringo/botzo_ws/src/botzo/botzo_ros2_ws/urdf/botzo.urdf
+      Description Source: File
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: ""
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        BL_femur_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        BL_hip_holder:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        BL_hip_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        BL_tibia_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        BR_femur_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        BR_hip_holder:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        BR_hip_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        BR_tibia_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        FL_femur_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        FL_hip_holder:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        FL_hip_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        FL_tibia_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        FR_femur_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        FR_hip_holder:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        FR_hip_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        FR_tibia_servo:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        LF_FOOT:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        LF_HIP:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        LF_SHANK:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        LF_THIGH:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        LH_FOOT:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        LH_HIP:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        LH_SHANK:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        LH_THIGH:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        Link Tree Style: Links in Alphabetic Order
+        RF_FOOT:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        RF_HIP:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        RF_SHANK:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        RF_THIGH:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        RH_FOOT:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        RH_HIP:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        RH_SHANK:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        RH_THIGH:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        battery_case:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        battery_lid:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        face:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        internal_infra:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        plaque_left:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        plaque_right:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rear:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        top:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Mass Properties:
+        Inertia: false
+        Mass: false
+      Name: RobotModel
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: base
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+      Hide Inactive Objects: true
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+      Line color: 128; 128; 0
+    - Class: rviz_default_plugins/SetInitialPose
+      Covariance x: 0.25
+      Covariance y: 0.25
+      Covariance yaw: 0.06853891909122467
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /initialpose
+    - Class: rviz_default_plugins/SetGoal
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /goal_pose
+    - Class: rviz_default_plugins/PublishPoint
+      Single click: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /clicked_point
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 2.1213948726654053
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.42039817571640015
+      Target Frame: <Fixed Frame>
+      Value: Orbit (rviz)
+      Yaw: 0.5953980684280396
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 846
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd000000040000000000000156000002b4fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b000002b4000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000002b4fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003b000002b4000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004b00000003efc0100000002fb0000000800540069006d00650100000000000004b00000025300fffffffb0000000800540069006d006501000000000000045000000000000000000000023f000002b400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1200
+  X: 28
+  Y: 28
