@@ -17,122 +17,122 @@
 
 
 
-  <transmission name="Revolute 1_tran">
+  <transmission name="BL_shoulder_joint_tran"> 
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 1">
+    <joint name="BL_shoulder_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 1_actr">
+    <actuator name="BL_shoulder_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 2_tran">
+  <transmission name="BR_shoulder_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 2">
+    <joint name="BR_shoulder_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 2_actr">
+    <actuator name="BR_shoulder_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 3_tran">
+  <transmission name="FL_shoulder_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 3">
+    <joint name="FL_shoulder_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 3_actr">
+    <actuator name="FL_shoulder_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 4_tran">
+  <transmission name="FR_shoulder_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 4">
+    <joint name="FR_shoulder_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 4_actr">
+    <actuator name="FR_shoulder_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 5_tran">
+  <transmission name="FR_femur_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 5">
+    <joint name="FR_femur_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 5_actr">
+    <actuator name="FR_femur_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 6_tran">
+  <transmission name="FR_tibia_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 6">
+    <joint name="FR_tibia_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 6_actr">
+    <actuator name="FR_tibia_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 7_tran">
+  <transmission name="FL_femur_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 7">
+    <joint name="FL_femur_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 7_actr">
+    <actuator name="FL_femur_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 8_tran">
+  <transmission name="FL_tibia_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 8">
+    <joint name="FL_tibia_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 8_actr">
+    <actuator name="FL_tibia_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 9_tran">
+  <transmission name="BR_femur_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 9">
+    <joint name="BR_femur_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 9_actr">
+    <actuator name="BR_femur_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 10_tran">
+  <transmission name="BR_tibia_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 10">
+    <joint name="BR_tibia_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 10_actr">
+    <actuator name="BR_tibia_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 11_tran">
+  <transmission name="BL_femur_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 11">
+    <joint name="BL_femur_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 11_actr">
+    <actuator name="BL_femur_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="Revolute 12_tran">
+  <transmission name="BL_tibia_joint_tran">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="Revolute 12">
+    <joint name="BL_tibia_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="Revolute 12_actr">
+    <actuator name="BL_tibia_joint_actr">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
@@ -491,73 +491,73 @@
 
 
 
-  <joint name="Revolute 1" type="continuous">
+  <joint name="BL_shoulder_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.04255 -0.0531 0.0522"/>
     <parent link="base"/>
     <child link="BL_shoulder"/>
     <axis xyz="-1.0 -0.0 -0.0"/>
   </joint>
-  <joint name="Revolute 2" type="continuous">
+  <joint name="BR_shoulder_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.04255 0.0531 0.0522"/>
     <parent link="base"/>
     <child link="BR_shoulder"/>
     <axis xyz="1.0 0.0 0.0"/>
   </joint>
-  <joint name="Revolute 3" type="continuous">
+  <joint name="FL_shoulder_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.04255 -0.0531 0.0522"/>
     <parent link="base"/>
     <child link="FL_shoulder"/>
     <axis xyz="-1.0 -0.0 0.0"/>
   </joint>
-  <joint name="Revolute 4" type="continuous">
+  <joint name="FR_shoulder_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.04255 0.0531 0.0522"/>
     <parent link="base"/>
     <child link="FR_shoulder"/>
     <axis xyz="1.0 -0.0 -0.0"/>
   </joint>
-  <joint name="Revolute 5" type="continuous">
+  <joint name="FR_femur_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.048573 0.0188 -0.001579"/>
     <parent link="FR_shoulder"/>
     <child link="FR_femur"/>
     <axis xyz="0.0 1.0 0.0"/>
   </joint>
-  <joint name="Revolute 6" type="continuous">
+  <joint name="FR_tibia_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.090579 0.013 0.0"/>
     <parent link="FR_femur"/>
     <child link="FR_tibia"/>
     <axis xyz="0.0 1.0 0.0"/>
   </joint>
-  <joint name="Revolute 7" type="continuous">
+  <joint name="FL_femur_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.048573 -0.0188 -0.001575"/>
     <parent link="FL_shoulder"/>
     <child link="FL_femur"/>
     <axis xyz="-0.0 1.0 -0.000213"/>
   </joint>
-  <joint name="Revolute 8" type="continuous">
+  <joint name="FL_tibia_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.090579 -0.013 3e-06"/>
     <parent link="FL_femur"/>
     <child link="FL_tibia"/>
     <axis xyz="-0.0 1.0 -0.000213"/>
   </joint>
-  <joint name="Revolute 9" type="continuous">
+  <joint name="BR_femur_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.029173 0.018801 -0.001575"/>
     <parent link="BR_shoulder"/>
     <child link="BR_femur"/>
     <axis xyz="-0.0 1.0 0.000241"/>
   </joint>
-  <joint name="Revolute 10" type="continuous">
+  <joint name="BR_tibia_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.090579 0.013 4e-06"/>
     <parent link="BR_femur"/>
     <child link="BR_tibia"/>
     <axis xyz="-0.0 1.0 0.000241"/>
   </joint>
-  <joint name="Revolute 11" type="continuous">
+  <joint name="BL_femur_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.029173 -0.018799 -0.001585"/>
     <parent link="BL_shoulder"/>
     <child link="BL_femur"/>
     <axis xyz="-0.0 1.0 0.000326"/>
   </joint>
-  <joint name="Revolute 12" type="continuous">
+  <joint name="BL_tibia_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.090579 -0.013 -4e-06"/>
     <parent link="BL_femur"/>
     <child link="BL_tibia"/>
