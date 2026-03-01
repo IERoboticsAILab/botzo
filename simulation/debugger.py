@@ -24,6 +24,7 @@ try:
         target_angle_deg = float(input("desire angle:"))  # Target angle in degrees
         sim_angle = real_sim_angle(target_angle_deg, joint_index)
         target_angle_rad = math.radians(sim_angle)  # Convert to radians
+        print(f"Target angle (degrees): {target_angle_deg}, Simulated angle (degrees): {sim_angle}, Target angle (radians): {target_angle_rad}")
 
         # Use position control to move the joint
         p.setJointMotorControl2(

@@ -88,27 +88,31 @@ def real_sim_angle(angle, id):
   if id == 3: # BR shoulder
     sim_angle = angle - 90
   elif id == 4: # BR femur
-    sim_angle = 90 - angle
+    sim_angle = angle * -1
   elif id == 5: # BR knee
     sim_angle = angle - 90
+
   elif id == 9: # FR shoulder
     sim_angle = angle - 90
   elif id == 10: # FR femur
-    sim_angle = 90 - angle
+    sim_angle = angle * -1
   elif id == 11: # FR knee
     sim_angle = angle - 90
+
   elif id == 0: # BL shoulder
     sim_angle = angle - 90
   elif id == 1: # BL femur
-    sim_angle = 90 - angle
+    sim_angle = angle * -1
   elif id == 2: # BL knee
     sim_angle = angle - 90
+
   elif id == 6: # FL shoulder
     sim_angle = angle - 90
   elif id == 7: # FL femur
-    sim_angle = 90 - angle
+    sim_angle = angle * -1
   elif id == 8: # FL knee
     sim_angle = angle - 90
+
 
   else:
     sim_angle = angle
