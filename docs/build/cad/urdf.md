@@ -23,6 +23,10 @@ Visit directly the repos if you don't understand something. This is a resume of 
 
 You will use [BOTZO_F360_JOINS.f3d](https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF/BOTZO_F360_JOINS.f3d) file to build your urdf, or just use ours [here](https://github.com/IERoboticsAILab/botzo/blob/main/CAD_files/URDF/BOTZO_URDF_description/urdf/BOTZO_URDF.urdf).
 
+## Botzo description
+
+![botzo_description](../../assets/botzo_description.png)
+
 ### Prepare STL
 As stated in the [Fusion2PyBullet repo](https://github.com/yanshil/Fusion2PyBullet) and [fusion2urdf](https://github.com/syuntoku14/fusion2urdf), we must **prepare our STL** file properly with strict rules:
 
