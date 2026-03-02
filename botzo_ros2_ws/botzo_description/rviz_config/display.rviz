@@ -205,7 +205,7 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
-      Description File: /home/gringo/botzo_ws/src/botzo/botzo_ros2_ws/urdf/botzo.urdf
+      Description File: /home/gringo/botzo_ws/src/botzo/botzo_ros2_ws/botzo_description/urdf/botzo.urdf
       Description Source: File
       Description Topic:
         Depth: 5

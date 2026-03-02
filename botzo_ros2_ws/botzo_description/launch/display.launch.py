@@ -4,7 +4,7 @@ import launch_ros
 import os
 
 def generate_launch_description():
-    pkgPath = launch_ros.substitutions.FindPackageShare(package='botzo_ros2_ws').find('botzo_ros2_ws')
+    pkgPath = launch_ros.substitutions.FindPackageShare(package='botzo_description').find('botzo_description')
     urdfModelPath= os.path.join(pkgPath, 'urdf/botzo.urdf')
     
     with open(urdfModelPath,'r') as infp:

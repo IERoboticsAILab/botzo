@@ -6,7 +6,7 @@ from sensor_msgs.msg import JointState
 
 class JointPublisher(Node):
     def __init__(self):
-        super().__init__('joint_publisher')
+        super().__init__('move_to_home')
         self.publisher = self.create_publisher(JointState, '/joint_states', 10)
         self.timer = self.create_timer(0.1, self.publish_joints)  # 10 Hz
         self.joint_state = JointState()
@@ -35,8 +35,16 @@ class JointPublisher(Node):
 
     def publish_joints(self):
         self.joint_state.header.stamp = self.get_clock().now().to_msg()
-        self.joint_state.position = [1.0, 0.5, 0.0, 0.0, 1.0, 0.5, 0.0, 0.0,
-                                     1.0, 0.5, 1.0, 0.5]
+        # for home position: Shoulder: 85.77370457471147, Femur: 49.375728206004794, Tibia: 100.2396534509924
+        shoulder_angle = 85.77370457471147 - 90
+        femur_angle = 49.375728206004794 * -1
+        tibia_angle = 100.2396534509924 - 90
+        shoulder_angle_rad = shoulder_angle * 3.141592653589793 / 180.0
+        femur_angle_rad = femur_angle * 3.141592653589793 / 180.0
+        tibia_angle_rad = tibia_angle * 3.141592653589793 / 180.0
+        self.joint_state.position = [shoulder_angle_rad, shoulder_angle_rad, shoulder_angle_rad, shoulder_angle_rad,
+                                     femur_angle_rad, tibia_angle_rad, femur_angle_rad, tibia_angle_rad,
+                                     femur_angle_rad, tibia_angle_rad, femur_angle_rad, tibia_angle_rad]        
         self.joint_state.velocity = [1.0, 0.5, 1.0, 1.0, 1.0, 1.5, 2.5, -2.5,
                                      -2.5, -2.5, -2.5, -2.5]
         self.joint_state.effort = [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0,

@@ -13,5 +13,16 @@ source install/setup.bash
 Launch RViz Botzo Description
 
 ```bash
-ros2 launch botzo_ros2_ws display.launch.py
+ros2 launch botzo_description display.launch.py
+```
+
+
+Naive home pose botzo
+```bash
+ros2 run botzo_description move_joint
+```
+
+Contribute
+```bash
+ros2 pkg create --build-type ament_python botzo_<package_function> --dependencies rclpy std_msgs
 ```
