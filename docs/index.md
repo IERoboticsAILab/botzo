@@ -16,7 +16,7 @@
 
 ---
 
-![botzo hero picture](./assets/hero.jpg){ align=left width="30%"}
+![botzo hero picture](./assets/BOTZO_BEAUTY.jpeg){ align=left width="30%"}
 
 **Botzo** is a legged robot platform which is aimed to help students and enthusiasts in robotics
 to simulate, build and program a robot. The project aim is to have a robot that it's cost
