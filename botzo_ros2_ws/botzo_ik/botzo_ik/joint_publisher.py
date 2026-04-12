@@ -5,7 +5,7 @@
 
 '''
 This node subscribes to the targets positions for the 4 legs
-publishes joint states to the /joint_states topic.
+publishes joint states to the /joint_states topic and the current end-effector positions.
 TargetEndEffectors.msg:
   float32 x_fl
   float32 y_fl
@@ -30,7 +30,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
 
-from botzo_messages.msg import TargetEndEffectors
+from botzo_messages.msg import TargetEndEffectors, CurrentEndEffectorsPos
 import numpy as np
 
 
@@ -84,6 +84,9 @@ class EnfEffectorSubscriber(Node):
     super().__init__('end_effectors_subscriber')
     self.subscription = self.create_subscription(TargetEndEffectors, 'target_end_effectors', self.listener_callback, 10)
 
+    self.current_end_effectors_publisher = self.create_publisher(CurrentEndEffectorsPos, 'current_end_effectors_pos', 10)
+    self.current_end_effectors_msg = CurrentEndEffectorsPos()
+
     self.publisher = self.create_publisher(JointState, '/joint_states', 10)
     self.joint_state = JointState()
     self.joint_state.name = ['BL_shoulder_joint', 'BR_shoulder_joint', 'FL_shoulder_joint', 'FR_shoulder_joint',
@@ -117,7 +120,6 @@ class EnfEffectorSubscriber(Node):
     fr_angles = legIK(target_x_fr, target_y_fr, target_z_fr)
     bl_angles = legIK(target_x_bl, target_y_bl, target_z_bl)
     br_angles = legIK(target_x_br, target_y_br, target_z_br)
-
     # adjust angles to match the simulation's coordinate system and conventions
     fl_angles, fr_angles, bl_angles, br_angles = adjust_angles_to_sim(fl_angles, fr_angles, bl_angles, br_angles)
 
@@ -129,6 +131,21 @@ class EnfEffectorSubscriber(Node):
     self.joint_state.velocity = [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5]
     self.joint_state.effort = [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0]
     self.publisher.publish(self.joint_state)
+
+    # publish current end-effector positions
+    self.current_end_effectors_msg.x_fl = target_x_fl
+    self.current_end_effectors_msg.y_fl = target_y_fl
+    self.current_end_effectors_msg.z_fl = target_z_fl
+    self.current_end_effectors_msg.x_fr = target_x_fr
+    self.current_end_effectors_msg.y_fr = target_y_fr
+    self.current_end_effectors_msg.z_fr = target_z_fr
+    self.current_end_effectors_msg.x_bl = target_x_bl
+    self.current_end_effectors_msg.y_bl = target_y_bl
+    self.current_end_effectors_msg.z_bl = target_z_bl
+    self.current_end_effectors_msg.x_br = target_x_br
+    self.current_end_effectors_msg.y_br = target_y_br
+    self.current_end_effectors_msg.z_br = target_z_br
+    self.current_end_effectors_publisher.publish(self.current_end_effectors_msg)
 
 
 

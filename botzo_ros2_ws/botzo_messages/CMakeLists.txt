@@ -26,6 +26,7 @@ endif()
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/TargetEndEffectors.msg"
+  "msg/CurrentEndEffectorsPos.msg"
 )
 
 ament_package()

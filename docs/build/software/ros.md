@@ -78,6 +78,30 @@ Recive the targets and publish the corresponding joint states to the topic: `/jo
     }"
     ```
 
+WHATEVER YOU PUBLISH TO THE `/target_end_effectors` TOPIC, THE `joint_publisher` NODE WILL CALCULATE THE CORRESPONDING JOINT ANGLES USING THE IK SOLVER AND PUBLISH THEM TO THE `/joint_states` TOPIC, WHICH WILL UPDATE THE ROBOT'S POSE IN RVIZ ACCORDINGLY.
+
+
+
+
+## Walk
+GaitPlan: https://www.geogebra.org/calculator/d4hauhcg
+
+```bash
+sudo apt install ros-jazzy-teleop-twist-keyboard
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,6 +113,12 @@ Tutorial: https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assi
 ```bash
 roslaunch moveit_setup_assistant setup_assistant.launch
 ```
+
+
+
+
+
+
 
 ## Contribute
 ```bash
