@@ -24,6 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'joint_publisher = botzo_ik.joint_publisher:main',
         ],
     },
 )

@@ -3,6 +3,9 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
 
+'''
+go to home pose script, for testing purposes.
+'''
 
 class JointPublisher(Node):
     def __init__(self):
