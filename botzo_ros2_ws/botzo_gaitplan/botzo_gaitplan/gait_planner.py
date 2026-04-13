@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 '''
-Gait planner node — trot gait with sine-arc swing trajectories.
+Gait planner node: trot gait with sine-arc swing trajectories.
 Subscribes to /cmd_vel and /current_end_effectors_pos
 Publishes to /target_end_effectors
 
@@ -38,12 +38,9 @@ class GaitPlanner(Node):
     def __init__(self):
         super().__init__('gait_planner')
 
-        self.cmd_vel_subscription = self.create_subscription(
-            Twist, 'cmd_vel', self.cmd_vel_callback, 10)
-        self.current_end_effectors_subscription = self.create_subscription(
-            CurrentEndEffectorsPos, 'current_end_effectors_pos', self.current_end_effectors_callback, 10)
-        self.target_end_effectors_publisher = self.create_publisher(
-            TargetEndEffectors, 'target_end_effectors', 10)
+        self.cmd_vel_subscription = self.create_subscription(Twist, 'cmd_vel', self.cmd_vel_callback, 10)
+        self.current_end_effectors_subscription = self.create_subscription(CurrentEndEffectorsPos, 'current_end_effectors_pos', self.current_end_effectors_callback, 10)
+        self.target_end_effectors_publisher = self.create_publisher(TargetEndEffectors, 'target_end_effectors', 10)
 
         self.current_end_effectors_msg = None
         self.cmd_vel_msg = None
@@ -56,7 +53,7 @@ class GaitPlanner(Node):
         self.HALF = self.NUM_STEPS // 2  # = 10
 
         # Neutral foot positions relative to each shoulder (at rest)
-        # These are your "standing" positions
+        # These are "standing" positions
         self.neutral = {
             'fl': (0.0,  0.0, 12.0),
             'fr': (0.0,  0.0, 12.0),
@@ -136,7 +133,7 @@ class GaitPlanner(Node):
         return trajectory
 
     # ------------------------------------------------------------------ #
-    #  Walk tick                                                           #
+    #  Walk tick                                                         #
     # ------------------------------------------------------------------ #
 
     def walk(self):
@@ -150,10 +147,7 @@ class GaitPlanner(Node):
         speed = math.sqrt(lx**2 + ly**2)
         direction = math.atan2(ly, lx)  # -pi to pi
 
-        self.get_logger().info(
-            f'SPEED: {speed:.2f} m/s | DIR: {math.degrees(direction):.1f}° | '
-            f'phase_a={self.phase_a} phase_b={self.phase_b}',
-            throttle_duration_sec=0.5)
+        print(f'SPEED: {speed:.2f} m/s | DIR: {math.degrees(direction):.1f}° | phase_a={self.phase_a} phase_b={self.phase_b}')
 
         # --- Rebuild trajectory every tick (reactive to cmd_vel changes) ---
         traj = self.compute_trajectory(speed, direction)
@@ -170,22 +164,22 @@ class GaitPlanner(Node):
         n = self.neutral
 
         # FL (Diagonal A)
-        msg.x_fl = n['fl'][0] + xa
+        msg.x_fl = n['fl'][0] - xa
         msg.y_fl = n['fl'][1] + ya
         msg.z_fl = n['fl'][2] + za
 
         # BR (Diagonal A — same phase as FL)
-        msg.x_br = n['br'][0] + xa
-        msg.y_br = n['br'][1] + ya
+        msg.x_br = n['br'][0] - xa
+        msg.y_br = n['br'][1] - ya # opposite Y direction for opposite leg
         msg.z_br = n['br'][2] + za
 
         # FR (Diagonal B)
-        msg.x_fr = n['fr'][0] + xb
-        msg.y_fr = n['fr'][1] + yb
+        msg.x_fr = n['fr'][0] - xb
+        msg.y_fr = n['fr'][1] - yb
         msg.z_fr = n['fr'][2] + zb
 
         # BL (Diagonal B — same phase as FR)
-        msg.x_bl = n['bl'][0] + xb
+        msg.x_bl = n['bl'][0] - xb
         msg.y_bl = n['bl'][1] + yb
         msg.z_bl = n['bl'][2] + zb
 

@@ -91,7 +91,10 @@ sudo apt install ros-jazzy-teleop-twist-keyboard
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
-
+`gait_planner.py` subscribes to `/cmd_vel` (geometry_msgs/msg/Twist) and publishes the target end-effectors to `/target_end_effectors` on a sine wave (botzo_messages/msg/TargetEndEffectors) based on the desired linear and angular velocity commands.
+```bash
+ros2 run botzo_gaitplan gait_planner
+```
 
 
 
