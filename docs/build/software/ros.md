@@ -97,9 +97,39 @@ ros2 run botzo_gaitplan gait_planner
 ```
 
 
+## Connect joystick
 
+```bash
+ros2 run joy joy_node --ros-args -p dev:="/dev/input/js0"
+```
 
+this will publish the joystick buttons pressed and moved to `/joy` topic.
 
+Transfrom this message:
+```bash
+axes:
+- -0.0      # L lever <1;-1> left-right
+- -0.0      # L lever <1;-1> forward-backward
+- 1.0       # L2 <1;-1>
+- -0.0      # R lever <1;-1> left-right
+- -0.0      # R lever <1;-1> forward-backward
+- 1.0       # R2 <1;-1>
+- 0.0       # arrow left-right <1,-1>
+- 0.0       # arrow forward-backward <1,-1>
+buttons:
+- 0         # x
+- 0         # circle
+- 0         # square
+- 0         # triangle
+- 0         # L1
+- 0         # R1
+- 0         # share
+- 0         # options
+- 0         # PS
+- 0         # L3
+- 0         # R3
+---
+```
 
 
 
