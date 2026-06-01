@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+
+    <!-- Lighting -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Physics -->
+    <physics type="ode">
+      <real_time_update_rate>1000.0</real_time_update_rate>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+
+    <!-- Gazebo ROS plugin (enables /clock, tf, etc.) -->
+    <plugin name="gazebo_ros_api_plugin" filename="libgazebo_ros_api_plugin.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+
+  </world>
+</sdf>

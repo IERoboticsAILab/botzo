@@ -131,6 +131,41 @@ buttons:
 ---
 ```
 
+Run `ros2 run botzo_joystick joy_to_cmd_vel` script to transform the joystick messages to velocity commands (`/cmd_vel` topic) that can be used by the gait planner to move the robot.
+
+
+
+
+## Gazebo
+
+`ros2 launch botzo_gazebo gazebo.launch.py`
+
+Launch robot in gazebo with the same description as in rviz, and the same joint states published by the IK solver. This will allow us to test our IK solver and gait planner in a more realistic environment.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
