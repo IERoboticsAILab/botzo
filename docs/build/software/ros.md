@@ -19,9 +19,6 @@ ros2 launch botzo_description display.launch.py
 ```bash
 ros2 run botzo_description move_joint
 ```
-## Gazebo
-
-> working in progress
 
 
 
@@ -144,28 +141,25 @@ script to transform the joystick messages to velocity commands (`/cmd_vel` topic
 
 
 
+## Gazebo
+
+> working in progress
 
 
+## Rotations
+
+#### Publish IMU data
+
+> working in progress
 
 
+## Stabilization
 
+> working in progress
 
+## Connect to the real robot
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+> working in progress
 
 
 ## Moveit
