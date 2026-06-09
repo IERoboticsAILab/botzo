@@ -21,7 +21,7 @@ ros2 run botzo_description move_joint
 ```
 ## Gazebo
 
-!!!working progress
+> working in progress
 
 
 
@@ -133,7 +133,11 @@ buttons:
 ---
 ```
 
-Run `ros2 run botzo_joystick joy_to_cmd_vel` script to transform the joystick messages to velocity commands (`/cmd_vel` topic) that can be used by the gait planner to move the robot.
+Run 
+```
+ros2 run botzo_joystick joy_to_cmd_vel
+```
+script to transform the joystick messages to velocity commands (`/cmd_vel` topic) that can be used by the gait planner to move the robot.
 
 
 
@@ -165,6 +169,8 @@ Run `ros2 run botzo_joystick joy_to_cmd_vel` script to transform the joystick me
 
 
 ## Moveit
+
+> working in progress
 
 Install Moveit: https://moveit.picknik.ai/main/doc/tutorials/getting_started/getting_started.html
 Tutorial: https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html
