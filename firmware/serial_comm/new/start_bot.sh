@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Ensure we run from the project directory
-cd /home/pi/botzo/main
+#cd /home/pi/botzo/main
 
 # Export headless SDL to avoid display issues
 export SDL_VIDEODRIVER=dummy
@@ -13,7 +13,7 @@ export SDL_AUDIODRIVER=dummy
 PYTHON_BIN=python3
 
 # Log directory
-LOG_DIR=/home/pi/botzo/logs
+LOG_DIR=logs
 mkdir -p "$LOG_DIR"
 
 TS=$(date +"%Y%m%d-%H%M%S")
@@ -47,6 +47,6 @@ while true; do
 done
 
 echo "[start_bot] Launching IK_moving_parallel.py, logging to $LOG_FILE"
-exec "$PYTHON_BIN" /home/pi/botzo/main/IK_moving_parallel.py >> "$LOG_FILE" 2>&1
+exec "$PYTHON_BIN" IK_moving_parallel.py >> "$LOG_FILE" 2>&1
 
 

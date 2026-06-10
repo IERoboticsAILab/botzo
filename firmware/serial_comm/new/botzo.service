@@ -7,8 +7,8 @@ Wants=bluetooth.target
 Type=simple
 User=pi
 Group=pi
-WorkingDirectory=/home/pi/botzo/main
-ExecStart=/bin/bash /home/pi/botzo/main/start_bot.sh
+WorkingDirectory=/ros2_ws/src/botzo/firmware/serial_comm/new
+ExecStart=/bin/bash /ros2_ws/src/botzo/firmware/serial_comm/new/start_bot.sh
 Restart=always
 RestartSec=5
 Environment=PYTHONUNBUFFERED=1
