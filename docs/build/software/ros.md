@@ -159,7 +159,12 @@ script to transform the joystick messages to velocity commands (`/cmd_vel` topic
 
 ## Connect to the real robot
 
-> working in progress
+1. Subscribe to /joint_states
+2. Transform current joint states angle from sim angles to real robot angles
+3. Transfom radinats into PWM (using calibration coefficients)
+4. Connect to Arduino
+5. Send angles to servos 
+
 
 
 ## Moveit
