@@ -23,6 +23,14 @@ import numpy as np
 import serial
 import time
 
+
+# Serial communication settings
+SERIAL_BAUD_RATE = 500000
+SERIAL_TIMEOUT = 0.1
+ser = None
+
+#-------------------------
+
 a_SFR = 0
 b_SFR = 7.378
 c_SFR = 616.0
@@ -37,6 +45,7 @@ a_TFR = 0
 b_TFR = 7.314
 c_TFR = 619.028
 coefficents_TFR = np.array([a_TFR, b_TFR, c_TFR])
+
 #------------------------
 
 a_SFL = 0
@@ -103,7 +112,6 @@ def deg2PWM(desire_deg_angle, coefficents):
 def deg2PWM_set_angles(angles, coefficents_S, coefficents_F, coefficents_T):
   angles_PWM = []
   for angle in angles:
-    angles_PWM
     angles_PWM.append([deg2PWM(angle[0], coefficents_S), deg2PWM(angle[1], coefficents_F), deg2PWM(angle[2], coefficents_T)])
   return angles_PWM
 
@@ -139,8 +147,61 @@ def adjust_angles_sim_to_real(angles_fl, angles_fr, angles_bl, angles_br):
 # 3. Transfom radinats into PWM (using calibration coefficients)
 # 4. Connect to Arduino
 # 5. Send angles to servos 
+class SimToReal(Node):
+    def __init__(self):
+        super().__init__('sim_to_real')
+        self.subscription = self.create_subscription(
+            JointState,
+            '/joint_states',
+            self.joint_state_callback,
+            10)
+        self.subscription  # prevent unused variable warning
 
-def main():
+    def joint_state_callback(self, msg):
+        global ser
+        '''
+        NAMES:
+        - BL_shoulder_joint
+        - BR_shoulder_joint
+        - FL_shoulder_joint
+        - FR_shoulder_joint
+        - FR_femur_joint
+        - FR_tibia_joint
+        - FL_femur_joint
+        - FL_tibia_joint
+        - BR_femur_joint
+        - BR_tibia_joint
+        - BL_femur_joint
+        - BL_tibia_joint
+        '''
+        angles_fl = [rad2deg([msg.position[2], msg.position[6], msg.position[7]])]
+        angles_fr = [rad2deg([msg.position[3], msg.position[4], msg.position[5]])]
+        angles_bl = [rad2deg([msg.position[0], msg.position[8], msg.position[9]])]
+        angles_br = [rad2deg([msg.position[1], msg.position[10], msg.position[11]])]
+        angles_fl, angles_fr, angles_bl, angles_br = adjust_angles_sim_to_real(angles_fl, angles_fr, angles_bl, angles_br)
+        angles_fl_PWM = deg2PWM_set_angles([angles_fl], coefficents_SFL, coefficents_FFL, coefficents_TFL)[0]
+        angles_fr_PWM = deg2PWM_set_angles([angles_fr], coefficents_SFR, coefficents_FFR, coefficents_TFR)[0]
+        angles_bl_PWM = deg2PWM_set_angles([angles_bl], coefficents_SBL, coefficents_FBL, coefficents_TBL)[0]
+        angles_br_PWM = deg2PWM_set_angles([angles_br], coefficents_SBR, coefficents_FBR, coefficents_TBR)[0]
+        print(f"Received joint states: {msg.position}")
+        print(f"Transformed angles (deg): FL: {angles_fl}, FR: {angles_fr}, BL: {angles_bl}, BR: {angles_br}")
+        print(f"Transformed angles (PWM): FL: {angles_fl_PWM}, FR: {angles_fr_PWM}, BL: {angles_bl_PWM}, BR: {angles_br_PWM}")
+        #if ser and ser.is_open:
+        #    command_str = f"{angles_fl_PWM[0]},{angles_fl_PWM[1]},{angles_fl_PWM[2]}," \
+        #                  f"{angles_fr_PWM[0]},{angles_fr_PWM[1]},{angles_fr_PWM[2]}," \
+        #                  f"{angles_bl_PWM[0]},{angles_bl_PWM[1]},{angles_bl_PWM[2]}," \
+        #                  f"{angles_br_PWM[0]},{angles_br_PWM[1]},{angles_br_PWM[2]}\n"
+        #    ser.write(command_str.encode())
+        #    print(f"Sent command to Arduino: {command_str.strip()}")
+        #else:
+        #    print("Serial connection to Arduino is not open. Cannot send command.")
+
+
+
+
+
+
+def main(args=None):
     global ser
     try:
         # Connect to Arduino
@@ -153,7 +214,12 @@ def main():
         time.sleep(0.1)
         response = ser.readline().decode().strip()
         print(f"\n\nTest Response from Arduino: {response}\n\n")
-        
+
+        rclpy.init(args=args)
+        sim_to_real = SimToReal()
+        rclpy.spin(sim_to_real)
+        sim_to_real.destroy_node()
+        rclpy.shutdown()
 
 
     except serial.SerialException as e:

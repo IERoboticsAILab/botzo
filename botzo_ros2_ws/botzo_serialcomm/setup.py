@@ -24,6 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'move_robot = botzo_serialcomm.move_robot:main',
         ],
     },
 )
