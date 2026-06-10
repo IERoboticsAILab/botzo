@@ -122,21 +122,29 @@ def deg2rad(deg):
 
 
 def adjust_angles_sim_to_real(angles_fl, angles_fr, angles_bl, angles_br):
-  # all shoulders needs -90
+  # all shoulders needs +90
   # all femurs needs * -1
-  # all knees needs -90
-  angles_fl[0] -= 0
-  angles_fr[0] -= 0
-  angles_bl[0] -= 0
-  angles_br[0] -= 0
-  angles_fl[1] -= 0
-  angles_fr[1] -= 0
-  angles_bl[1] -= 0
-  angles_br[1] -= 0
-  angles_fl[2] -= 0
-  angles_fr[2] -= 0
-  angles_bl[2] -= 0
-  angles_br[2] -= 0
+  # all knees needs +90
+  angles_fl[0] += 90
+  angles_fr[0] += 90
+  angles_bl[0] += 90
+  angles_bl[0] = 180 - angles_bl[0]
+  angles_br[0] += 90
+  angles_br[0] = 180 - angles_br[0]
+
+  angles_fl[1] *= -1
+  angles_fl[1] = 180 - angles_fl[1]
+  angles_bl[1] *= -1
+  angles_bl[1] = 180 - angles_bl[1]
+  angles_fr[1] *= -1
+  angles_br[1] *= -1
+
+  angles_fl[2] += 90
+  angles_fl[2] = 180 - angles_fl[2]
+  angles_bl[2] += 90
+  angles_bl[2] = 180 - angles_bl[2]
+  angles_fr[2] += 90
+  angles_br[2] += 90
   return angles_fl, angles_fr, angles_bl, angles_br
 
 
@@ -174,27 +182,32 @@ class SimToReal(Node):
         - BL_femur_joint
         - BL_tibia_joint
         '''
-        angles_fl = [rad2deg([msg.position[2], msg.position[6], msg.position[7]])]
-        angles_fr = [rad2deg([msg.position[3], msg.position[4], msg.position[5]])]
-        angles_bl = [rad2deg([msg.position[0], msg.position[8], msg.position[9]])]
-        angles_br = [rad2deg([msg.position[1], msg.position[10], msg.position[11]])]
+        angles_fl = rad2deg([msg.position[2], msg.position[6], msg.position[7]])
+        angles_fr = rad2deg([msg.position[3], msg.position[4], msg.position[5]])
+        angles_bl = rad2deg([msg.position[0], msg.position[8], msg.position[9]])
+        angles_br = rad2deg([msg.position[1], msg.position[10], msg.position[11]])
+        print(f"\nRECIVED CURRENT JOINT STATE:\nFL: {angles_fl}, FR: {angles_fr}, BL: {angles_bl}, BR: {angles_br}")
         angles_fl, angles_fr, angles_bl, angles_br = adjust_angles_sim_to_real(angles_fl, angles_fr, angles_bl, angles_br)
+
+        # for debug purposes I set the motros all to 90 for shoulders, 45 femurs, 45 knees
+        #angles_fl = [80, 45, 45]
+        #angles_fr = [80, 45, 45]
+        #angles_bl = [80, 45, 45]
+        #angles_br = [80, 45, 45]
+        
         angles_fl_PWM = deg2PWM_set_angles([angles_fl], coefficents_SFL, coefficents_FFL, coefficents_TFL)[0]
         angles_fr_PWM = deg2PWM_set_angles([angles_fr], coefficents_SFR, coefficents_FFR, coefficents_TFR)[0]
         angles_bl_PWM = deg2PWM_set_angles([angles_bl], coefficents_SBL, coefficents_FBL, coefficents_TBL)[0]
         angles_br_PWM = deg2PWM_set_angles([angles_br], coefficents_SBR, coefficents_FBR, coefficents_TBR)[0]
-        print(f"Received joint states: {msg.position}")
-        print(f"Transformed angles (deg): FL: {angles_fl}, FR: {angles_fr}, BL: {angles_bl}, BR: {angles_br}")
-        print(f"Transformed angles (PWM): FL: {angles_fl_PWM}, FR: {angles_fr_PWM}, BL: {angles_bl_PWM}, BR: {angles_br_PWM}")
-        #if ser and ser.is_open:
-        #    command_str = f"{angles_fl_PWM[0]},{angles_fl_PWM[1]},{angles_fl_PWM[2]}," \
-        #                  f"{angles_fr_PWM[0]},{angles_fr_PWM[1]},{angles_fr_PWM[2]}," \
-        #                  f"{angles_bl_PWM[0]},{angles_bl_PWM[1]},{angles_bl_PWM[2]}," \
-        #                  f"{angles_br_PWM[0]},{angles_br_PWM[1]},{angles_br_PWM[2]}\n"
-        #    ser.write(command_str.encode())
-        #    print(f"Sent command to Arduino: {command_str.strip()}")
-        #else:
-        #    print("Serial connection to Arduino is not open. Cannot send command.")
+        print(f"\n\nSIM TO REAL ANGLES:\nFL: {angles_fl}, FR: {angles_fr}, BL: {angles_bl}, BR: {angles_br}")
+        print(f"\n\nANGLES PWM:\nFL: {angles_fl_PWM}, FR: {angles_fr_PWM}, BL: {angles_bl_PWM}, BR: {angles_br_PWM}")
+        if ser and ser.is_open:
+            msg = f"{angles_fr_PWM[0]},{angles_fr_PWM[1]},{angles_fr_PWM[2]},{angles_fl_PWM[0]},{angles_fl_PWM[1]},{angles_fl_PWM[2]},{angles_br_PWM[0]},{angles_br_PWM[1]},{angles_br_PWM[2]},{angles_bl_PWM[0]},{angles_bl_PWM[1]},{angles_bl_PWM[2]}\n"
+            ser.reset_input_buffer()
+            ser.write(msg.encode('utf-8'))
+            ser.flush()
+        else:
+            print("Serial connection to Arduino is not open. Cannot send command.")
 
 
 
