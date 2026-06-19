@@ -57,7 +57,7 @@ SERVO_NAMES = [
 # Initial angles
 # =====================================================
 #msg = f"{fr[0]},{fr[1]},{fr[2]},{fl[0]},{fl[1]},{fl[2]},{br[0]},{br[1]},{br[2]},{bl[0]},{bl[1]},{bl[2]}\n"
-angles_deg = [90.0, 90.0, 0.0, 90.0, 90.0, 0.0, 90.0, 90.0, 0.0, 90.0, 90.0, 0.0]
+angles_deg = [90.0, 90.0, 180.0, 90.0, 90.0, 0.0, 90.0, 90.0, 180.0, 90.0, 90.0, 0.0]
 
 labels = []
 ser = None
@@ -146,12 +146,12 @@ def main():
             command=lambda value, idx=i: slider_changed(idx, value)
         )
 
-        slider.set(90)
+        slider.set(angles_deg[i])
         slider.pack(side="left")
 
         label = tk.Label(
             frame,
-            text="90.0°   1.571 rad",
+            text=f"{angles_deg[i]:.1f}deg    {np.deg2rad(angles_deg[i]):.3f}rad",
             width=18
         )
 
