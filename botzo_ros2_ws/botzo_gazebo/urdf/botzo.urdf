@@ -325,14 +325,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/base.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/base.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="body_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/base.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/base.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -345,14 +345,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.04255 0.0531 -0.0522"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BL_shoulder.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BL_shoulder.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.04255 0.0531 -0.0522"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BL_shoulder.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BL_shoulder.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -365,14 +365,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.04255 -0.0531 -0.0522"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BR_shoulder.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BR_shoulder.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.04255 -0.0531 -0.0522"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BR_shoulder.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BR_shoulder.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -385,14 +385,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.04255 0.0531 -0.0522"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FL_shoulder.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FL_shoulder.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.04255 0.0531 -0.0522"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FL_shoulder.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FL_shoulder.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -405,14 +405,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.04255 -0.0531 -0.0522"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FR_shoulder.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FR_shoulder.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.04255 -0.0531 -0.0522"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FR_shoulder.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FR_shoulder.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -425,14 +425,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.091123 -0.0719 -0.050621"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FR_femur.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FR_femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.091123 -0.0719 -0.050621"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FR_femur.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FR_femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -445,14 +445,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.000544 -0.0849 -0.050621"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FR_tibia.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FR_tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.000544 -0.0849 -0.050621"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FR_tibia.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FR_tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -465,14 +465,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.091123 0.0719 -0.050625"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FL_femur.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FL_femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.091123 0.0719 -0.050625"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FL_femur.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FL_femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -485,14 +485,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="-0.000544 0.0849 -0.050628"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FL_tibia.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FL_tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.000544 0.0849 -0.050628"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/FL_tibia.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/FL_tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -505,14 +505,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.071723 -0.071901 -0.050625"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BR_femur.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BR_femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.071723 -0.071901 -0.050625"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BR_femur.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BR_femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -525,14 +525,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.162302 -0.084901 -0.050629"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BR_tibia.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BR_tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.162302 -0.084901 -0.050629"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BR_tibia.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BR_tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -545,14 +545,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.071723 0.071899 -0.050615"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BL_femur.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BL_femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.071723 0.071899 -0.050615"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BL_femur.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BL_femur.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -565,14 +565,14 @@
     <visual>
       <origin rpy="0 0 0" xyz="0.162302 0.084899 -0.050611"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BL_tibia.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BL_tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="limbs_material"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0.162302 0.084899 -0.050611"/>
       <geometry>
-        <mesh filename="package://botzo_description/meshes/BL_tibia.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="/home/gringo/ros2_ws/src/botzo/botzo_ros2_ws/botzo_description/meshes/BL_tibia.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>

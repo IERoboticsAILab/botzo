@@ -1,6 +1,6 @@
 # ROS2 Jazzy Botzo Workspace Documentation
 
-## Build Botzo Workspace for ROS2 Jazzy
+# Build Botzo Workspace for ROS2 Jazzy and run botzo
 
 ```bash
 cd <your_ros2_ws>/src
@@ -8,7 +8,25 @@ git clone https://github.com/IERoboticsAILab/botzo.git
 cd ..
 colcon build
 source install/setup.bash
+
+ros2 launch botzo_description display.launch.py # make sure to close the joint publisher GUI before running the next command
+ros2 run botzo_ik joint_publisher
+ros2 run botzo_gaitplan gait_planner
+
+# publish to /cmd_vel topic to move the robot
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+# OR with a joystick
+ros2 run joy joy_node --ros-args -p dev:="/dev/input/js0"
+ros2 run botzo_joystick joy_to_cmd_vel
+
+# to move the robot according to the target end-effectors, run this in the Raspberry Pi of the robot:
+ros2 run botzo_serialcomm move_robot
 ```
+
+
+
+
+# Packages:
 
 ## Launch RViz Botzo Description (`botzo_description`)
 
@@ -51,7 +69,6 @@ ros2 interface show botzo_messages/msg/TargetEndEffectors
 
 
 ## Botzo IK (`botzo_ik`)
-
 This package contains `joint_publisher.py` node that subscribes to the target end-effectors and publishes the corresponding joint states using our IK solver.
 
 Target end-effectors topic: `/target_end_effectors`
@@ -131,7 +148,7 @@ buttons:
 ```
 
 Run 
-```
+```bash
 ros2 run botzo_joystick joy_to_cmd_vel
 ```
 script to transform the joystick messages to velocity commands (`/cmd_vel` topic) that can be used by the gait planner to move the robot.
@@ -198,16 +215,59 @@ http://gazebosim.org
 ros2 launch botzo_gazebo gazebo.launch.py
 ```
 
+> working in progress
+
+
+
+
+
+
+
+
+
+
+
 ## Rotations
+
+> working in progress
 
 #### Publish IMU data
 
 > working in progress
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 ## Stabilization
 
 > working in progress
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Connect to the real robot
 
@@ -216,6 +276,32 @@ ros2 launch botzo_gazebo gazebo.launch.py
 3. Transfom radinats into PWM (using calibration coefficients)
 4. Connect to Arduino
 5. Send angles to servos 
+```bash
+ros2 run botzo_serialcomm move_robot
+```
+
+## Debuging Utils
+
+1. Scipt to move the real robot servos to user specific angles (in degrees) using the calibration coefficients and the serial communication with the Arduino. Usefull to check if the calibration coefficients are correct and if the servos are working properly. The script will move the servos to the specified angles and then return them to the home position.
+```bash
+ros2 run botzo_debuggingutills move_real_robot_servos
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

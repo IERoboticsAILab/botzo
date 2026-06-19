@@ -151,6 +151,8 @@ class EnfEffectorSubscriber(Node):
 
 ''' MAIN FUNCTION '''
 def main(args=None):
+  print("Starting joint publisher node...")
+  print("Ready to subscribe to target end-effectors and publish joint states and current end-effector positions.")
   rclpy.init(args=args)
   end_effectors_subscriber = EnfEffectorSubscriber()
   rclpy.spin(end_effectors_subscriber)
