@@ -61,6 +61,7 @@ angles_deg = [90.0, 90.0, 180.0, 90.0, 90.0, 0.0, 90.0, 90.0, 180.0, 90.0, 90.0,
 
 labels = []
 ser = None
+root = None
 
 
 # =====================================================
@@ -99,8 +100,11 @@ def slider_changed(index, value):
 
     labels[index]["text"] = f"{angles_deg[index]:6.1f}°   {rad:6.3f} rad"
 
+def update():
+
     send_to_arduino()
 
+    root.after(50, update)    # 20 Hz
 
 # =====================================================
 # Main
@@ -108,7 +112,7 @@ def slider_changed(index, value):
 
 def main():
 
-    global ser
+    global ser, root
 
     print("Connecting to Arduino...")
 
@@ -159,7 +163,9 @@ def main():
 
         labels.append(label)
 
-    send_to_arduino()
+    send_to_arduino()   # send initial pose once
+
+    update()            # start periodic updates
 
     root.mainloop()
 

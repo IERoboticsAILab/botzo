@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'botzo_debiugingutills'
+package_name = 'botzo_debuggingutills'
 
 setup(
     name=package_name,
@@ -24,7 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'move_real_robot_servos = botzo_debiugingutills.move_real_robot_servos:main',
+            'move_real_robot_servos = botzo_debuggingutills.move_real_robot_servos:main',
         ],
     },
 )
