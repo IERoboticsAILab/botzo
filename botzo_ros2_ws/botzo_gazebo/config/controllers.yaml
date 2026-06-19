@@ -1,0 +1,30 @@
+controller_manager:
+  ros__parameters:
+
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    position_controller:
+      type: position_controllers/JointGroupPositionController
+
+
+position_controller:
+  ros__parameters:
+
+    joints:
+      - BL_shoulder_joint
+      - BR_shoulder_joint
+      - FL_shoulder_joint
+      - FR_shoulder_joint
+
+      - BL_femur_joint
+      - BR_femur_joint
+      - FL_femur_joint
+      - FR_femur_joint
+
+      - BL_tibia_joint
+      - BR_tibia_joint
+      - FL_tibia_joint
+      - FR_tibia_joint

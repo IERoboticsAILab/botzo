@@ -143,8 +143,60 @@ script to transform the joystick messages to velocity commands (`/cmd_vel` topic
 
 ## Gazebo
 
-> working in progress
+```bash
+ros2 pkg list | grep gazebo
+gazebo_dev
+gazebo_msgs
+gazebo_plugins          # <-- important
+gazebo_ros              # <-- important
+gazebo_ros2_control     # <-- important
+gazebo_ros_pkgs
+```
 
+```bash
+tree .
+.
+├── botzo_gazebo
+│   ├── __init__.py
+│   └── joint_controller.py
+├── config
+│   └── controllers.yaml
+├── launch
+│   └── gazebo.launch.py
+├── package.xml
+├── resource
+│   └── botzo_gazebo
+├── setup.cfg
+├── setup.py
+└── worlds
+    └── empty.world
+```
+
+```bash
+gazebo --version
+Gazebo multi-robot simulator, version 11.10.2
+Copyright (C) 2012 Open Source Robotics Foundation.
+Released under the Apache 2 License.
+http://gazebosim.org
+
+
+Gazebo multi-robot simulator, version 11.10.2
+Copyright (C) 2012 Open Source Robotics Foundation.
+Released under the Apache 2 License.
+http://gazebosim.org
+```
+
+1. Start Gazebo.
+2. Load your robot URDF.
+3. Spawn the robot.
+4. Start robot_state_publisher.
+5. Start ros2_control.
+6. Spawn joint controllers.
+7. Allow commanding joints
+
+```bash
+ros2 launch botzo_gazebo gazebo.launch.py
+```
 
 ## Rotations
 
