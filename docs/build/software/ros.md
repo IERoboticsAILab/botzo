@@ -9,6 +9,8 @@ cd ..
 colcon build
 source install/setup.bash
 
+
+
 ros2 launch botzo_description display.launch.py # make sure to close the joint publisher GUI before running the next command
 ros2 run botzo_ik joint_publisher
 ros2 run botzo_gaitplan gait_planner
@@ -285,6 +287,14 @@ ros2 run botzo_serialcomm move_robot
 1. Scipt to move the real robot servos to user specific angles (in degrees) using the calibration coefficients and the serial communication with the Arduino. Usefull to check if the calibration coefficients are correct and if the servos are working properly. The script will move the servos to the specified angles and then return them to the home position.
 ```bash
 ros2 run botzo_debuggingutills move_real_robot_servos
+```
+
+2. Script to move end-effectr of 4 foots in x, y, z coordinates using simple slider GUI. The script will publish the target end-effectors to the /target_end_effectors topic and the joint_publisher node will calculate the corresponding joint angles using the IK solver and publish them to the /joint_states topic, which will update the robot's pose in Rviz accordingly.
+
+`pip3 install PySide6`
+
+```bash
+ros2 run botzo_debuggingutills move_end_effectors_gui
 ```
 
 

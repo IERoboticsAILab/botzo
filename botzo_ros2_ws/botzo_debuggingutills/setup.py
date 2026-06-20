@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'move_real_robot_servos = botzo_debuggingutills.move_real_robot_servos:main',
+            'move_end_effectors_gui = botzo_debuggingutills.move_end_effectors_gui:main',
         ],
     },
 )
