@@ -1,176 +1,254 @@
 #!/usr/bin/env python3
 
-import tkinter as tk
-import numpy as np
-import serial
-import time
+'''
+Generate GUI with 12 sliders to control the 12 servos of the real robot. 
+The set angles are published to the `/real_robot_joint_states` topic. 
+The `move_real_robot.py` script is waiting for a message in this topic to move the servos to the desired angles. The script will transform the angles from degrees to PWM using the calibration coefficients and send them to the Arduino via serial communication.
+┌──────────────────────────────────────────────┐
+│          BOTZO SERVO CONTROLLER              │
+├──────────────────────────────────────────────┤
+│ Front Left        │ Front Right              │
+│ Hip    ─────  0°  │ Hip    ─────  0°         │
+│ Upper  ───── 45°  │ Upper  ───── 45°         │
+│ Lower  ─────-90°  │ Lower  ─────-90°         │
+├──────────────────────────────────────────────┤
+│ Back Left         │ Back Right               │
+│ Hip    ─────  0°  │ Hip    ─────  0°         │
+│ Upper  ───── 45°  │ Upper  ───── 45°         │
+│ Lower  ─────-90°  │ Lower  ─────-90°         │
+├──────────────────────────────────────────────┤
+│ HOME   STAND   SIT   STOP                    │
+├──────────────────────────────────────────────┤
+│ Publishing: ● Connected                      │
+└──────────────────────────────────────────────┘
 
-# =====================================================
-# Serial
-# =====================================================
+Generate a GUI with 12 sliders to control the 12 servos of the real robot.
 
-SERIAL_PORT = "/dev/ttyACM0"
-BAUDRATE = 500000
+The GUI is organized into four panels, one for each leg:
+    - Front Left
+    - Front Right
+    - Back Left
+    - Back Right
 
-# =====================================================
-# Servo calibration coefficients
-# (same values from your original node)
-# =====================================================
+Each panel contains three sliders corresponding to the three joints:
+    - Hip
+    - Femur (Upper)
+    - Tibia (Lower)
 
-COEFFS = [
-    (0,      7.378, 616.0),      # FR Shoulder
-    (0,      7.682, 578.142),    # FR Femur
-    (0,      7.314, 619.028),    # FR Tibia
+Moving any slider updates the desired servo angle (in degrees) and
+immediately publishes a message on the `/real_robot_joint_states`
+topic.
 
-    (0,      7.649, 638.486),    # FL Shoulder
-    (0,      7.603, 625.428),    # FL Femur
-    (0.001,  7.234, 550.0),      # FL Tibia
+The `move_real_robot.py` node subscribes to this topic, converts the
+angles from degrees to PWM using the servo calibration coefficients,
+and sends the commands to the Arduino over serial to move the robot.
 
-    (0,      7.514, 626.428),    # BR Shoulder
-    (0.001,  7.364, 548.742),    # BR Femur
-    (0.001,  7.137, 559.2),      # BR Tibia
+/real_robot_joint_states topic message type: botzo_messages/msg/RealRobotJointStates.msg
+float32 sfr
+float32 ffr
+float32 tfr
 
-    (0.001,  7.673, 648.857),    # BL Shoulder
-    (0,      7.704, 628.142),    # BL Femur
-    (-0.001, 7.765, 634.285),    # BL Tibia
-]
+float32 sfl
+float32 ffl
+float32 tfl
 
-SERVO_NAMES = [
-    "FR Shoulder",
-    "FR Femur",
-    "FR Tibia",
+float32 sbr
+float32 fbr
+float32 tbr
 
-    "FL Shoulder",
-    "FL Femur",
-    "FL Tibia",
+float32 sbl
+float32 fbl
+float32 tbl
+'''
 
-    "BR Shoulder",
-    "BR Femur",
-    "BR Tibia",
+import sys
 
-    "BL Shoulder",
-    "BL Femur",
-    "BL Tibia",
-]
+import rclpy
+from rclpy.node import Node
 
-# =====================================================
-# Initial angles
-# =====================================================
-#msg = f"{fr[0]},{fr[1]},{fr[2]},{fl[0]},{fl[1]},{fl[2]},{br[0]},{br[1]},{br[2]},{bl[0]},{bl[1]},{bl[2]}\n"
-angles_deg = [90.0, 90.0, 180.0, 90.0, 90.0, 0.0, 90.0, 90.0, 180.0, 90.0, 90.0, 0.0]
+from botzo_messages.msg import RealRobotJointStates
 
-labels = []
-ser = None
-root = None
-
-
-# =====================================================
-# Conversion functions
-# =====================================================
-
-def deg_to_pwm(angle_deg, coeffs):
-    a, b, c = coeffs
-    return int(round(a * angle_deg**2 + b * angle_deg + c))
-
-
-def send_to_arduino():
-
-    pwm = []
-
-    for angle, coeff in zip(angles_deg, COEFFS):
-        pwm.append(deg_to_pwm(angle, coeff))
-
-    message = ",".join(str(x) for x in pwm) + "\n"
-
-    print("PWM:", pwm)
-
-    if ser is not None and ser.is_open:
-        ser.write(message.encode())
+from PySide6.QtWidgets import (
+    QApplication,
+    QWidget,
+    QLabel,
+    QPushButton,
+    QSlider,
+    QGridLayout,
+    QVBoxLayout,
+    QHBoxLayout,
+    QGroupBox,
+)
+from PySide6.QtCore import Qt
+from PySide6.QtCore import QTimer
 
 
-# =====================================================
-# Slider callback
-# =====================================================
 
-def slider_changed(index, value):
+INITIAL_ANGLES = {
+    "sfl": 90,
+    "ffl": 90,
+    "tfl": 180,
 
-    angles_deg[index] = float(value)
+    "sfr": 90,
+    "ffr": 90,
+    "tfr": 0,
 
-    rad = np.deg2rad(angles_deg[index])
+    "sbl": 90,
+    "fbl": 90,
+    "tbl": 180,
 
-    labels[index]["text"] = f"{angles_deg[index]:6.1f}°   {rad:6.3f} rad"
+    "sbr": 90,
+    "fbr": 90,
+    "tbr": 0,
+}
 
-def update():
 
-    send_to_arduino()
+# ---------------- ROS NODE ---------------- #
 
-    root.after(50, update)    # 20 Hz
+class RealRobotJointStatesPublisher(Node):
+    def __init__(self):
+        super().__init__("real_robot_joint_states_publisher")
+        self.publisher_ = self.create_publisher(RealRobotJointStates, "/real_robot_joint_states", 10)
 
-# =====================================================
-# Main
-# =====================================================
+    def publish_real_robot_joint_states(self, sfr, ffr, tfr, sfl, ffl, tfl, sbr, fbr, tbr, sbl, fbl, tbl):
+        msg = RealRobotJointStates()
+        msg.sfr = float(sfr)
+        msg.ffr = float(ffr)
+        msg.tfr = float(tfr)
+        msg.sfl = float(sfl)
+        msg.ffl = float(ffl)
+        msg.tfl = float(tfl)
+        msg.sbr = float(sbr)
+        msg.fbr = float(fbr)
+        msg.tbr = float(tbr)
+        msg.sbl = float(sbl)
+        msg.fbl = float(fbl)
+        msg.tbl = float(tbl)
+        self.publisher_.publish(msg)
+
+
+# ---------------- GUI ---------------- #
+# ---------------- GUI ---------------- #
+
+class MainWindow(QWidget):
+    def __init__(self, ros_node):
+        super().__init__()
+
+        self.ros_node = ros_node
+
+        self.setWindowTitle("BOTZO SERVO CONTROLLER")
+        self.resize(900, 550)
+
+        self.sliders = {}
+        self.value_labels = {}
+
+        main_layout = QVBoxLayout()
+        grid = QGridLayout()
+
+        grid.addWidget(self.create_leg_box("Front Left", "fl"), 0, 0)
+        grid.addWidget(self.create_leg_box("Front Right", "fr"), 0, 1)
+        grid.addWidget(self.create_leg_box("Back Left", "bl"), 1, 0)
+        grid.addWidget(self.create_leg_box("Back Right", "br"), 1, 1)
+
+        main_layout.addLayout(grid)
+
+        status = QLabel("Publishing ● Connected")
+        status.setAlignment(Qt.AlignCenter)
+        main_layout.addWidget(status)
+
+        self.setLayout(main_layout)
+
+        self.update_joint_states()
+
+    def create_leg_box(self, title, leg):
+
+        box = QGroupBox(title)
+
+        layout = QVBoxLayout()
+
+        names = {
+            "s": "Hip",
+            "f": "Femur",
+            "t": "Tibia"
+        }
+
+        for joint in ["s", "f", "t"]:
+            slider_name = f"{joint}{leg}"
+
+            row = QHBoxLayout()
+
+            text = QLabel(names[joint])
+            text.setFixedWidth(60)
+
+            slider = QSlider(Qt.Horizontal)
+            slider.setMinimum(-180)
+            slider.setMaximum(180)
+            slider.setValue(INITIAL_ANGLES[slider_name])
+
+            value = QLabel(f"{slider.value()}°")
+            value.setFixedWidth(45)
+
+            slider.valueChanged.connect(
+                lambda v, lbl=value: lbl.setText(f"{v}°")
+            )
+
+            slider.valueChanged.connect(self.update_joint_states)
+
+            self.sliders[slider_name] = slider
+            self.value_labels[slider_name] = value
+
+            row.addWidget(text)
+            row.addWidget(slider)
+            row.addWidget(value)
+
+            layout.addLayout(row)
+
+        box.setLayout(layout)
+
+        return box
+
+    def update_joint_states(self):
+
+        self.ros_node.publish_real_robot_joint_states(
+
+            self.sliders["sfr"].value(),
+            self.sliders["ffr"].value(),
+            self.sliders["tfr"].value(),
+
+            self.sliders["sfl"].value(),
+            self.sliders["ffl"].value(),
+            self.sliders["tfl"].value(),
+
+            self.sliders["sbr"].value(),
+            self.sliders["fbr"].value(),
+            self.sliders["tbr"].value(),
+
+            self.sliders["sbl"].value(),
+            self.sliders["fbl"].value(),
+            self.sliders["tbl"].value(),
+        )
+
+
 
 def main():
 
-    global ser, root
+    rclpy.init()
 
-    print("Connecting to Arduino...")
+    ros_node = RealRobotJointStatesPublisher()
 
-    ser = serial.Serial(
-        SERIAL_PORT,
-        BAUDRATE,
-        timeout=0.1
-    )
+    app = QApplication(sys.argv)
 
-    time.sleep(1)
+    window = MainWindow(ros_node)
+    window.show()
 
-    print("Connected!")
+    timer = QTimer()
+    timer.timeout.connect(lambda: rclpy.spin_once(ros_node, timeout_sec=0))
+    timer.start(10)
 
-    root = tk.Tk()
-    root.title("Move Real Robot Servos")
+    app.exec()
 
-    for i in range(12):
-
-        frame = tk.Frame(root)
-        frame.pack(fill="x", padx=5, pady=2)
-
-        tk.Label(
-            frame,
-            text=SERVO_NAMES[i],
-            width=14,
-            anchor="w"
-        ).pack(side="left")
-
-        slider = tk.Scale(
-            frame,
-            from_=0,
-            to=180,
-            orient="horizontal",
-            length=350,
-            command=lambda value, idx=i: slider_changed(idx, value)
-        )
-
-        slider.set(angles_deg[i])
-        slider.pack(side="left")
-
-        label = tk.Label(
-            frame,
-            text=f"{angles_deg[i]:.1f}deg    {np.deg2rad(angles_deg[i]):.3f}rad",
-            width=18
-        )
-
-        label.pack(side="left")
-
-        labels.append(label)
-
-    send_to_arduino()   # send initial pose once
-
-    update()            # start periodic updates
-
-    root.mainloop()
-
-    if ser.is_open:
-        ser.close()
+    ros_node.destroy_node()
+    rclpy.shutdown()
 
 
 if __name__ == "__main__":

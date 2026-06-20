@@ -12,17 +12,19 @@ source install/setup.bash
 
 
 ros2 launch botzo_description display.launch.py # make sure to close the joint publisher GUI before running the next command
-ros2 run botzo_ik joint_publisher
-ros2 run botzo_gaitplan gait_planner
+ros2 run botzo_ik joint_publisher # Wait for /target_end_effectors topic to recive goal positions and publish the corresponding joint states to /joint_states topic
+ros2 run botzo_gaitplan gait_planner # Wait for /cmd_vel topic to recive velocity commands and publish the corresponding target end-effectors to /target_end_effectors topic
 
 # publish to /cmd_vel topic to move the robot
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 # OR with a joystick
 ros2 run joy joy_node --ros-args -p dev:="/dev/input/js0"
-ros2 run botzo_joystick joy_to_cmd_vel
+ros2 run botzo_joystick joy_to_cmd_vel # transform the joystick messages to velocity commands (/cmd_vel topic) that can be used by the gait planner to move the robot.
 
 # to move the robot according to the target end-effectors, run this in the Raspberry Pi of the robot:
-ros2 run botzo_serialcomm move_robot
+ros2 run botzo_serialcomm move_real_robot # The only script that need to be run in the Raspberry Pi of the robot. The other scripts can be run in any computer that has ROS2  installed and connected to the same network as the Raspberry Pi.
+
+ros2 run botzo_serialcomm sim_to_real # Subscribe to the /joint_states topic (which is published by the joint_publisher node). This joint states are the ones in the RViz simularion. But because the servos zero's are different in the real robot from the URDF, the script and transform the angles in simulation in the same angles to reach the same end-effectors position in the real robot. The script will transform the angles and publish them to the /real_robot_joint_states topic. This way we can move the real robot according to the target end-effectors we publish to the /target_end_effectors topic.
 ```
 
 
@@ -38,34 +40,6 @@ ros2 launch botzo_description display.launch.py
 ### Naive home pose botzo
 ```bash
 ros2 run botzo_description move_joint
-```
-
-
-
-## Add custom messages (`botzo_messages`)
-
-```bash
-cd <your_ros2_ws>/src/botzo/botzo_ros2_ws/botzo_messages/msg
-```
-add your custom message file (e.g. `TargetEndEffectors.msg`)
-
-Update `CMakeLists.txt` to include the new message file, e.g. add the following lines:
-
-```bash
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/TargetEndEffectors.msg"
-)
-```
-
-Build and source the workspace again:
-```bash
-cd <your_ros2_ws>
-colcon build
-```
-
-Check that the message is available:
-```bash
-ros2 interface show botzo_messages/msg/TargetEndEffectors
 ```
 
 
@@ -160,7 +134,32 @@ script to transform the joystick messages to velocity commands (`/cmd_vel` topic
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Gazebo
+
+> working in progress
 
 ```bash
 ros2 pkg list | grep gazebo
@@ -219,38 +218,15 @@ ros2 launch botzo_gazebo gazebo.launch.py
 
 > working in progress
 
-
-
-
-
-
-
-
-
-
-
 ## Rotations
 
 > working in progress
 
-#### Publish IMU data
+### Publish IMU data
 
 > working in progress
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Stabilization
+### Stabilization
 
 > working in progress
 
@@ -272,19 +248,26 @@ ros2 launch botzo_gazebo gazebo.launch.py
 
 
 ## Connect to the real robot
-
-1. Subscribe to /joint_states
-2. Transform current joint states angle from sim angles to real robot angles
-3. Transfom radinats into PWM (using calibration coefficients)
-4. Connect to Arduino
-5. Send angles to servos 
+Subscribe to `/real_robot_joint_states` topic to get the current joint states of the real robot (in degrees) and pass them in PWM to arduino via serial communication. 
+> Note that this is the only script that need to be run in the Raspberry Pi of the robot. The other scripts can be run in any computer that has ROS2  installed and connected to the same network as the Raspberry Pi.
 ```bash
-ros2 run botzo_serialcomm move_robot
+ros2 run botzo_serialcomm move_real_robot
 ```
+`/real_robot_joint_states` topic message type: `botzo_messages/msg/RealRobotJointStates`. To this topic we publish angles/joint states in degrees. This angles are the ones we want to servos to move to. The `move_real_robot.py` script is waiting for a message in this topic to move the servos to the desired angles. The script will transform the angles from degrees to PWM using the calibration coefficients and send them to the Arduino via serial communication.
+
+Wherever we want we can just publish the 12 angles in degrees to the `/real_robot_joint_states` topic and the robot will move to that position. 
+
+
+For example, this script:
+```bash
+ros2 run botzo_serialcomm sim_to_real
+```
+Subscibe to the `/joint_states` topic (which is published by the `joint_publisher` node). This joint states are the ones in the RViz simularion. But because the servos zero's are different in the real robot from the URDF, the script and transform the angles in simulation in the same angles to reach the same end-effectors position in the real robot. The script will transform the angles and publish them to the `/real_robot_joint_states` topic. This way we can move the real robot according to the target end-effectors we publish to the `/target_end_effectors` topic.
+
 
 ## Debuging Utils
 
-1. Scipt to move the real robot servos to user specific angles (in degrees) using the calibration coefficients and the serial communication with the Arduino. Usefull to check if the calibration coefficients are correct and if the servos are working properly. The script will move the servos to the specified angles and then return them to the home position.
+1. Scipt to move the real robot servos to user specific angles (in degrees). Using GUI we set desire joint states for the real robot servos. We then publish these angles to the `/real_robot_joint_states` topic, that is subscribed by the `move_real_robot.py` script, and send them to the Arduino via serial communication. Usefull to check if the calibration coefficients are correct and if the servos are working properly. The script will move the servos to the specified angles and then return them to the home position.
 ```bash
 ros2 run botzo_debuggingutills move_real_robot_servos
 ```
@@ -317,7 +300,7 @@ ros2 run botzo_debuggingutills move_end_effectors_gui
 
 ## Moveit
 
-> working in progress
+> working in progress (not sure if needed)
 
 Install Moveit: https://moveit.picknik.ai/main/doc/tutorials/getting_started/getting_started.html
 Tutorial: https://moveit.picknik.ai/main/doc/examples/setup_assistant/setup_assistant_tutorial.html
@@ -331,6 +314,35 @@ roslaunch moveit_setup_assistant setup_assistant.launch
 
 
 
+
+
+
+
+## Add custom messages (`botzo_messages`)
+
+```bash
+cd <your_ros2_ws>/src/botzo/botzo_ros2_ws/botzo_messages/msg
+```
+add your custom message file (e.g. `TargetEndEffectors.msg`)
+
+Update `CMakeLists.txt` to include the new message file, e.g. add the following lines:
+
+```bash
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/TargetEndEffectors.msg"
+)
+```
+
+Build and source the workspace again:
+```bash
+cd <your_ros2_ws>
+colcon build
+```
+
+Check that the message is available:
+```bash
+ros2 interface show botzo_messages/msg/TargetEndEffectors
+```
 
 ## Contribute
 ```bash
