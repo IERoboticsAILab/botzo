@@ -125,21 +125,21 @@ def adjust_angles_sim_to_real(angles_fl, angles_fr, angles_bl, angles_br):
   # all shoulders needs +90
   # all femurs needs * -1
   # all knees needs +90
-  angles_fl[0] += 90
+  angles_fl[0] += 90 # ok
   angles_fr[0] += 90
   angles_bl[0] += 90
   angles_bl[0] = 180 - angles_bl[0]
   angles_br[0] += 90
   angles_br[0] = 180 - angles_br[0]
 
-  angles_fl[1] *= -1
+  angles_fl[1] *= -1 # ok
   angles_fl[1] = 180 - angles_fl[1]
   angles_bl[1] *= -1
   angles_bl[1] = 180 - angles_bl[1]
   angles_fr[1] *= -1
   angles_br[1] *= -1
 
-  angles_fl[2] += 90
+  angles_fl[2] += 90 # tetha = angles_fl[2] + 90     |    angles_fl[2] = -90 + theta + gamma     |    gamma = 180 - 90 - angles_fl[1]
   angles_fl[2] = 180 - angles_fl[2]
   angles_bl[2] += 90
   angles_bl[2] = 180 - angles_bl[2]
