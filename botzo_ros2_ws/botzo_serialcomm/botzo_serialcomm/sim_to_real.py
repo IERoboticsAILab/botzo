@@ -71,12 +71,27 @@ def adjust_angles_sim_to_real(angles_fl, angles_fr, angles_bl, angles_br):
   angles_fr[1] *= -1
   angles_br[1] *= -1
 
-  angles_fl[2] += 90 # tetha = angles_fl[2] + 90     |    angles_fl[2] = -90 + theta + gamma     |    gamma = 180 - 90 - angles_fl[1]
-  angles_fl[2] = 180 - angles_fl[2]
-  angles_bl[2] += 90
-  angles_bl[2] = 180 - angles_bl[2]
-  angles_fr[2] += 90
-  angles_br[2] += 90
+  #angles_fl[2] += 90 
+  #angles_fl[2] = 180 - angles_fl[2]
+  #angles_bl[2] += 90
+  #angles_bl[2] = 180 - angles_bl[2]
+  #angles_fr[2] += 90
+  #angles_br[2] += 90
+
+  # tetha = angles_fl[2] + 90     |    angles_fl[2] = -90 + theta + gamma     |    gamma = 180 - 90 - angles_fl[1]
+  tetha_fl = angles_fl[2] + 90
+  gamma_fl = 180 - 90 - angles_fl[1]
+  angles_fl[2] = -90 + tetha_fl + gamma_fl
+  tetha_bl = angles_bl[2] + 90
+  gamma_bl = 180 - 90 - angles_bl[1]
+  angles_bl[2] = -90 + tetha_bl + gamma_bl
+  tetha_fr = angles_fr[2] + 90
+  gamma_fr = 180 - 90 - angles_fr[1]
+  angles_fr[2] = -90 + tetha_fr + gamma_fr
+  tetha_br = angles_br[2] + 90
+  gamma_br = 180 - 90 - angles_br[1]
+  angles_br[2] = -90 + tetha_br + gamma_br
+
   return angles_fl, angles_fr, angles_bl, angles_br
 
 
