@@ -179,21 +179,21 @@ class MoveRealRobot(Node):
         # Send PWM values to Arduino via serial communication
         if ser and ser.is_open:
             pwm_values = [
-                deg2PWM(msg.sfr, coefficents_SFR),
-                deg2PWM(msg.ffr, coefficents_FFR),
-                deg2PWM(msg.tfr, coefficents_TFR),
+                int(deg2PWM(msg.sfr, coefficents_SFR)),
+                int(deg2PWM(msg.ffr, coefficents_FFR)),
+                int(deg2PWM(msg.tfr, coefficents_TFR)),
 
-                deg2PWM(msg.sfl, coefficents_SFL),
-                deg2PWM(msg.ffl, coefficents_FFL),
-                deg2PWM(msg.tfl, coefficents_TFL),
+                int(deg2PWM(msg.sfl, coefficents_SFL)),
+                int(deg2PWM(msg.ffl, coefficents_FFL)),
+                int(deg2PWM(msg.tfl, coefficents_TFL)),
 
-                deg2PWM(msg.sbr, coefficents_SBR),
-                deg2PWM(msg.fbr, coefficents_FBR),
-                deg2PWM(msg.tbr, coefficents_TBR),
-
-                deg2PWM(msg.sbl, coefficents_SBL),
-                deg2PWM(msg.fbl, coefficents_FBL),
-                deg2PWM(msg.tbl, coefficents_TBL),
+                int(deg2PWM(msg.sbr, coefficents_SBR)),
+                int(deg2PWM(msg.fbr, coefficents_FBR)),
+                int(deg2PWM(msg.tbr, coefficents_TBR)),
+                
+                int(deg2PWM(msg.sbl, coefficents_SBL)),
+                int(deg2PWM(msg.fbl, coefficents_FBL)),
+                int(deg2PWM(msg.tbl, coefficents_TBL)),
             ]
             t0 = time.perf_counter()
             ser.write(struct.pack('<12H', *pwm_values)) # 12 (uint16_t) x 2 = 24 bytes       # 500000 / 10 ≈ 50000 bytes/sec
