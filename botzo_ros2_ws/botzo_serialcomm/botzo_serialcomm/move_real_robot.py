@@ -35,6 +35,7 @@ from botzo_messages.msg import RealRobotJointStates
 import numpy as np
 import serial
 import time
+import struct
 
 
 # Serial communication settings
@@ -158,31 +159,46 @@ class MoveRealRobot(Node):
             print(f"Unexpected error: {e}")
 
     def listener_callback(self, msg):
-        #self.get_logger().info(f'Received joint states')
-        # Extract joint angles from the message
-        angles = [
-            [msg.sfr, msg.ffr, msg.tfr],
-            [msg.sfl, msg.ffl, msg.tfl],
-            [msg.sbr, msg.fbr, msg.tbr],
-            [msg.sbl, msg.fbl, msg.tbl]
-        ]
+        # #self.get_logger().info(f'Received joint states')
+        # # Extract joint angles from the message
+        # angles = [
+        #     [msg.sfr, msg.ffr, msg.tfr],
+        #     [msg.sfl, msg.ffl, msg.tfl],
+        #     [msg.sbr, msg.fbr, msg.tbr],
+        #     [msg.sbl, msg.fbl, msg.tbl]
+        # ]
 
-        # Convert angles from degrees to PWM values
-        angles_PWM = [
-            deg2PWM_set_angles([angles[0]], coefficents_SFR, coefficents_FFR, coefficents_TFR)[0],
-            deg2PWM_set_angles([angles[1]], coefficents_SFL, coefficents_FFL, coefficents_TFL)[0],
-            deg2PWM_set_angles([angles[2]], coefficents_SBR, coefficents_FBR, coefficents_TBR)[0],
-            deg2PWM_set_angles([angles[3]], coefficents_SBL, coefficents_FBL, coefficents_TBL)[0]
-        ]
+        # # Convert angles from degrees to PWM values
+        # angles_PWM = [
+        #     deg2PWM_set_angles([angles[0]], coefficents_SFR, coefficents_FFR, coefficents_TFR)[0],
+        #     deg2PWM_set_angles([angles[1]], coefficents_SFL, coefficents_FFL, coefficents_TFL)[0],
+        #     deg2PWM_set_angles([angles[2]], coefficents_SBR, coefficents_FBR, coefficents_TBR)[0],
+        #     deg2PWM_set_angles([angles[3]], coefficents_SBL, coefficents_FBL, coefficents_TBL)[0]
+        # ]
 
         # Send PWM values to Arduino via serial communication
         if ser and ser.is_open:
-            pwm_values = [int(val) for sublist in angles_PWM for val in sublist]
-            pwm_values_str = ','.join(map(str, pwm_values))
+            pwm_values = [
+                deg2PWM(msg.sfr, coefficents_SFR),
+                deg2PWM(msg.ffr, coefficents_FFR),
+                deg2PWM(msg.tfr, coefficents_TFR),
+
+                deg2PWM(msg.sfl, coefficents_SFL),
+                deg2PWM(msg.ffl, coefficents_FFL),
+                deg2PWM(msg.tfl, coefficents_TFL),
+
+                deg2PWM(msg.sbr, coefficents_SBR),
+                deg2PWM(msg.fbr, coefficents_FBR),
+                deg2PWM(msg.tbr, coefficents_TBR),
+
+                deg2PWM(msg.sbl, coefficents_SBL),
+                deg2PWM(msg.fbl, coefficents_FBL),
+                deg2PWM(msg.tbl, coefficents_TBL),
+            ]
             t0 = time.perf_counter()
-            ser.write((pwm_values_str + '\n').encode())
+            ser.write(struct.pack('<12H', *pwm_values)) # 12 (uint16_t) x 2 = 24 bytes       # 500000 / 10 ≈ 50000 bytes/sec
             print(time.perf_counter() - t0)
-            #self.get_logger().info(f'Sent PWM values: {pwm_values_str}')
+            self.get_logger().info(f'Sent PWM values: {pwm_values}')
 
 def main(args=None):
     rclpy.init(args=args)

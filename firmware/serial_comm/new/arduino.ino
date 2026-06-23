@@ -64,48 +64,28 @@ void setup() {
 
 }
 
-void loop() {
-  // We expect 12 integers each time (SFR, FFR, TFR, SFL, FFL, TFL, SBR, FBR, TBR, SBL, FBL, TBL)
-  while (Serial.available()) {
-    // Read a line of text up to '\n'
-    String line = Serial.readStringUntil('\n');
-    // Example line: "1500,1450,1400,1600,1550,1500,1300,1250,1200,1400,1350,1300"
+void loop()
+{
+    static uint16_t values[12];
 
-    // Parse the 12 integers
-    int values[12];
-    int index = 0;
+    if (Serial.available() >= sizeof(values))
+    {
+        Serial.readBytes((char*)values, sizeof(values));
 
-    // Split the line by commas
-    char * c_line = strdup(line.c_str());
-    char * token = strtok(c_line, ",");
-    while (token != NULL && index < 12) {
-      values[index++] = atoi(token);
-      token = strtok(NULL, ",");
+        SFR.writeMicroseconds(values[0]);
+        FFR.writeMicroseconds(values[1]);
+        TFR.writeMicroseconds(values[2]);
+
+        SFL.writeMicroseconds(values[3]);
+        FFL.writeMicroseconds(values[4]);
+        TFL.writeMicroseconds(values[5]);
+
+        SBR.writeMicroseconds(values[6]);
+        FBR.writeMicroseconds(values[7]);
+        TBR.writeMicroseconds(values[8]);
+
+        SBL.writeMicroseconds(values[9]);
+        FBL.writeMicroseconds(values[10]);
+        TBL.writeMicroseconds(values[11]);
     }
-    free(c_line);
-
-    // If we got exactly 12 values, update the servos
-    if (index == 12) {
-      // Assign them to each servo
-      SFR.writeMicroseconds(values[0]);
-      FFR.writeMicroseconds(values[1]);
-      TFR.writeMicroseconds(values[2]);
-
-      SFL.writeMicroseconds(values[3]);
-      FFL.writeMicroseconds(values[4]);
-      TFL.writeMicroseconds(values[5]);
-
-      SBR.writeMicroseconds(values[6]);
-      FBR.writeMicroseconds(values[7]);
-      TBR.writeMicroseconds(values[8]);
-
-      SBL.writeMicroseconds(values[9]);
-      FBL.writeMicroseconds(values[10]);
-      TBL.writeMicroseconds(values[11]);
-
-      // Optional debug
-      //Serial.print("Updated servo positions: ");
-      //Serial.println(line);
-    }
-  }
 }
