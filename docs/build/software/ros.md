@@ -251,7 +251,7 @@ ros2 launch botzo_gazebo gazebo.launch.py
 Subscribe to `/real_robot_joint_states` topic to get the current joint states of the real robot (in degrees) and pass them in PWM to arduino via serial communication. 
 > Note that this is the only script that need to be run in the Raspberry Pi of the robot. The other scripts can be run in any computer that has ROS2  installed and connected to the same network as the Raspberry Pi.
 ```bash
-ros2 run botzo_serialcomm move_real_robot
+ros2 run botzo_serialcomm move_real_robot ### test
 ```
 `/real_robot_joint_states` topic message type: `botzo_messages/msg/RealRobotJointStates`. To this topic we publish angles/joint states in degrees. This angles are the ones we want to servos to move to. The `move_real_robot.py` script is waiting for a message in this topic to move the servos to the desired angles. The script will transform the angles from degrees to PWM using the calibration coefficients and send them to the Arduino via serial communication.
 
@@ -260,7 +260,7 @@ Wherever we want we can just publish the 12 angles in degrees to the `/real_robo
 
 For example, this script:
 ```bash
-ros2 run botzo_serialcomm sim_to_real
+ros2 run botzo_serialcomm sim_to_real ### test
 ```
 Subscibe to the `/joint_states` topic (which is published by the `joint_publisher` node). This joint states are the ones in the RViz simularion. But because the servos zero's are different in the real robot from the URDF, the script and transform the angles in simulation in the same angles to reach the same end-effectors position in the real robot. The script will transform the angles and publish them to the `/real_robot_joint_states` topic. This way we can move the real robot according to the target end-effectors we publish to the `/target_end_effectors` topic.
 
@@ -269,7 +269,7 @@ Subscibe to the `/joint_states` topic (which is published by the `joint_publishe
 
 1. Scipt to move the real robot servos to user specific angles (in degrees). Using GUI we set desire joint states for the real robot servos. We then publish these angles to the `/real_robot_joint_states` topic, that is subscribed by the `move_real_robot.py` script, and send them to the Arduino via serial communication. Usefull to check if the calibration coefficients are correct and if the servos are working properly. The script will move the servos to the specified angles and then return them to the home position.
 ```bash
-ros2 run botzo_debuggingutills move_real_robot_servos
+ros2 run botzo_debuggingutills move_real_robot_servos ### test
 ```
 
 2. Script to move end-effectr of 4 foots in x, y, z coordinates using simple slider GUI. The script will publish the target end-effectors to the /target_end_effectors topic and the joint_publisher node will calculate the corresponding joint angles using the IK solver and publish them to the /joint_states topic, which will update the robot's pose in Rviz accordingly.

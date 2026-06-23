@@ -179,3 +179,13 @@ class MoveRealRobot(Node):
             pwm_values_str = ','.join(map(str, [val for sublist in angles_PWM for val in sublist]))
             ser.write((pwm_values_str + '\n').encode())
             self.get_logger().info(f'Sent PWM values: {pwm_values_str}')
+
+def main(args=None):
+    rclpy.init(args=args)
+    move_real_robot = MoveRealRobot()
+    rclpy.spin(move_real_robot)
+    move_real_robot.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
