@@ -104,8 +104,8 @@ void loop() {
       TBL.writeMicroseconds(values[11]);
 
       // Optional debug
-      Serial.print("Updated servo positions: ");
-      Serial.println(line);
+      //Serial.print("Updated servo positions: ");
+      //Serial.println(line);
     }
   }
 }

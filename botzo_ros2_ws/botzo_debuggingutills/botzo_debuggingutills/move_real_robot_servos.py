@@ -87,19 +87,19 @@ from PySide6.QtCore import QTimer
 INITIAL_ANGLES = {
     "sfl": 90,
     "ffl": 90,
-    "tfl": 180,
+    "tfl": 0,
 
     "sfr": 90,
     "ffr": 90,
-    "tfr": 0,
+    "tfr": 180,
 
     "sbl": 90,
     "fbl": 90,
-    "tbl": 180,
+    "tbl": 0,
 
     "sbr": 90,
     "fbr": 90,
-    "tbr": 0,
+    "tbr": 180,
 }
 
 
@@ -181,7 +181,7 @@ class MainWindow(QWidget):
             text.setFixedWidth(60)
 
             slider = QSlider(Qt.Horizontal)
-            slider.setMinimum(-180)
+            slider.setMinimum(0)
             slider.setMaximum(180)
             slider.setValue(INITIAL_ANGLES[slider_name])
 

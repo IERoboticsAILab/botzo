@@ -33,6 +33,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
 from botzo_messages.msg import RealRobotJointStates
+import numpy as np
 
 
 

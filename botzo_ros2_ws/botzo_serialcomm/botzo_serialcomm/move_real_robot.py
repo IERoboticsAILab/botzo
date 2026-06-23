@@ -158,6 +158,7 @@ class MoveRealRobot(Node):
             print(f"Unexpected error: {e}")
 
     def listener_callback(self, msg):
+        #self.get_logger().info(f'Received joint states')
         # Extract joint angles from the message
         angles = [
             [msg.sfr, msg.ffr, msg.tfr],
@@ -176,9 +177,12 @@ class MoveRealRobot(Node):
 
         # Send PWM values to Arduino via serial communication
         if ser and ser.is_open:
-            pwm_values_str = ','.join(map(str, [val for sublist in angles_PWM for val in sublist]))
+            pwm_values = [int(val) for sublist in angles_PWM for val in sublist]
+            pwm_values_str = ','.join(map(str, pwm_values))
+            t0 = time.perf_counter()
             ser.write((pwm_values_str + '\n').encode())
-            self.get_logger().info(f'Sent PWM values: {pwm_values_str}')
+            print(time.perf_counter() - t0)
+            #self.get_logger().info(f'Sent PWM values: {pwm_values_str}')
 
 def main(args=None):
     rclpy.init(args=args)
