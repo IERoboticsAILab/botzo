@@ -59,18 +59,28 @@ def adjust_angles_sim_to_real(angles_fl, angles_fr, angles_bl, angles_br):
   # all femurs needs * -1
   # all knees needs +90
   angles_fl[0] += 90 # ok
+
   angles_fr[0] += 90
+  angles_fr[0] = 180 - angles_fr[0]
+
   angles_bl[0] += 90
-  angles_bl[0] = 180 - angles_bl[0]
+
   angles_br[0] += 90
   angles_br[0] = 180 - angles_br[0]
 
+
+
   angles_fl[1] *= -1 # ok
   angles_fl[1] = 180 - angles_fl[1]
+
   angles_bl[1] *= -1
   angles_bl[1] = 180 - angles_bl[1]
+
   angles_fr[1] *= -1
+
   angles_br[1] *= -1
+
+
 
   #angles_fl[2] += 90 
   #angles_fl[2] = 180 - angles_fl[2]
@@ -81,17 +91,34 @@ def adjust_angles_sim_to_real(angles_fl, angles_fr, angles_bl, angles_br):
 
   # tetha = angles_fl[2] + 90     |    angles_fl[2] = -90 + theta + gamma     |    gamma = 180 - 90 - angles_fl[1]
   tetha_fl = angles_fl[2] + 90
-  gamma_fl = 180 - 90 - angles_fl[1]
-  angles_fl[2] = -90 + tetha_fl + gamma_fl
+  gamma_fl = 90 - angles_fl[1]
+  x = 180 - (tetha_fl + gamma_fl)
+  angles_fl[2] = 90 - x
+
   tetha_bl = angles_bl[2] + 90
-  gamma_bl = 180 - 90 - angles_bl[1]
-  angles_bl[2] = -90 + tetha_bl + gamma_bl
-  tetha_fr = angles_fr[2] + 90
-  gamma_fr = 180 - 90 - angles_fr[1]
-  angles_fr[2] = -90 + tetha_fr + gamma_fr
-  tetha_br = angles_br[2] + 90
-  gamma_br = 180 - 90 - angles_br[1]
-  angles_br[2] = -90 + tetha_br + gamma_br
+  gamma_bl = 90 - angles_bl[1]
+  x = 180 - (tetha_bl + gamma_bl)
+  angles_bl[2] = 90 - x
+  ## angles_fl[2] = 90 - tetha_fl - gamma_fl
+  ##tetha_bl = angles_bl[2] + 90
+  ##gamma_bl = 180 - 90 - angles_bl[1]
+  ##angles_bl[2] = 90 - tetha_bl - gamma_bl
+  ## tetha_fr = angles_fr[2] + 90
+  ## gamma_fr = 180 - 90 - angles_fr[1]
+  ## angles_fr[2] = -90 + tetha_fr + gamma_fr
+  ## tetha_br = angles_br[2] + 90
+  ## gamma_br = 180 - 90 - angles_br[1]
+  ## angles_br[2] = -90 + tetha_br + gamma_br
+
+  angles_fl[2] *= -1
+
+  angles_bl[2] *= -1
+
+  angles_fr[2] *= -1
+  angles_fr[2] = 180 - angles_fr[2]
+
+  angles_br[2] *= -1
+  angles_br[2] = 180 - angles_br[2]
 
   return angles_fl, angles_fr, angles_bl, angles_br
 

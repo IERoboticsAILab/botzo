@@ -148,10 +148,7 @@ class MoveRealRobot(Node):
             ser.reset_input_buffer()
             ser.reset_output_buffer()
             print(f"Connected to Arduino at {SERIAL_BAUD_RATE} baud.\n")
-            ser.write(b'TEST\n')
             time.sleep(0.1)
-            response = ser.readline().decode().strip()
-            print(f"\n\nTest Response from Arduino: {response}\n\n")
         except serial.SerialException as e:
             self.get_logger().error(f'Error initializing serial communication: {e}')
             rclpy.shutdown()
@@ -159,23 +156,6 @@ class MoveRealRobot(Node):
             print(f"Unexpected error: {e}")
 
     def listener_callback(self, msg):
-        # #self.get_logger().info(f'Received joint states')
-        # # Extract joint angles from the message
-        # angles = [
-        #     [msg.sfr, msg.ffr, msg.tfr],
-        #     [msg.sfl, msg.ffl, msg.tfl],
-        #     [msg.sbr, msg.fbr, msg.tbr],
-        #     [msg.sbl, msg.fbl, msg.tbl]
-        # ]
-
-        # # Convert angles from degrees to PWM values
-        # angles_PWM = [
-        #     deg2PWM_set_angles([angles[0]], coefficents_SFR, coefficents_FFR, coefficents_TFR)[0],
-        #     deg2PWM_set_angles([angles[1]], coefficents_SFL, coefficents_FFL, coefficents_TFL)[0],
-        #     deg2PWM_set_angles([angles[2]], coefficents_SBR, coefficents_FBR, coefficents_TBR)[0],
-        #     deg2PWM_set_angles([angles[3]], coefficents_SBL, coefficents_FBL, coefficents_TBL)[0]
-        # ]
-
         # Send PWM values to Arduino via serial communication
         if ser and ser.is_open:
             pwm_values = [
@@ -190,15 +170,16 @@ class MoveRealRobot(Node):
                 int(deg2PWM(msg.sbr, coefficents_SBR)),
                 int(deg2PWM(msg.fbr, coefficents_FBR)),
                 int(deg2PWM(msg.tbr, coefficents_TBR)),
-                
+
                 int(deg2PWM(msg.sbl, coefficents_SBL)),
                 int(deg2PWM(msg.fbl, coefficents_FBL)),
                 int(deg2PWM(msg.tbl, coefficents_TBL)),
             ]
+            print(pwm_values)
             t0 = time.perf_counter()
             ser.write(struct.pack('<12H', *pwm_values)) # 12 (uint16_t) x 2 = 24 bytes       # 500000 / 10 ≈ 50000 bytes/sec
-            print(time.perf_counter() - t0)
-            self.get_logger().info(f'Sent PWM values: {pwm_values}')
+            #print(time.perf_counter() - t0)
+            #self.get_logger().info(f'Sent PWM values: {pwm_values}')
 
 def main(args=None):
     rclpy.init(args=args)
