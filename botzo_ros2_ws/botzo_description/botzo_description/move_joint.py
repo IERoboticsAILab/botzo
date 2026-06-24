@@ -34,6 +34,11 @@ class JointPublisher(Node):
         self.joint_state.position = [0.0] * 12
         self.joint_state.velocity = [0.0] * 12
         self.joint_state.effort = [0.0] * 12
+        print("Naive script to move legs into pre define set of position")
+        print("\tSet shoulders to: 85 deg (- 90 deg for real to sim conversion)")
+        print("\tSet femur to: 49 deg (*-1 deg for real to sim conversion)")
+        print("\tSet tibia to: 100 deg (- 90 deg for real to sim conversion)")
+
 
 
     def publish_joints(self):
@@ -52,7 +57,7 @@ class JointPublisher(Node):
                                      -2.5, -2.5, -2.5, -2.5]
         self.joint_state.effort = [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0,
                                    2.0, 2.0, 2.0, 2.0]
-        print(f'Publishing joint states: {self.joint_state}')
+        #print(f'Publishing joint states: {self.joint_state}')
         self.publisher.publish(self.joint_state)
 
 

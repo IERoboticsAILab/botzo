@@ -31,6 +31,10 @@ def generate_launch_description():
         executable='joint_state_publisher_gui',
         name='joint_state_publisher_gui',
         parameters=[params],
+        additional_env={
+            'QT_AUTO_SCREEN_SCALE_FACTOR': '1',
+            'QT_SCALE_FACTOR': '0.8',
+        },
         condition=launch.conditions.IfCondition(LaunchConfiguration('gui'))
     )
     

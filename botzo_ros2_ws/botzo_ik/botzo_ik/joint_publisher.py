@@ -64,10 +64,12 @@ def adjust_angles_to_sim(angles_fl, angles_fr, angles_bl, angles_br):
   angles_fr[0] -= 90
   angles_bl[0] -= 90
   angles_br[0] -= 90
+
   angles_fl[1] *= -1
   angles_fr[1] *= -1
   angles_bl[1] *= -1
   angles_br[1] *= -1
+
   angles_fl[2] -= 90
   angles_fr[2] -= 90
   angles_bl[2] -= 90
@@ -97,19 +99,6 @@ class EnfEffectorSubscriber(Node):
     self.joint_state.effort = [0.0] * 12
 
   def listener_callback(self, msg):
-    '''
-    print("Received target end-effectors: ")
-    print("FL leg target: ", msg.x_fl, msg.y_fl, msg.z_fl)
-    print("FR leg target: ", msg.x_fr, msg.y_fr, msg.z_fr)
-    print("BL leg target: ", msg.x_bl, msg.y_bl, msg.z_bl)
-    print("BR leg target: ", msg.x_br, msg.y_br, msg.z_br)
-    print("Calculating joint angles...")
-    print("FL leg angles: ", legIK(msg.x_fl, msg.y_fl, msg.z_fl))
-    print("FR leg angles: ", legIK(msg.x_fr, msg.y_fr, msg.z_fr))
-    print("BL leg angles: ", legIK(msg.x_bl, msg.y_bl, msg.z_bl))
-    print("BR leg angles: ", legIK(msg.x_br, msg.y_br, msg.z_br))
-    print("--------------------------------------------------")
-    '''
     target_x_fl, target_y_fl, target_z_fl = msg.x_fl, msg.y_fl, msg.z_fl
     target_x_fr, target_y_fr, target_z_fr = msg.x_fr, msg.y_fr, msg.z_fr
     target_x_bl, target_y_bl, target_z_bl = msg.x_bl, msg.y_bl, msg.z_bl
@@ -122,6 +111,23 @@ class EnfEffectorSubscriber(Node):
     br_angles = legIK(target_x_br, target_y_br, target_z_br)
     # adjust angles to match the simulation's coordinate system and conventions
     fl_angles, fr_angles, bl_angles, br_angles = adjust_angles_to_sim(fl_angles, fr_angles, bl_angles, br_angles)
+    
+    print("Received target end-effectors:")
+    print("\tFL leg target: ", msg.x_fl, msg.y_fl, msg.z_fl)
+    print("\tFR leg target: ", msg.x_fr, msg.y_fr, msg.z_fr)
+    print("\tBL leg target: ", msg.x_bl, msg.y_bl, msg.z_bl)
+    print("\tBR leg target: ", msg.x_br, msg.y_br, msg.z_br)
+    print("Calculated joint angles by IK:")
+    print("\tFL leg angles: ", legIK(msg.x_fl, msg.y_fl, msg.z_fl))
+    print("\tFR leg angles: ", legIK(msg.x_fr, msg.y_fr, msg.z_fr))
+    print("\tBL leg angles: ", legIK(msg.x_bl, msg.y_bl, msg.z_bl))
+    print("\tBR leg angles: ", legIK(msg.x_br, msg.y_br, msg.z_br))
+    print("Adjust angles to sim:")
+    print("\tFL adjusted angles: ", fl_angles)
+    print("\tFR adjusted angles: ", fr_angles)
+    print("\tBL adjusted angles: ", bl_angles)
+    print("\tBR adjusted angles: ", br_angles)
+    print("\n--------------------------------------------------\n")
 
     # publish joint states
     self.joint_state.header.stamp = self.get_clock().now().to_msg()
@@ -151,8 +157,9 @@ class EnfEffectorSubscriber(Node):
 
 ''' MAIN FUNCTION '''
 def main(args=None):
-  print("Starting joint publisher node...")
-  print("Ready to subscribe to target end-effectors and publish joint states and current end-effector positions.")
+  print("Starting IK joint publisher node...")
+  print("This node subscribe to target end-effectors and publish joint states and current end-effector positions.")
+  print("Ready:\n")
   rclpy.init(args=args)
   end_effectors_subscriber = EnfEffectorSubscriber()
   rclpy.spin(end_effectors_subscriber)

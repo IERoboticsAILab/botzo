@@ -123,13 +123,6 @@ def deg2PWM(desire_deg_angle, coefficents):
     pulse = round((a * desire_deg_angle**2) + (b * desire_deg_angle) + c, 0)
     return pulse
 
-def deg2PWM_set_angles(angles, coefficents_S, coefficents_F, coefficents_T):
-  angles_PWM = []
-  for angle in angles:
-    angles_PWM.append([deg2PWM(angle[0], coefficents_S), deg2PWM(angle[1], coefficents_F), deg2PWM(angle[2], coefficents_T)])
-  return angles_PWM
-
-
 class MoveRealRobot(Node):
     def __init__(self):
         super().__init__('move_real_robot')
@@ -175,8 +168,17 @@ class MoveRealRobot(Node):
                 int(deg2PWM(msg.fbl, coefficents_FBL)),
                 int(deg2PWM(msg.tbl, coefficents_TBL)),
             ]
-            print(pwm_values)
-            t0 = time.perf_counter()
+            print("Recived desire angles for real servos:")
+            print(f"\tFL: {msg.sfl, msg.ffl, msg.tfl}")
+            print(f"\tFR: {msg.sfr, msg.ffr, msg.tfr}")
+            print(f"\tBL: {msg.sbl, msg.fbl, msg.tbl}")
+            print(f"\tBR: {msg.sbr, msg.fbr, msg.tbr}")
+            print("Adjusted angle to PWM:")
+            print(f"\tFL: {pwm_values[0], pwm_values[1], pwm_values[2]}")
+            print(f"\tFR: {pwm_values[3], pwm_values[4], pwm_values[5]}")
+            print(f"\tBL: {pwm_values[6], pwm_values[7], pwm_values[8]}")
+            print(f"\tBR: {pwm_values[9], pwm_values[10], pwm_values[11]}")
+            #t0 = time.perf_counter()
             ser.write(struct.pack('<12H', *pwm_values)) # 12 (uint16_t) x 2 = 24 bytes       # 500000 / 10 ≈ 50000 bytes/sec
             #print(time.perf_counter() - t0)
             #self.get_logger().info(f'Sent PWM values: {pwm_values}')

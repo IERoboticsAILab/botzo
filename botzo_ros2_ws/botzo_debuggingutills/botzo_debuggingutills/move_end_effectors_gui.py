@@ -2,8 +2,9 @@
 
 '''
 Create GUI with sliders to move the end-effectors of the 4 legs in x, y, z coordinates.
-Slide target for each leg, will trigger new message published to the /target_end_effectors topic, 
-which will be received by the joint_publisher node, which will calculate the corresponding joint angles using the IK solver 
+Slide target for each leg, will trigger new message published to the /target_end_effectors topic,
+
+which will be received by the joint_publisher IK node, which will calculate the corresponding joint angles using the IK solver 
 and publish them to the /joint_states topic, which will update the robot's pose in Rviz accordingly.
 
 /target_end_effectors topic message type: botzo_messages/msg/TargetEndEffectors.msg

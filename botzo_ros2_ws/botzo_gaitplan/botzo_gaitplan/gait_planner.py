@@ -165,8 +165,9 @@ class GaitPlanner(Node):
 
     def walk(self):
         if self.cmd_vel_msg is None:
-            self.get_logger().info('Waiting for cmd_vel...', throttle_duration_sec=2.0)
+            self.get_logger().info('Waiting for cmd_vel...')
             return
+        self.get_logger().info('/cmd_vel recived')
 
         # --- Extract velocity components ---
         lx  = self.cmd_vel_msg.linear.x
