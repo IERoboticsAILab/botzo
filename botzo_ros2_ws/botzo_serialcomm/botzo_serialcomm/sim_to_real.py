@@ -52,8 +52,8 @@ def adjust_angles_sim_to_real(current_angles_fl, current_angles_fr, current_angl
   # Shouldersì angles
   angles_fl[0] = current_angles_fl[0] + 90
   angles_fr[0] = 180 - (current_angles_fr[0] + 90)
-  angles_bl[0] = current_angles_bl[0] + 90
-  angles_br[0] = 180 - (current_angles_br[0] + 90)
+  angles_bl[0] = 180 - (current_angles_bl[0] + 90)
+  angles_br[0] = (current_angles_br[0] + 90)
 
   # Femur angles
   angles_fl[1] = 180 - (current_angles_fl[1] * -1)
