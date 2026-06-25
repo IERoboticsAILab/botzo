@@ -91,9 +91,13 @@ class EnfEffectorSubscriber(Node):
 
     self.publisher = self.create_publisher(JointState, '/joint_states', 10)
     self.joint_state = JointState()
-    self.joint_state.name = ['BL_shoulder_joint', 'BR_shoulder_joint', 'FL_shoulder_joint', 'FR_shoulder_joint',
-                                 'FR_femur_joint', 'FR_tibia_joint', 'FL_femur_joint', 'FL_tibia_joint',
-                                 'BR_femur_joint', 'BR_tibia_joint', 'BL_femur_joint', 'BL_tibia_joint']
+    self.joint_state.name = [ 
+                              'BL_shoulder_joint', 'BR_shoulder_joint', 'FL_shoulder_joint', 'FR_shoulder_joint', 
+                              'FR_femur_joint', 'FR_tibia_joint', 
+                              'FL_femur_joint', 'FL_tibia_joint', 
+                              'BR_femur_joint', 'BR_tibia_joint', 
+                              'BL_femur_joint', 'BL_tibia_joint'
+                            ]
     self.joint_state.position = [0.0] * 12
     self.joint_state.velocity = [0.0] * 12
     self.joint_state.effort = [0.0] * 12
@@ -142,15 +146,19 @@ class EnfEffectorSubscriber(Node):
     self.current_end_effectors_msg.x_fl = target_x_fl
     self.current_end_effectors_msg.y_fl = target_y_fl
     self.current_end_effectors_msg.z_fl = target_z_fl
+
     self.current_end_effectors_msg.x_fr = target_x_fr
     self.current_end_effectors_msg.y_fr = target_y_fr
     self.current_end_effectors_msg.z_fr = target_z_fr
+
     self.current_end_effectors_msg.x_bl = target_x_bl
     self.current_end_effectors_msg.y_bl = target_y_bl
     self.current_end_effectors_msg.z_bl = target_z_bl
+
     self.current_end_effectors_msg.x_br = target_x_br
     self.current_end_effectors_msg.y_br = target_y_br
     self.current_end_effectors_msg.z_br = target_z_br
+
     self.current_end_effectors_publisher.publish(self.current_end_effectors_msg)
 
 

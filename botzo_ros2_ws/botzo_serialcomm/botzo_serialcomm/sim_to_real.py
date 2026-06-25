@@ -12,21 +12,21 @@ The script will transform the angles and publish them to the `/real_robot_joint_
 This way we can move the real robot according to the target end-effectors we publish to the `/target_end_effectors` topic.
 
 RealRobotJointStates message type: sensor_msgs/msg/JointState.msg
-float32 sfr
-float32 ffr
-float32 tfr
-
 float32 sfl
 float32 ffl
 float32 tfl
 
-float32 sbr
-float32 fbr
-float32 tbr
+float32 sfr
+float32 ffr
+float32 tfr
 
 float32 sbl
 float32 fbl
 float32 tbl
+
+float32 sbr
+float32 fbr
+float32 tbr
 '''
 
 import rclpy
@@ -63,17 +63,9 @@ def adjust_angles_sim_to_real(current_angles_fl, current_angles_fr, current_angl
 
   # Tibia angles
   theta_fl = 90 + current_angles_fl[2] # full knee_angle = np.arccos((G**2 - femur**2 - tibia**2)/(-2*femur*tibia))
-  #print(f"knee angle: {theta_fl}")
   gamma_fl = 90 - (current_angles_fl[1] * -1) # full femur_angle = np.arctan2(x,D) + np.arcsin((tibia * np.sin(knee_angle)) / G)
-  #print(f"femur angle: {gamma_fl}")
   x = 180 - (theta_fl + gamma_fl)
-  #print(f"x; {x}")
   angles_fl[2] = 90 - x
-
-  theta_bl = 90 + current_angles_bl[2]
-  gamma_bl = 90 - (current_angles_bl[1] * -1)
-  x = 180 - (theta_bl + gamma_bl)
-  angles_bl[2] = 90 - x
 
   theta_fr = 90 + current_angles_fr[2]
   gamma_fr = 90 - (current_angles_fr[1] * -1)
@@ -81,11 +73,16 @@ def adjust_angles_sim_to_real(current_angles_fl, current_angles_fr, current_angl
   angles_fr[2] = 90 - x
   angles_fr[2] = 180 - angles_fr[2] # left side had opposite angles in servos (mirror)
 
+  theta_bl = 90 + current_angles_bl[2]
+  gamma_bl = 90 - (current_angles_bl[1] * -1)
+  x = 180 - (theta_bl + gamma_bl)
+  angles_bl[2] = 90 - x
+
   theta_br = 90 + current_angles_br[2]
   gamma_br = 90 - (current_angles_br[1] * -1)
   x = 180 - (theta_br + gamma_br)
   angles_br[2] = 90 - x
-  angles_br[2] = 180 - angles_br[2]
+  angles_br[2] = 180 - angles_br[2] # left side had opposite angles in servos (mirror)
 
   return angles_fl, angles_fr, angles_bl, angles_br
 
@@ -98,10 +95,25 @@ class SimToReal(Node):
         self.publisher = self.create_publisher(RealRobotJointStates, '/real_robot_joint_states', 10)
 
     def joint_state_callback(self, msg):
+        '''
+        NAMES:
+        - BL_shoulder_joint     # 0
+        - BR_shoulder_joint     # 1
+        - FL_shoulder_joint     # 2
+        - FR_shoulder_joint     # 3
+        - FR_femur_joint        # 4
+        - FR_tibia_joint        # 5
+        - FL_femur_joint        # 6
+        - FL_tibia_joint        # 7
+        - BR_femur_joint        # 8
+        - BR_tibia_joint        # 9
+        - BL_femur_joint        # 10
+        - BL_tibia_joint        # 11
+        '''
         current_angles_fl = rad2deg([msg.position[2], msg.position[6], msg.position[7]])
         current_angles_fr = rad2deg([msg.position[3], msg.position[4], msg.position[5]])
-        current_angles_bl = rad2deg([msg.position[0], msg.position[8], msg.position[9]])
-        current_angles_br = rad2deg([msg.position[1], msg.position[10], msg.position[11]])
+        current_angles_bl = rad2deg([msg.position[0], msg.position[10], msg.position[11]])
+        current_angles_br = rad2deg([msg.position[1], msg.position[8], msg.position[9]])
         angles_fl, angles_fr, angles_bl, angles_br = adjust_angles_sim_to_real(current_angles_fl, current_angles_fr, current_angles_bl, current_angles_br)
 
         print(f"Recived current joint states:")
@@ -119,18 +131,23 @@ class SimToReal(Node):
 
         # Publish the adjusted angles to the real robot joint states topic
         real_robot_joint_states_msg = RealRobotJointStates()
-        real_robot_joint_states_msg.sfr = angles_fr[0]
-        real_robot_joint_states_msg.ffr = angles_fr[1]
-        real_robot_joint_states_msg.tfr = angles_fr[2]
+
         real_robot_joint_states_msg.sfl = angles_fl[0]
         real_robot_joint_states_msg.ffl = angles_fl[1]
         real_robot_joint_states_msg.tfl = angles_fl[2]
-        real_robot_joint_states_msg.sbr = angles_br[0]
-        real_robot_joint_states_msg.fbr = angles_br[1]
-        real_robot_joint_states_msg.tbr = angles_br[2]
+
+        real_robot_joint_states_msg.sfr = angles_fr[0]
+        real_robot_joint_states_msg.ffr = angles_fr[1]
+        real_robot_joint_states_msg.tfr = angles_fr[2]
+
         real_robot_joint_states_msg.sbl = angles_bl[0]
         real_robot_joint_states_msg.fbl = angles_bl[1]
         real_robot_joint_states_msg.tbl = angles_bl[2]
+
+        real_robot_joint_states_msg.sbr = angles_br[0]
+        real_robot_joint_states_msg.fbr = angles_br[1]
+        real_robot_joint_states_msg.tbr = angles_br[2]
+        
         self.publisher.publish(real_robot_joint_states_msg)
 
 def main(args=None):

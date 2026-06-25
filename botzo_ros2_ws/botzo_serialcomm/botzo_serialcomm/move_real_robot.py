@@ -8,21 +8,21 @@ This node pass the joint state for the real tobot to the Arduino via serial comm
 
 It subscribes to /real_robot_joint_states topic message type: botzo_messages/msg/RealRobotJointStates.msg
 Recive the target angles in degrees for each joint of the robot: 
-float32 sfr
-float32 ffr
-float32 tfr
-
 float32 sfl
 float32 ffl
 float32 tfl
 
-float32 sbr
-float32 fbr
-float32 tbr
+float32 sfr
+float32 ffr
+float32 tfr
 
 float32 sbl
 float32 fbl
 float32 tbl
+
+float32 sbr
+float32 fbr
+float32 tbr
 
 Transform the angles from degrees to PWM values and pass them to the Arduino via serial communication. The Arduino will then move the servos to the target angles.
 '''
@@ -43,6 +43,23 @@ SERIAL_BAUD_RATE = 500000
 SERIAL_TIMEOUT = 0.1
 ser = None
 
+#------------------------
+
+a_SFL = 0
+b_SFL = 7.649
+c_SFL = 638.486
+coefficents_SFL = np.array([a_SFL, b_SFL, c_SFL])
+
+a_FFL = 0
+b_FFL = 7.603
+c_FFL = 625.428
+coefficents_FFL = np.array([a_FFL, b_FFL, c_FFL])
+
+a_TFL = 0.001
+b_TFL = 7.234
+c_TFL = 550.0
+coefficents_TFL = np.array([a_TFL, b_TFL, c_TFL])
+
 #-------------------------
 
 a_SFR = 0
@@ -62,20 +79,20 @@ coefficents_TFR = np.array([a_TFR, b_TFR, c_TFR])
 
 #------------------------
 
-a_SFL = 0
-b_SFL = 7.649
-c_SFL = 638.486
-coefficents_SFL = np.array([a_SFL, b_SFL, c_SFL])
+a_SBL = 0.001
+b_SBL = 7.673
+c_SBL = 648.857
+coefficents_SBL = np.array([a_SBL, b_SBL, c_SBL])
 
-a_FFL = 0
-b_FFL = 7.603
-c_FFL = 625.428
-coefficents_FFL = np.array([a_FFL, b_FFL, c_FFL])
+a_FBL = 0
+b_FBL = 7.704
+c_FBL = 628.142
+coefficents_FBL = np.array([a_FBL, b_FBL, c_FBL])
 
-a_TFL = 0.001
-b_TFL = 7.234
-c_TFL = 550.0
-coefficents_TFL = np.array([a_TFL, b_TFL, c_TFL])
+a_TBL = -0.001
+b_TBL = 7.765
+c_TBL = 634.285
+coefficents_TBL = np.array([a_TBL, b_TBL, c_TBL])
 
 #------------------------
 
@@ -96,20 +113,6 @@ coefficents_TBR = np.array([a_TBR, b_TBR, c_TBR])
 
 #------------------------
 
-a_SBL = 0.001
-b_SBL = 7.673
-c_SBL = 648.857
-coefficents_SBL = np.array([a_SBL, b_SBL, c_SBL])
-
-a_FBL = 0
-b_FBL = 7.704
-c_FBL = 628.142
-coefficents_FBL = np.array([a_FBL, b_FBL, c_FBL])
-
-a_TBL = -0.001
-b_TBL = 7.765
-c_TBL = 634.285
-coefficents_TBL = np.array([a_TBL, b_TBL, c_TBL])
 
 
 
@@ -152,21 +155,21 @@ class MoveRealRobot(Node):
         # Send PWM values to Arduino via serial communication
         if ser and ser.is_open:
             pwm_values = [
-                int(deg2PWM(msg.sfr, coefficents_SFR)),
-                int(deg2PWM(msg.ffr, coefficents_FFR)),
-                int(deg2PWM(msg.tfr, coefficents_TFR)),
-
                 int(deg2PWM(msg.sfl, coefficents_SFL)),
                 int(deg2PWM(msg.ffl, coefficents_FFL)),
                 int(deg2PWM(msg.tfl, coefficents_TFL)),
 
-                int(deg2PWM(msg.sbr, coefficents_SBR)),
-                int(deg2PWM(msg.fbr, coefficents_FBR)),
-                int(deg2PWM(msg.tbr, coefficents_TBR)),
+                int(deg2PWM(msg.sfr, coefficents_SFR)),
+                int(deg2PWM(msg.ffr, coefficents_FFR)),
+                int(deg2PWM(msg.tfr, coefficents_TFR)),
 
                 int(deg2PWM(msg.sbl, coefficents_SBL)),
                 int(deg2PWM(msg.fbl, coefficents_FBL)),
                 int(deg2PWM(msg.tbl, coefficents_TBL)),
+
+                int(deg2PWM(msg.sbr, coefficents_SBR)),
+                int(deg2PWM(msg.fbr, coefficents_FBR)),
+                int(deg2PWM(msg.tbr, coefficents_TBR)),
             ]
             print("Recived desire angles for real servos:")
             print(f"\tFL: {msg.sfl, msg.ffl, msg.tfl}")

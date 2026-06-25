@@ -44,21 +44,21 @@ angles from degrees to PWM using the servo calibration coefficients,
 and sends the commands to the Arduino over serial to move the robot.
 
 /real_robot_joint_states topic message type: botzo_messages/msg/RealRobotJointStates.msg
-float32 sfr
-float32 ffr
-float32 tfr
-
 float32 sfl
 float32 ffl
 float32 tfl
 
-float32 sbr
-float32 fbr
-float32 tbr
+float32 sfr
+float32 ffr
+float32 tfr
 
 float32 sbl
 float32 fbl
 float32 tbl
+
+float32 sbr
+float32 fbr
+float32 tbr
 '''
 
 import sys
@@ -110,24 +110,27 @@ class RealRobotJointStatesPublisher(Node):
         super().__init__("real_robot_joint_states_publisher")
         self.publisher_ = self.create_publisher(RealRobotJointStates, "/real_robot_joint_states", 10)
 
-    def publish_real_robot_joint_states(self, sfr, ffr, tfr, sfl, ffl, tfl, sbr, fbr, tbr, sbl, fbl, tbl):
+    def publish_real_robot_joint_states(self,  sfl, ffl, tfl,  sfr, ffr, tfr,  sbl, fbl, tbl,  sbr, fbr, tbr):
         msg = RealRobotJointStates()
-        msg.sfr = float(sfr)
-        msg.ffr = float(ffr)
-        msg.tfr = float(tfr)
         msg.sfl = float(sfl)
         msg.ffl = float(ffl)
         msg.tfl = float(tfl)
-        msg.sbr = float(sbr)
-        msg.fbr = float(fbr)
-        msg.tbr = float(tbr)
+        
+        msg.sfr = float(sfr)
+        msg.ffr = float(ffr)
+        msg.tfr = float(tfr)
+
         msg.sbl = float(sbl)
         msg.fbl = float(fbl)
         msg.tbl = float(tbl)
+
+        msg.sbr = float(sbr)
+        msg.fbr = float(fbr)
+        msg.tbr = float(tbr)
+
         self.publisher_.publish(msg)
 
 
-# ---------------- GUI ---------------- #
 # ---------------- GUI ---------------- #
 
 class MainWindow(QWidget):
@@ -211,21 +214,21 @@ class MainWindow(QWidget):
 
         self.ros_node.publish_real_robot_joint_states(
 
-            self.sliders["sfr"].value(),
-            self.sliders["ffr"].value(),
-            self.sliders["tfr"].value(),
-
             self.sliders["sfl"].value(),
             self.sliders["ffl"].value(),
             self.sliders["tfl"].value(),
 
-            self.sliders["sbr"].value(),
-            self.sliders["fbr"].value(),
-            self.sliders["tbr"].value(),
+            self.sliders["sfr"].value(),
+            self.sliders["ffr"].value(),
+            self.sliders["tfr"].value(),
 
             self.sliders["sbl"].value(),
             self.sliders["fbl"].value(),
             self.sliders["tbl"].value(),
+
+            self.sliders["sbr"].value(),
+            self.sliders["fbr"].value(),
+            self.sliders["tbr"].value(),
         )
 
 
