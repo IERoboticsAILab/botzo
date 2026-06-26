@@ -72,20 +72,20 @@ void loop()
     {
         Serial.readBytes((char*)values, sizeof(values));
 
-        SFR.writeMicroseconds(values[0]);
-        FFR.writeMicroseconds(values[1]);
-        TFR.writeMicroseconds(values[2]);
+        SFL.writeMicroseconds(values[0]);
+        FFL.writeMicroseconds(values[1]);
+        TFL.writeMicroseconds(values[2]);
 
-        SFL.writeMicroseconds(values[3]);
-        FFL.writeMicroseconds(values[4]);
-        TFL.writeMicroseconds(values[5]);
+        SFR.writeMicroseconds(values[3]);
+        FFR.writeMicroseconds(values[4]);
+        TFR.writeMicroseconds(values[5]);
 
-        SBR.writeMicroseconds(values[6]);
-        FBR.writeMicroseconds(values[7]);
-        TBR.writeMicroseconds(values[8]);
+        SBL.writeMicroseconds(values[6]);
+        FBL.writeMicroseconds(values[7]);
+        TBL.writeMicroseconds(values[8]);
 
-        SBL.writeMicroseconds(values[9]);
-        FBL.writeMicroseconds(values[10]);
-        TBL.writeMicroseconds(values[11]);
+        SBR.writeMicroseconds(values[9]);
+        FBR.writeMicroseconds(values[10]);
+        TBR.writeMicroseconds(values[11]);
     }
 }
