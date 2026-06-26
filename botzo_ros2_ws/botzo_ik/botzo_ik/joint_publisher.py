@@ -36,11 +36,11 @@ import numpy as np
 
 
 ''' HELPER FUNCTIONS '''
-coxa = 3.1 # from shoulder servo to the 2 other servos in the shoulder
-femur = 9.5 # from top sevo to knee
-tibia = 9.8 # from knee to foot
-real_femur = 9.1 # lenght of 3D printed femur
-dist_focuspoint_servo_femurtibia = 2.8 # distance from focus point/pivot of the 2 servos in the shoulder
+coxa = 2.54 #3.1 # from shoulder servo to the 2 other servos in the shoulder
+femur = 9.05 #9.5 # from top sevo to knee
+tibia = 9.85 # from knee to foot
+#real_femur = 9.1 # lenght of 3D printed femur
+#dist_focuspoint_servo_femurtibia = 2.8 # distance from focus point/pivot of the 2 servos in the shoulder
 
 def rad2deg(rads):
   return [rads[0]*180/np.pi, rads[1]*180/np.pi, rads[2]*180/np.pi]
