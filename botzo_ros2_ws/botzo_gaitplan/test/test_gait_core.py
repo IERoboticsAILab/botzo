@@ -114,9 +114,11 @@ def test_trot_pairs_and_swing_height():
 def test_feet_move_continuously_when_command_jumps(cmds):
     '''No teleporting feet: per-tick displacement is bounded even for step inputs.'''
     gait = TrotGait()
-    # A swing covers at most one full stride (2 * max_step) in swing_time; allow
-    # twice that average speed for the curve's peak. A jump would be several cm.
-    max_move = 2 * (2 * gait.p.max_step / gait.p.swing_time) * DT
+    # A swing covers at most one diagonal stride (max_step is per axis) plus the
+    # lift in swing_time; allow twice that average speed for the curve's peak.
+    # A jump would be several cm.
+    stride = 2 * math.sqrt(2) * gait.p.max_step + gait.p.step_height
+    max_move = 2 * (stride / gait.p.swing_time) * DT
     prev = {leg: list(gait.feet[leg].pos) for leg in LEGS}
     for cmd in cmds:
         for _, feet, _ in run(gait, 1.3, cmd):

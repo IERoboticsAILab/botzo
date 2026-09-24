@@ -45,16 +45,19 @@ TROT_OFFSETS = {'fl': 0.0, 'br': 0.0, 'fr': 0.5, 'bl': 0.5}
 
 @dataclass
 class GaitParams:
-    period: float = 0.4            # s, full gait cycle (tuned in gz sim)
+    # Timing and stride are chosen so the real servos (femur and knee, through
+    # the knee linkage) never need more than ~410 deg/s; a DS3225 does ~460 deg/s
+    # unloaded at 6.8 V. Faster settings walk fine in sim but the servos would lag.
+    period: float = 0.4            # s, full gait cycle
     duty_factor: float = 0.55      # fraction of the cycle a foot is on the ground (>0.5: brief 4-foot support)
-    step_height: float = 3.0       # cm, swing apex above the ground
+    step_height: float = 2.5       # cm, swing apex above the ground
     # Standing foot positions in the IK frame (x, y, z), cm. BL sits 2 cm further
     # out than BR to make up for that leg ending up under the belly.
     home_fl: tuple = (0.0, 2.0, 16.0)
     home_fr: tuple = (0.0, 2.0, 16.0)
     home_bl: tuple = (2.0, 4.0, 16.0)
     home_br: tuple = (2.0, 2.0, 16.0)
-    max_step: float = 4.5          # cm, max foot travel from home (per axis)
+    max_step: float = 3.0          # cm, max foot travel from home (per axis); caps speed
     max_lin_vel: float = 0.35      # m/s, cmd_vel linear clamp
     max_ang_vel: float = 2.5       # rad/s, cmd_vel angular clamp
     max_lin_acc: float = 1.0       # m/s^2, command ramp
