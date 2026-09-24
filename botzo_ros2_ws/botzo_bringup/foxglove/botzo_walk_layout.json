@@ -1,0 +1,173 @@
+{
+  "configById": {
+    "3D!botzo": {
+      "followTf": "base",
+      "followMode": "follow-pose",
+      "scene": {
+        "enableStats": false,
+        "meshUpAxis": "z_up"
+      },
+      "cameraState": {
+        "distance": 0.7,
+        "perspective": true,
+        "phi": 65,
+        "thetaOffset": 35,
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "fovy": 45,
+        "near": 0.01,
+        "far": 100
+      },
+      "transforms": {
+        "labelSize": 0.02,
+        "axisScale": 0.05,
+        "frame:base": {
+          "visible": false
+        },
+        "frame:BL_shoulder": {
+          "visible": false
+        },
+        "frame:BL_femur": {
+          "visible": false
+        },
+        "frame:BL_tibia": {
+          "visible": false
+        },
+        "frame:BR_shoulder": {
+          "visible": false
+        },
+        "frame:BR_femur": {
+          "visible": false
+        },
+        "frame:BR_tibia": {
+          "visible": false
+        },
+        "frame:FL_shoulder": {
+          "visible": false
+        },
+        "frame:FL_femur": {
+          "visible": false
+        },
+        "frame:FL_tibia": {
+          "visible": false
+        },
+        "frame:FR_shoulder": {
+          "visible": false
+        },
+        "frame:FR_femur": {
+          "visible": false
+        },
+        "frame:FR_tibia": {
+          "visible": false
+        }
+      },
+      "topics": {
+        "/robot_description": {
+          "visible": true
+        }
+      },
+      "layers": {
+        "grid": {
+          "layerId": "foxglove.Grid",
+          "visible": true,
+          "frameLocked": true,
+          "size": 1,
+          "divisions": 20,
+          "lineWidth": 1,
+          "color": "#248eff40",
+          "position": [
+            0,
+            0,
+            -0.075
+          ]
+        }
+      }
+    },
+    "Teleop!botzo": {
+      "topic": "/cmd_vel",
+      "publishRate": 10,
+      "upButton": {
+        "field": "linear-x",
+        "value": 0.3
+      },
+      "downButton": {
+        "field": "linear-x",
+        "value": -0.3
+      },
+      "leftButton": {
+        "field": "angular-z",
+        "value": 1.5
+      },
+      "rightButton": {
+        "field": "angular-z",
+        "value": -1.5
+      },
+      "autoSendStopOnRelease": true,
+      "stopButton": {
+        "field": "linear-x",
+        "value": 0
+      }
+    },
+    "Plot!footx": {
+      "title": "Foot targets X (cm, IK frame)",
+      "paths": [
+        {
+          "value": "/target_end_effectors.x_fl",
+          "enabled": true,
+          "timestampMethod": "receiveTime",
+          "label": "FL x"
+        },
+        {
+          "value": "/target_end_effectors.x_fr",
+          "enabled": true,
+          "timestampMethod": "receiveTime",
+          "label": "FR x"
+        }
+      ],
+      "followingViewWidth": 5,
+      "showLegend": true
+    },
+    "Plot!footz": {
+      "title": "Foot targets Z (cm, IK frame)",
+      "paths": [
+        {
+          "value": "/target_end_effectors.z_fl",
+          "enabled": true,
+          "timestampMethod": "receiveTime",
+          "label": "FL z"
+        },
+        {
+          "value": "/target_end_effectors.z_fr",
+          "enabled": true,
+          "timestampMethod": "receiveTime",
+          "label": "FR z"
+        }
+      ],
+      "followingViewWidth": 5,
+      "showLegend": true
+    }
+  },
+  "globalVariables": {},
+  "userNodes": {},
+  "playbackConfig": {
+    "speed": 1
+  },
+  "layout": {
+    "direction": "row",
+    "splitPercentage": 60,
+    "first": "3D!botzo",
+    "second": {
+      "direction": "column",
+      "splitPercentage": 30,
+      "first": "Teleop!botzo",
+      "second": {
+        "direction": "column",
+        "first": "Plot!footx",
+        "second": "Plot!footz"
+      }
+    }
+  }
+}

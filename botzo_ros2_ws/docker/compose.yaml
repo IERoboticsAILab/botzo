@@ -1,0 +1,27 @@
+# Run from the repo root:
+#   docker compose -f botzo_ros2_ws/docker/compose.yaml up -d
+#   docker exec -it botzo bash
+# Every ROS node runs inside this one container, so DDS never has to cross the
+# Docker VM boundary (which is flaky on macOS). Only foxglove_bridge is exposed.
+services:
+  botzo:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: botzo-jazzy:latest
+    container_name: botzo
+    environment:
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-7}
+    ports:
+      - "8765:8765"   # foxglove_bridge -> open Foxglove, connect to ws://localhost:8765
+    volumes:
+      - ../..:/ws/src/botzo
+      - botzo_build:/ws/build
+      - botzo_install:/ws/install
+      - botzo_log:/ws/log
+    command: sleep infinity
+
+volumes:
+  botzo_build:
+  botzo_install:
+  botzo_log:
