@@ -83,10 +83,19 @@ sudo apt install ros-jazzy-teleop-twist-keyboard
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
-`gait_planner.py` subscribes to `/cmd_vel` (geometry_msgs/msg/Twist) and publishes the target end-effectors to `/target_end_effectors` on a sine wave (botzo_messages/msg/TargetEndEffectors) based on the desired linear and angular velocity commands.
+`gait_planner.py` subscribes to `/cmd_vel` (geometry_msgs/msg/Twist) and publishes the target end-effectors to `/target_end_effectors` (botzo_messages/msg/TargetEndEffectors).
 ```bash
-ros2 run botzo_gaitplan gait_planner
+ros2 run botzo_gaitplan gait_planner --ros-args --params-file botzo_bringup/config/gait.yaml
+ros2 run botzo_gaitplan gait_planner_legacy   # the previous planner, kept for comparison
 ```
+
+The trot itself lives in `gait_core.py` (no ROS, unit tested):
+
+- every foot is tracked in the body frame; stance feet move exactly opposite to the commanded body twist (forward, strafe and yaw all combine correctly, no jumps when the command changes),
+- swing feet follow a smooth curve that starts and ends at ground speed (no scuffing, soft landings),
+- each leg has its own **home** position in the IK frame (`home_fl`, `home_fr`, `home_bl`, `home_br` in `botzo_bringup/config/gait.yaml`, e.g. `[0, 2, 16]` front, `[2, 2, 16]` back); use it to widen the stance or to compensate a leg that sits off,
+- releasing the command lets the swinging pair land, the other pair takes one last step home, then the robot stands still (no bobbing),
+- every parameter can be changed live: `ros2 param set /gait_planner period 0.4`.
 
 
 ## Connect joystick
@@ -157,66 +166,27 @@ script to transform the joystick messages to velocity commands (`/cmd_vel` topic
 
 
 
-## Gazebo
+## Gazebo (Harmonic, via gz_ros2_control)
 
-> working in progress
-
-```bash
-ros2 pkg list | grep gazebo
-gazebo_dev
-gazebo_msgs
-gazebo_plugins          # <-- important
-gazebo_ros              # <-- important
-gazebo_ros2_control     # <-- important
-gazebo_ros_pkgs
-```
+Physics simulation of the same control stack. Runs headless; watch it in Foxglove
+(`botzo_bringup/foxglove/botzo_sim_layout.json`). See `botzo_ros2_ws/docker/README.md`
+to run it in Docker (works on macOS too).
 
 ```bash
-tree .
-.
-├── botzo_gazebo
-│   ├── __init__.py
-│   └── joint_controller.py
-├── config
-│   └── controllers.yaml
-├── launch
-│   └── gazebo.launch.py
-├── package.xml
-├── resource
-│   └── botzo_gazebo
-├── setup.cfg
-├── setup.py
-└── worlds
-    └── empty.world
+ros2 launch botzo_gazebo sim.launch.py
+ros2 run botzo_gazebo gait_eval     # scripted test drive, prints speed / drift / tilt / bob / falls
 ```
 
-```bash
-gazebo --version
-Gazebo multi-robot simulator, version 11.10.2
-Copyright (C) 2012 Open Source Robotics Foundation.
-Released under the Apache 2 License.
-http://gazebosim.org
-
-
-Gazebo multi-robot simulator, version 11.10.2
-Copyright (C) 2012 Open Source Robotics Foundation.
-Released under the Apache 2 License.
-http://gazebosim.org
+```
+/cmd_vel -> gait_planner -> joint_publisher (IK) -> /ik/joint_states
+         -> joint_command_relay -> position_controller (gz_ros2_control) -> gz sim
+gz sim   -> /joint_states (measured), /odom + odom->base TF (ground truth)
 ```
 
-1. Start Gazebo.
-2. Load your robot URDF.
-3. Spawn the robot.
-4. Start robot_state_publisher.
-5. Start ros2_control.
-6. Spawn joint controllers.
-7. Allow commanding joints
-
-```bash
-ros2 launch botzo_gazebo gazebo.launch.py
-```
-
-> working in progress
+The simulation URDF is generated from `botzo_description` at launch
+(`botzo_gazebo/sim_description.py`): servo-like joint limits (DS3225: 2.45 N*m, 8 rad/s),
+a box + toe-sphere collision model, foot friction, and a spawn pose equal to the gait's
+home stance.
 
 ## Rotations
 

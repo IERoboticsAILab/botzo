@@ -3,17 +3,27 @@
 <package format="3">
   <name>botzo_gazebo</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Botzo simulation in Gazebo Harmonic (gz sim) with gz_ros2_control.</description>
   <maintainer email="greg.orlando77@gmail.com">gringo</maintainer>
-  <license>TODO: License declaration</license>
+  <license>MIT</license>
 
   <depend>rclpy</depend>
   <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
   <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <exec_depend>botzo_description</exec_depend>
+  <exec_depend>botzo_bringup</exec_depend>
+  <exec_depend>botzo_ik</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>gz_ros2_control</exec_depend>
+  <exec_depend>ros2_controllers</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>foxglove_bridge</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
 
-  <test_depend>ament_copyright</test_depend>
-  <test_depend>ament_flake8</test_depend>
-  <test_depend>ament_pep257</test_depend>
   <test_depend>python3-pytest</test_depend>
 
   <export>

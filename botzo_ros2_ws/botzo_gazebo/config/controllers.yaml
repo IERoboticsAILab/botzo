@@ -1,7 +1,7 @@
+# Loaded by the gz_ros2_control plugin (see botzo_gazebo/sim_description.py).
 controller_manager:
   ros__parameters:
-
-    update_rate: 100
+    update_rate: 200  # Hz
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -9,24 +9,26 @@ controller_manager:
     position_controller:
       type: position_controllers/JointGroupPositionController
 
+# gz_ros2_control turns a position command into a velocity command,
+#   v = -gain * (q - q_cmd) * update_rate,
+# capped by the URDF joint limits (DS3225-like torque / speed): a stiff hobby servo.
+gz_ros2_control:
+  ros__parameters:
+    position_proportional_gain: 0.2
 
 position_controller:
   ros__parameters:
-
+    # Same order as botzo_ik's /joint_states.
     joints:
-      - BL_shoulder_joint 
-      - BR_shoulder_joint 
-      - FL_shoulder_joint 
-      - FR_shoulder_joint 
-                              
-      - FR_femur_joint 
-      - FR_tibia_joint 
-      
-      - FL_femur_joint 
-      - FL_tibia_joint 
-      
-      - BR_femur_joint 
-      - BR_tibia_joint 
-      
-      - BL_femur_joint 
+      - BL_shoulder_joint
+      - BR_shoulder_joint
+      - FL_shoulder_joint
+      - FR_shoulder_joint
+      - FR_femur_joint
+      - FR_tibia_joint
+      - FL_femur_joint
+      - FL_tibia_joint
+      - BR_femur_joint
+      - BR_tibia_joint
+      - BL_femur_joint
       - BL_tibia_joint
