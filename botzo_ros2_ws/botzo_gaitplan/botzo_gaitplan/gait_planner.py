@@ -18,13 +18,26 @@ At speed=0 and yaw=0: legs bob up/down in place (no X/Y travel)
 As speed increases: X travel spreads out along the direction vector
 As yaw increases: legs get tangential X offsets to rotate in place
 
-Full cycle (NUM_STEPS = 20):
- Index:  0  1  2  3  4  5  6  7  8  9 | 10 11 12 13 14 15 16 17 18 19
-         [--------  SWING  ----------] | [--------  STANCE  ----------]
-          foot lifts, travels forward  |  foot on ground, pushes back
+Full cycle (NUM_STEPS points, currently 10):
+ Index:  0 .. SWING_STEPS-1        | SWING_STEPS .. NUM_STEPS-1
+         [------  SWING  ---------] | [--------  STANCE  ----------]
+          foot lifts, travels forward |  foot on ground, pushes back
+
+SWING_RATIO controls the split. With SWING_RATIO < 0.5, each leg spends
+*more* of the cycle in stance than in swing. Because the two diagonals
+are still offset by exactly half the cycle (phase_a / phase_b), this
+creates brief windows where BOTH diagonals are in stance at once
+(all 4 feet down) instead of the gait being 2-feet-down 100% of the
+time. That overlap is what stops the robot from tipping the instant a
+single stance leg is slightly late or the body sways - the previous
+50/50 split had zero margin for that.
 
 Diagonal A (FL+BR):  phase_a starts at  0
-Diagonal B (FR+BL):  phase_b starts at 10  ← always half a cycle apart
+Diagonal B (FR+BL):  phase_b starts at NUM_STEPS/2  <- always half a cycle apart
+
+Neutral (home) stance is set per leg (see self.neutral in __init__) rather than
+computed from one shared formula, so each leg's resting x/y/z - including any
+one-off calibration offset like BL's - can be tuned independently.
 '''
 
 import math
@@ -51,20 +64,61 @@ class GaitPlanner(Node):
         self.current_end_effectors_msg = None
         self.cmd_vel_msg = None
 
-        # Trajectory parameters
-        self.MAX_STEP_HEIGHT = 3.0   # max Z lift (subtracted, so foot goes up)
-        self.MAX_STEP_LENGTH = 5.0   # max X/Y travel per half-cycle
+        # ------------------------------------------------------------ #
+        #  Trajectory parameters                                        #
+        # ------------------------------------------------------------ #
+        self.MAX_STEP_HEIGHT = 5.0   # max Z lift (subtracted, so foot goes up)
+        self.MAX_STEP_LENGTH = 7.0   # max X/Y travel per half-cycle - raised from 5.0 for
+                                      # a longer stride per step, on top of the faster
+                                      # TIMER_PERIOD below, for more overall ground speed
         self.MAX_SPEED = 1.0         # m/s normalization
-        self.MAX_YAW   = 1.0         # rad/s normalization
-        self.NUM_STEPS = 20          # points per full cycle (10 swing + 10 stance)
-        self.HALF = self.NUM_STEPS // 2  # = 10
+        self.MAX_YAW   = 0.5         # rad/s normalization
+        self.NUM_STEPS = 10          # points per full cycle
 
-        # Neutral foot positions relative to each shoulder (at rest)
+        # Fraction of the cycle spent in SWING (foot in the air). The rest is
+        # STANCE (foot planted, pushing the body along). Lower = shorter,
+        # quicker swing and longer, more stable stance with 4-feet-down
+        # overlap between the two diagonals. 0.5 = old behaviour (no overlap,
+        # least stable). Tune this before touching timer speed if the robot
+        # is still tipping.
+        self.SWING_RATIO = 0.35
+        self.SWING_STEPS  = max(1, round(self.NUM_STEPS * self.SWING_RATIO))
+        self.STANCE_STEPS = self.NUM_STEPS - self.SWING_STEPS
+
+        # How fast the whole node ticks. Full stride time = NUM_STEPS * TIMER_PERIOD.
+        # At the original 0.1s/10 steps that was a 1.0s stride - far too slow to be
+        # dynamically stable on a trot. 0.015s (~66 Hz) gives a 0.15s stride instead.
+        # If your actual servo/controller loop can't keep up at that rate, back this
+        # off rather than fighting it - a gait the hardware can't track is worse
+        # than a slightly slower one it can.
+        self.TIMER_PERIOD = 0.015
+
+        # ------------------------------------------------------------ #
+        #  Neutral (home) stance - set per leg, independently tunable   #
+        # ------------------------------------------------------------ #
+        # Each leg gets its OWN (x, y, z) rather than a shared formula, because
+        # real hardware is never perfectly symmetric - one leg folding in
+        # further than its mirror is a calibration fact, not something the
+        # gait math should try to "fix" automatically.
+        #
+        #   x: 0 for front legs, positive (backward) for back legs - pulls the
+        #      back feet out from under the body to enlarge the support polygon
+        #      front-to-back and sit more of it under the (usually rear-heavy) CoM.
+        #   y: positive = outside. Bumped up from 0 so all feet stand further out
+        #      from the shoulder instead of almost directly under it - a wider
+        #      stance is a more stable stance.
+        #   z: raised from 12 -> 16 (shorter/more folded leg) to go with the wider
+        #      x/y spread and keep the leg within a comfortable range of motion.
+        #
+        # BL specifically needed a bigger Y (4 instead of the 2 every other leg
+        # uses) - without it, that leg sits tucked in under the belly instead of
+        # in a proper wide stance like its BR mirror. Re-tune this one value if
+        # you recalibrate the physical leg.
         self.neutral = {
-            'fl': (0.0,  0.0, 12.0),
-            'fr': (0.0,  0.0, 12.0),
-            'bl': (0.0,  0.0, 12.0),
-            'br': (0.0,  0.0, 12.0),
+            'fl': (0.0, 2.0, 16.0),
+            'fr': (0.0, 2.0, 16.0),
+            'bl': (2.0, 4.0, 16.0),   # y=4: calibration fix, this leg folds in more than its mirror
+            'br': (2.0, 2.0, 16.0),
         }
 
         # Each leg's position relative to robot center (x_body, y_body).
@@ -79,11 +133,10 @@ class GaitPlanner(Node):
         }
 
         # Gait phase indices (0 to NUM_STEPS-1)
-        self.phase_a = 0           # FL + BR
-        self.phase_b = self.HALF   # FR + BL
+        self.phase_a = 0                        # FL + BR
+        self.phase_b = self.NUM_STEPS // 2      # FR + BL (always half a cycle later)
 
-        # 10 Hz timer — each tick = one step index advance
-        self.create_timer(0.1, self.walk)
+        self.create_timer(self.TIMER_PERIOD, self.walk)
 
     # ------------------------------------------------------------------ #
     #  Callbacks                                                           #
@@ -137,20 +190,24 @@ class GaitPlanner(Node):
         given the total X and Y travel per half-cycle (dx_total, dy_total)
         and the step height.
 
-        Swing phase (0..HALF-1): foot lifts and travels forward
-        Stance phase (HALF..NUM_STEPS-1): foot pushes back on ground
+        Swing phase (0..SWING_STEPS-1): foot lifts and travels forward, fast.
+        Stance phase (SWING_STEPS..NUM_STEPS-1): foot pushes back on ground, slower.
+
+        Both phases are parameterized by a normalized t in [0, 1], so the
+        endpoints always line up (continuous trajectory) regardless of how
+        the SWING_STEPS/STANCE_STEPS split is chosen.
         '''
         trajectory = []
         for i in range(self.NUM_STEPS):
-            if i < self.HALF:
+            if i < self.SWING_STEPS:
                 # --- SWING PHASE ---
-                t = i / (self.HALF - 1) if self.HALF > 1 else 0.0
+                t = i / (self.SWING_STEPS - 1) if self.SWING_STEPS > 1 else 0.0
                 x = dx_total/2 - dx_total * t
                 y = dy_total/2 - dy_total * t
                 z = -step_height * math.sin(math.pi * t)  # negative = up
             else:
                 # --- STANCE PHASE ---
-                t = (i - self.HALF) / (self.HALF - 1) if self.HALF > 1 else 0.0
+                t = (i - self.SWING_STEPS) / (self.STANCE_STEPS - 1) if self.STANCE_STEPS > 1 else 0.0
                 x = -dx_total/2 + dx_total * t
                 y = -dy_total/2 + dy_total * t
                 z = 0.0
@@ -167,7 +224,6 @@ class GaitPlanner(Node):
         if self.cmd_vel_msg is None:
             self.get_logger().info('Waiting for cmd_vel...')
             return
-        self.get_logger().info('/cmd_vel recived')
 
         # --- Extract velocity components ---
         lx  = self.cmd_vel_msg.linear.x
@@ -187,7 +243,11 @@ class GaitPlanner(Node):
         lin_dx = -math.cos(direction) * step_length  # negative = forward
         lin_dy =  math.sin(direction) * step_length
 
-        print(f'SPEED: {speed:.2f} | DIR: {math.degrees(direction):.1f}° | YAW: {yaw:.2f} | phase_a={self.phase_a} phase_b={self.phase_b}')
+        self.get_logger().debug(
+            f'SPEED: {speed:.2f} | DIR: {math.degrees(direction):.1f}° | YAW: {yaw:.2f} '
+            f'| phase_a={self.phase_a} phase_b={self.phase_b} '
+            f'| swing/stance={self.SWING_STEPS}/{self.STANCE_STEPS}'
+        )
 
         # --- Per-leg trajectory (linear + yaw blended) ---
         def leg_traj(leg):
