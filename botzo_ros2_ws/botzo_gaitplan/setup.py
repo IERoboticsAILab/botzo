@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'gait_planner = botzo_gaitplan.gait_planner:main',
+            'gait_planner_legacy = botzo_gaitplan.gait_planner_legacy:main',
         ],
     },
 )

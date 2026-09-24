@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>botzo_bringup</name>
+  <version>0.0.0</version>
+  <description>Launch files and parameters to run the botzo stack.</description>
+  <maintainer email="botzoteam@gmail.com">botzo</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>foxglove_bridge</exec_depend>
+  <exec_depend>botzo_description</exec_depend>
+  <exec_depend>botzo_ik</exec_depend>
+  <exec_depend>botzo_gaitplan</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

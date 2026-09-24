@@ -1,0 +1,21 @@
+# Parameters for botzo_gaitplan/gait_planner (see gait_core.GaitParams).
+# All can be changed live:  ros2 param set /gait_planner <name> <value>
+gait_planner:
+  ros__parameters:
+    rate: 50.0              # Hz
+    cmd_timeout: 0.5        # s without /cmd_vel -> stop
+    period: 0.4             # s, full trot cycle (tuned in gz sim, see botzo_gazebo gait_eval)
+    duty_factor: 0.55       # fraction of the cycle each foot is on the ground (>0.5: brief 4-foot support)
+    step_height: 3.0        # cm
+    # Standing foot positions in the IK leg frame [x, y, z] (cm):
+    #   x: + = backward, y: + = outward, z: + = down (body height)
+    home_fl: [0.0, 2.0, 16.0]
+    home_fr: [0.0, 2.0, 16.0]
+    home_bl: [2.0, 4.0, 16.0]   # 2 cm further out than BR: that leg sits too far under the belly
+    home_br: [2.0, 2.0, 16.0]
+    max_step: 4.5           # cm, max foot travel from home
+    max_lin_vel: 0.35       # m/s
+    max_ang_vel: 2.5        # rad/s
+    max_lin_acc: 1.0        # m/s^2
+    max_ang_acc: 6.0        # rad/s^2
+    march_in_place: false

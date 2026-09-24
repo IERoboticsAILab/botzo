@@ -116,22 +116,14 @@ class EnfEffectorSubscriber(Node):
     # adjust angles to match the simulation's coordinate system and conventions
     fl_angles, fr_angles, bl_angles, br_angles = adjust_angles_to_sim(fl_angles, fr_angles, bl_angles, br_angles)
     
-    print("Received target end-effectors:")
-    print("\tFL leg target: ", msg.x_fl, msg.y_fl, msg.z_fl)
-    print("\tFR leg target: ", msg.x_fr, msg.y_fr, msg.z_fr)
-    print("\tBL leg target: ", msg.x_bl, msg.y_bl, msg.z_bl)
-    print("\tBR leg target: ", msg.x_br, msg.y_br, msg.z_br)
-    print("Calculated joint angles by IK:")
-    print("\tFL leg angles: ", legIK(msg.x_fl, msg.y_fl, msg.z_fl))
-    print("\tFR leg angles: ", legIK(msg.x_fr, msg.y_fr, msg.z_fr))
-    print("\tBL leg angles: ", legIK(msg.x_bl, msg.y_bl, msg.z_bl))
-    print("\tBR leg angles: ", legIK(msg.x_br, msg.y_br, msg.z_br))
-    print("Adjust angles to sim:")
-    print("\tFL adjusted angles: ", fl_angles)
-    print("\tFR adjusted angles: ", fr_angles)
-    print("\tBL adjusted angles: ", bl_angles)
-    print("\tBR adjusted angles: ", br_angles)
-    print("\n--------------------------------------------------\n")
+    if np.isnan(fl_angles + fr_angles + bl_angles + br_angles).any():
+      self.get_logger().warn('Target out of reach, IK gave NaN; keeping previous pose', throttle_duration_sec=1.0)
+      return
+
+    self.get_logger().debug(
+      f"targets FL{(msg.x_fl, msg.y_fl, msg.z_fl)} FR{(msg.x_fr, msg.y_fr, msg.z_fr)} "
+      f"BL{(msg.x_bl, msg.y_bl, msg.z_bl)} BR{(msg.x_br, msg.y_br, msg.z_br)} -> "
+      f"sim angles FL{fl_angles} FR{fr_angles} BL{bl_angles} BR{br_angles}")
 
     # publish joint states
     self.joint_state.header.stamp = self.get_clock().now().to_msg()
